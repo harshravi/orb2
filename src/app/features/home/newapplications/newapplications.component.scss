@@ -1,0 +1,113 @@
+@import '~assets/scss/_variables.scss';
+
+.dropdown-lebel-text {
+  color: #252E39;
+  font-family: Roboto;
+  font-size: 12px;
+  line-height: 24px;
+}
+
+.addapplicationbut {
+  margin-top: 30px;
+}
+.container-box {
+    margin-top: 70px;
+    height: 80vh;
+}
+.content-wrapper {
+  margin-left: 98px!important;
+}
+
+.close {
+  line-height: 15px;
+}
+.red {
+    color: $dropdown-reject-status;
+}
+.red:hover {
+    color: $dropdown-reject-status;
+}
+.alert-ford-selected {
+  background: #fff;
+  border-radius: 5px;
+  font-size: 12px;
+  display: inline-block;
+  margin: 5px 5px 5px 0;
+  max-width: 150px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-bottom: 3px;
+}
+
+.loading-spinner {
+  top: 40%;
+  left: 50%;
+}
+.adddropmenu{
+    width: 100%;
+}
+// .adddropmenu li {
+//   padding: 10px;
+// }
+
+.adddropmenu li:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+// .adddropmenu li:hover {
+//   color: #fff;
+//   background: #002e7d;
+// }
+
+li.disabled {
+  pointer-events: none;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.customWell {
+  box-shadow: none;
+  border: 0px;
+  background: transparent;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 13px;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 0px;
+  }
+
+.legalselectedBall {
+  background-color:#D0E0E6;
+  position: relative;
+  height: 400px;
+  overflow-y: auto;
+  width: 50%;
+}
+.legalselectedBallAlert {
+  background-color: #F7ECE7;
+  position: relative;
+  height: 400px;
+  overflow-y: auto;
+  width: 50%;
+}
+.legalselectedBallArrow {
+  width: 0px;
+  height: 0px;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #D0E0E6;
+  position: absolute;
+  left: -8px;
+  top: 64%;
+}
+
+.legalselectedBall p {
+    padding: 20px 0px;
+    font-size: 14px;
+    font-weight: bold;
+}

@@ -1,0 +1,87 @@
+<div class="inmodal">
+  <div class="modal-content">
+    <form [formGroup]="form" name="form">
+      <div class="modal-header">
+        <a class="close-modal p-b-sm" name="closeOpenModal"></a>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 text-left">
+            <h1 class="modal-title">{{heading}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="relative-position modal-body">
+        <div class="absolute-position loading-spinner">
+          <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+        </div>
+        <div class="row no-margins">
+          <div class="no-padding col-md-12">
+            <span class="radio radio-primary inline-block m-r-md">
+              <input type="radio" id="test1" name="radio-group"  (change)="changeGroup(true)">
+              <label for="test1" class="yes-no-text">Percentage</label>
+            </span>
+            <span class="radio radio-primary inline-block">
+              <input type="radio" id="test2" name="radio-group" [checked]='true' (change)="changeGroup(false)">
+              <label for="test2" class="yes-no-text">Quantity</label>
+            </span>
+          </div>
+        </div>
+        <div class="row no-margins">
+          <div class="col-md-6 no-padding-left m-t-md">
+            <span class="block unit-box-title" *ngIf="!percentage">Quantity ({{context?.addVolumeHeader?.unitOfMeasure}}) </span>
+            <span class="block unit-box-title" *ngIf="percentage">Percentage (%) </span>
+            <input class="form-control form-element quantity" type="number" [formControl]="form.controls['quantity']" step=".01" min="1"
+            pattern="^[1-9][0-9]{0,7}(?:\.[0-9]{0,6})?$" />
+            <div *ngIf="form.controls['quantity'].hasError('required') && form.controls['quantity'].touched" class="alert alert-danger m-b-xs">Please enter Quantity number</div>            
+            <div *ngIf="form.controls['quantity'].hasError('pattern')" class="alert alert-danger">Please enter valid Quantity number</div>
+          </div>
+          <div class="col-md-6 no-padding-right m-t-md">
+            <app-dropdown [labelText]="'Status'" [ngClass]="{'selectpicker': true}" [optionValueName]="'id'" formControlName="statusId"
+              [optionTextName]="'name'" [data]="allStatusData" [(ngModel)]="selectedStatus">
+            </app-dropdown>
+          </div>
+        </div>
+        <div class="row no-margins">
+          <div class="col-md-12 no-padding m-t-md">
+            <app-dropdown [labelText]="'Change Reason'" id="medication_reminder" [ngClass]="{'selectpicker': true}" [optionValueName]="'id'"
+              formControlName="changeReason" [optionTextName]="'name'" [data]="context.allRegions" >
+            </app-dropdown>
+            <!--<input class="form-control form-element" id="NegAmt" type="number" [formControl]="form.controls['purchageOrder']" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+            />-->
+            <!--<div *ngIf="form.controls['purchageOrder'].hasError('required') && form.controls['purchageOrder'].touched" class="alert alert-danger">Please enter Negotiated Amount</div>-->
+            <!-- <span class="help-block"  ng-show="!form.controls['negotiatedAmount'].valid">Invalid</span> -->
+          </div>
+          <div class="col-md-12 m-t-md no-padding">
+            <app-dropdown [labelText]="'Purchase Order'" id="medication_reminder" [ngClass]="{'selectpicker': true}" [optionValueName]="'id'"
+              formControlName="purchanseOrder" [disabled]="!addVolumeHeader?.enablePurchaseOrder" [optionTextName]="'name'" [data]="context.allPurchaseOrderList">
+            </app-dropdown>
+          </div>
+        </div>
+        <div class="row no-margins">
+          <div class="col-md-12 no-padding m-t-md" [ngClass]="{'has-error':!form.controls['comments'].valid && form.controls['comments'].touched}">
+            <div class="unit-box-title">
+              <span>Comments</span>
+              <span class="pull-right">
+              <span *ngIf="textAreaTextCount; else defaultText">{{textAreaTextCount}}/{{250 - textAreaTextCount}}</span>
+              <ng-template #defaultText>0/250</ng-template>
+              <span class="character-font">Characters</span>
+              </span>
+            </div>
+            <textarea maxlength="250" class="form-control form-element comments" (keyup)="getTextCount($event)" [formControl]="form.controls['comments']"
+              rows="4" required></textarea>
+            <div *ngIf="form.controls['comments'].hasError('required') && form.controls['comments'].touched" class="alert alert-danger no-margins">Please enter comments</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="footer-block-center">
+          <div class="clear">
+            <app-button [btnType]="'text'" [btnDisabled]="isDataLoading" ng-disabled="checked" [btnText]="'CLEAR'" [btnColor]="'clear'" (getData)="clearModalData($event)"></app-button>
+          </div>
+          <div class="inline-block save">
+            <app-button [btnType]="'submit'" [btnText]="'SAVE'" [btnColor]="'save'" (getData)="addSpreadVolume(form.value)" [btnDisabled]="!form.valid || isDataLoading"></app-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

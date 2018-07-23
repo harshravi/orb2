@@ -1,0 +1,232 @@
+<app-confirmation-alert></app-confirmation-alert>
+<div>
+  <app-side-nav [hightlightNav]="'highlight-second-nav'"></app-side-nav>
+  <app-nav-details-menu [showNav]="true" 
+  (selectedApp)="getApplicationDetails($event)" 
+  (searchedText)="getSearchedText($event)"
+    [showNavFor]="'volume'" [detailsNames]="volumeDetailsName" 
+    [enableServiceBut]="enableServiceButton" (selectedVolumeDetails)="selectedVolumeDetails($event)"
+    (defaultPage)="showDeafultPage($event)" 
+    [highlightedSearchedRow]='defaultSelection' 
+    [highlightedServiceRow]='selectedServiceRow' [detailsId]="selectedDataItmsId"
+    (openModal)="openAddServiceModal($event)"></app-nav-details-menu>
+  <div #tableWrapper class="content-wrapper">
+    <div *ngIf="!showStaticTemp" class="relative-position">
+      <div *ngIf="showVolume">
+        <div class="main-header" *ngIf="dataForBox && !isDataLoading">
+          <app-content-header [usageHeader]="true" [addNew]="enableServiceButton" 
+            [buttonText]="'ADD SERVICE'" [changePositionClass]="'position-none'"
+            [btnRequire]="true" [headerDetails]="selectedAppHeaderDetails" 
+            [btnRequire]="false" [dashboardHeader]="false" (openModal)="openAddServiceModal($event)"></app-content-header>
+        </div>
+        <div class="absolute-position loading-spinner">
+          <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+        </div>
+        <div class="container-box">
+          <!-- <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>-->
+          <div class="col-md-12" *ngIf="dataForBox && !isDataLoading && allocationMethodId === 1">
+            <!--<app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>-->
+            <div *ngFor="let data of dataForBox" class="budget-plan-boxes col-md-4 no-padding-left">
+              <span class="budget-plan-box-header block">{{data?.name}}</span>
+              <div class="budget-box over-budget-border">
+                <div class="current-prior-box row no-margins border-bottom">
+                  <div class="inline-block col-xs-6 no-padding">
+                    <span class="block plan-text">{{data?.priorName}}</span>
+                    <span class="block budget-plan" data-toggle="tooltip" title="{{data.prior | number: '1.1-6'}}">{{data?.currency}}{{data.prior | number:'1.1-2'}}</span>
+                  </div>
+                  <div class="inline-block col-xs-6 no-padding">
+                    <span class="block plan-text">{{data?.currentName}}</span>
+                    <span class="block budget-plan" data-toggle="tooltip" title="{{data.current | number: '1.1-6'}}">{{data?.currency}}{{data.current | number:'1.1-2'}}</span>
+                  </div>
+                </div>
+                <div class="total-box row no-margins">
+                  <div class="inline-block budget-sataus col-xs-6 no-padding">{{data?.overOrUnder}}</div>
+                  <div class="inline-block total-budget col-xs-6 no-padding" data-toggle="tooltip" title="{{data?.orgDifferenceString | number: '1.1-6'}}">
+                    <span *ngIf="data?.color === 1" class="budget-status-icon-up"></span>
+                    <span *ngIf="data?.color === 2" class="budget-status-icon-down"></span>
+                    <!-- <span class="budget-status-icon-up"></span> -->
+                    <span *ngIf="data?.color === 1" class="block total-budget-text total-budget-text-up">{{data?.currency}}{{data?.differenceString}} </span>
+                    <span *ngIf="data?.color === 2" class="block total-budget-text total-budget-text-down">{{data?.currency}}{{data?.differenceString}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="m-t-lg col-md-12" *ngIf="!isDataLoading">
+            <div class="table-heading m-b-sm">Services</div>
+            <div class="col-xs-3 pull-left no-padding-left">
+              <app-search-text-box [smallSearch]="'light-gray'" (appsearch)="updateFilter($event)" [placeHolder]="'Search'"></app-search-text-box>
+            </div>
+            <div class="col-xs-2 pull-right relative-position no-padding">
+              <span class="absolute-position app-filter" (click)="getApplication()">Filter by Status</span>
+              <app-dropdown id="medication_reminder" [ngClass]="{'selectpicker': true}" name="Outreach" [optionValueName]="'id'" [optionTextName]="'name'"
+                [data]="allStatusData" [(ngModel)]="selectStatus" (ngModelChange)="selectedStatus($event)">
+              </app-dropdown>
+            </div>
+          </div>
+          <div class="m-t-md col-md-12">
+            <!--<div class="table-spinner">
+              <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+            </div>-->
+            <ngx-datatable *ngIf="!isDataLoading" class="material expandable" #myTable [rows]="rows" [columns]="columns" [rowClass]="getRowClass"
+              [rowHeight]="'auto'" [columnMode]="'force'" [loadingIndicator]="loadingIndicator" [headerHeight]="50" [footerHeight]="50"
+              (select)='onSelect($event)' [sorts]="[{prop: 'incurredCodeService', dir: 'asc'},{prop: 'unit', dir: 'asc'}]">
+              <ngx-datatable-column class="p-t-md" [resizeable]="false" [draggable]="false"  headerClass="volume-header-incurred" prop="incurredCodeService"
+                name="Incurred Code:Service">
+                <ng-template let-row="row" let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <a class="table-row-bold-text volume-incurredcode block get-ellipsis-text" (click)="tableNavClick(row,rowIndex)" data-toggle="tooltip"
+                    title="{{row.incurredCodeService}}">{{row.incurredCodeService}}</a>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" cellClass="units" headerClass="volume-header-unit" [sortable]="true" [draggable]="false"
+                prop="unit" name="Unit">
+                <ng-template let-row="row" let-value="value" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <div class="table-row-bold-text units">{{row.unit}}</div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="adjNYSP"
+                name="ADJ NY.SP.">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <div class="table-row-bold-text" data-toggle="tooltip" title="{{row.adjNYSP | number: '1.1-6'}}">{{row.adjNYSP | number:'1.1-2'}}</div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="year1Volume"
+                name="{{tableYear1}} Volume">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <div class="text-bold" data-toggle="tooltip" title="{{row.year1Volume | number: '1.1-6'}}">{{row.year1Volume | number:'1.1-2'}}</div>
+                  <div class="sub-total">Subtotal {{row.year1SubTotal | number:'1.2'}}</div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="year1Volume"
+                name="{{tableYear2}} Volume">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <div class="text-bold"  data-toggle="tooltip" title="{{row.year2Volume | number: '1.1-6'}}">{{row.year2Volume | number:'1.1-2'}}</div>
+                  <div class="sub-total">Subtotal {{row.year2SubTotal | number:'1.2'}}</div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="year1Volume"
+                name="{{tableYear3}} Volume">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <div class="text-bold"  data-toggle="tooltip" title="{{row.year3Volume | number: '1.1-6'}}">{{row.year3Volume | number:'1.1-2'}}</div>
+                  <div class="sub-total">Subtotal {{row.year3SubTotal | number:'1.2'}}</div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="year1Volume"
+                name="{{tableYear4}} Volume">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <div class="text-bold"  data-toggle="tooltip" title="{{row.year4Volume | number: '1.1-6'}}">{{row.year4Volume | number:'1.1-2'}}</div>
+                  <div class="sub-total">Subtotal {{row.year4SubTotal | number:'1.2'}}</div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="year1Volume"
+                name="{{tableYear5}} Volume">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <div class="text-bold"  data-toggle="tooltip" title="{{row.year5Volume | number: '1.1-6'}}">{{row.year5Volume | number:'1.1-2'}}</div>
+                  <div class="sub-total">Subtotal {{row.year5SubTotal | number:'1.2'}}</div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" editable="true" headerClass="volume-header-font"
+                prop="event_Status" name="Status">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <span class="inline-block status-box font-11 status-box1" data-toggle="tooltip" title="APPROVED">{{row.statusApprovedCount}}</span>
+                  <span class="inline-block status-box font-11 status-box2" data-toggle="tooltip" title="PENDING">{{row.statusPendingCount}}</span>
+                  <span class="inline-block status-box font-11 status-box3" data-toggle="tooltip" title="COMMITTED">{{row.statusCommittedCount}}</span>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+          <div class="col-md-12 m-t-md no-padding relative-position" *ngIf="!isDataLoading">
+            <div class="table-heading m-t-md m-b-sm col-md-12">Application Totals</div>
+            <div class="absolute-position loading-spinner">
+              <app-progress-spinner [isRunning]="!applicationTotalAll"></app-progress-spinner>
+            </div>            
+            <div class="m-t-md p-t-lg p-b-lg col-md-12 total-budget-plan-box" *ngIf="!isDataLoading && applicationTotalAll">
+              <table class="table">
+                <!--<app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>-->
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th class="table-header-common table-header table-header-common left-border-radius">{{applicationTotalData?.year1}}</th>
+                    <th class="table-header-common table-header table-header-common">{{applicationTotalData?.year2}}</th>
+                    <th class="table-header-common table-header table-header-common">{{applicationTotalData?.year3}}</th>
+                    <th class="table-header-common table-header table-header-common">{{applicationTotalData?.year4}}</th>
+                    <th class="table-header-common table-header table-header-common right-border-radius">{{applicationTotalData?.year5}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="yaerly-budget-row" *ngFor="let data of applicationTotalToDisplay;let last=last; let index = i">
+                    <td class="report-test">
+                      {{data.name}}
+                    </td>
+                    <td [ngStyle]="{color : getColor(data, last, 0)}" class="text-center yearly-budget-text">
+                      <span data-toggle="tooltip" title="{{data.year1 | number: '1.1-6'}}">
+                        <span *ngIf="getColor(data, last, 0) === '#E96468' else withoutBracket1">$({{data.year1 | number:'1.1-2'}})</span> 
+                        <ng-template #withoutBracket1>
+                          ${{data.year1 | number:'1.1-2'}}
+                        </ng-template>
+                      </span>
+                    </td>
+                    <td [ngStyle]="{color : getColor(data, last, 1)}" class="text-center yearly-budget-text">
+                      <span data-toggle="tooltip" title="{{data.year2 | number: '1.1-6'}}">
+                        <span *ngIf="getColor(data, last, 1) === '#E96468' else withoutBracket2">$({{data.year2 | number:'1.1-2'}})</span> 
+                        <ng-template #withoutBracket2>
+                          ${{data.year2 | number:'1.1-2'}}
+                        </ng-template>
+                      </span>
+                    </td>
+                    <td [ngStyle]="{color : getColor(data, last, 2)}" class="text-center yearly-budget-text">
+                      <span data-toggle="tooltip" title="{{data.year3 | number: '1.1-6'}}">
+                        <span *ngIf="getColor(data, last, 2) === '#E96468' else withoutBracket3">$({{data.year3 | number:'1.1-2'}})</span> 
+                        <ng-template #withoutBracket3>
+                          ${{data.year3 | number:'1.1-2'}}
+                        </ng-template>
+                      </span>
+                    </td>
+                    <td [ngStyle]="{color : getColor(data, last, 3)}" class="text-center yearly-budget-text">
+                      <span data-toggle="tooltip" title="{{data.year4 | number: '1.1-6'}}">
+                        <span *ngIf="getColor(data, last, 3) === '#E96468' else withoutBracket4">$({{data.year4 | number:'1.1-2'}})</span> 
+                        <ng-template #withoutBracket4>
+                          ${{data.year4 | number:'1.1-2'}}
+                        </ng-template>
+                      </span>
+                    </td>
+                    <td [ngStyle]="{color : getColor(data, last, 4)}" class="text-center yearly-budget-text">
+                      <span data-toggle="tooltip" title="{{data.year5 | number: '1.1-6'}}">
+                        <span *ngIf="getColor(data, last, 4) === '#E96468' else withoutBracket5">$({{data.year5 | number:'1.1-2'}})</span> 
+                        <ng-template #withoutBracket5>
+                          ${{data.year5 | number:'1.1-2'}}
+                        </ng-template>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="(volumeDataDetail?.responseFor === 'OpCost') && !showVolume">
+        <app-volume-details [volumeDetailsData]="volumeDetailsData" [budgetDetail]="budgetDetail" [write]="write" [approve]="approve"
+          [budgetDetailId]='budgetDetailId' (checkSaveRibon)="checkSave($event)" [volumeTabularDetails]="volumeDataDetail" [volumeHeaderDetails]="selectedAppHeaderDetails"
+          [selectedServiceCatalogId]="selectedServiceCatalogId" [selectedItmsId]="selectedDataItmsId" (goToVolumePage)="backToVolumePage($event)"></app-volume-details>
+      </div>
+      <!--<ng-template #physical>-->
+      <div *ngIf="(volumeDataDetail?.responseFor === 'Physical') && !showVolume">
+        <app-volume-physical-details [volumeDetailsData]="volumeDetailsData" [write]="write" [approve]="approve" [budgetDetailId]='budgetDetailId'
+          [volumeTabularDetails]="volumeDataDetail" [volumeHeaderDetails]="selectedAppHeaderDetails" [selectedServiceCatalogId]="selectedServiceCatalogId"
+          [selectedItmsId]="selectedDataItmsId" (goToVolumePage)="backToVolumePage($event)"></app-volume-physical-details>
+      </div>
+      <!--</ng-template>-->
+    </div>
+    <div #tableWrapper *ngIf="showStaticTemp">
+      <div *ngIf="showStaticForSelection; else showTempForNotAvailable">
+        <app-static-temp [appNotSelected]="showStaticTemp" [showHeading]="'Select an application in left panel to load the content'">
+        </app-static-temp>
+      </div>
+      <ng-template #showTempForNotAvailable>
+        <app-static-temp [showFailure]="TempForNotAvailable" [selectedAppHeaderDetails]="onlyHeaderData" [showHeading]="'You do not have access'"
+          [noBtnRequire]="false" [showHeader]="true" [showDetails]="'Contact Support'">
+        </app-static-temp>
+      </ng-template>
+    </div>
+  </div>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="11px" height="11px" viewBox="0 0 11 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>status_pending_icon_sm</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Graphic_Assets" transform="translate(-177.000000, -524.000000)">
+            <g id="left_panel" transform="translate(127.000000, 421.000000)">
+                <g id="status_pending_icon_sm" transform="translate(50.000000, 103.000000)">
+                    <g id="status_pending_icon">
+                        <path d="M1.56853248,10.9797273 C0.705839614,10.9797273 0,10.2738877 0,9.41119486 L0,1.56853248 C0,0.706231748 0.705839614,0 1.56853248,0 L9.41119486,0 C10.2738877,0 10.9797273,0.706231748 10.9797273,1.56853248 L10.9797273,9.41119486 C10.9797273,10.2738877 10.2738877,10.9797273 9.41119486,10.9797273 L1.56853248,10.9797273 Z" id="Fill-1" fill="#DFC64B"></path>
+                        <path d="M8.94847778,5.27479826 C8.94847778,7.05122664 7.50876103,8.49094339 5.73233265,8.49094339 C3.95590426,8.49094339 2.51618751,7.05122664 2.51618751,5.27479826 C2.51618751,3.49882736 3.95590426,2.05865313 5.73233265,2.05865313 C7.50876103,2.05865313 8.94847778,3.49882736 8.94847778,5.27479826 Z" id="Stroke-1" stroke="#FFFFFF"></path>
+                        <polyline id="Stroke-3" stroke="#FFFFFF" stroke-linecap="round" points="5.73242414 3.32937357 5.73242414 5.27461526 6.73432426 6.27697287"></polyline>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

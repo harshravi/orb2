@@ -1,0 +1,20 @@
+<div *ngIf="showFailure">
+  <app-content-header [changePositionClass]="'position-none'" [usageHeader]="showHeader" [headerDetails]="selectedAppHeaderDetails" [dashboardHeader]="false" (openModal)="openAddUseModal($event)"></app-content-header>
+</div>
+<div class="text-center">
+  <div *ngIf="showFailure">
+    <div class="imgBox">
+      <img class="failure-img" src="../../../../assets/img/alert_info/failure_icon.svg" alt="">
+    </div>
+    <h1>{{showHeading}}</h1>
+    <a href="mailto:itconsum@ford.com" class="color-blue">{{showDetails}}</a>
+    <!-- <h2 class="color-blue">{{showDetails}}</h2> -->
+  </div>
+  <div *ngIf="appNotSelected">
+    <div class="imgBox">
+      <img class="failure-img" src="../../../../assets/img/alert_info/select_leftpane.svg" alt="">
+    </div>
+    <h1>{{showHeading}}</h1>
+    <!--<h2 class="color-blue">{{showDetails}}</h2>-->
+  </div>
+</div>

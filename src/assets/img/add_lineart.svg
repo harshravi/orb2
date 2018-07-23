@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="26px" viewBox="0 0 25 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>add_lineart</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Design-System" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Design_System_Export" transform="translate(-1827.000000, -224.000000)">
+            <g id="icons" transform="translate(1500.863281, 49.000000)">
+                <g id="add_lineart" transform="translate(327.386719, 175.597656)">
+                    <g id="remove_lineart">
+                        <path d="M19.7487634,24.768743 L3.29162057,24.768743 C1.48133486,24.768743 0.000192,23.2258858 0.000192,21.3401715 L0.000192,4.1973144 C0.000192,2.31245725 1.48133486,0.768742969 3.29162057,0.768742969 L19.7487634,0.768742969 C21.5590491,0.768742969 23.040192,2.31245725 23.040192,4.1973144 L23.040192,21.3401715 C23.040192,23.2258858 21.5590491,24.768743 19.7487634,24.768743" id="Fill-1" stroke="#9DB4BE"></path>
+                        <path d="M11.141376,8.98243275 L11.141376,17.7661132" id="Stroke-1" stroke="#A1B8C1" stroke-width="2" stroke-linecap="round"></path>
+                        <path d="M15.3574466,13.374273 L6.92511339,13.374273" id="Stroke-3" stroke="#A1B8C1" stroke-width="2" stroke-linecap="round"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

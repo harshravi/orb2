@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>checkbox_checked</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Graphic_Assets" transform="translate(-615.000000, -270.000000)" fill="#00B0F5">
+            <g id="forms_and_tables" transform="translate(547.000000, 221.000000)">
+                <g id="checkbox_checked" transform="translate(68.000000, 49.000000)">
+                    <path d="M14,5 C13.9160375,5.34092327 14,5.15096694 14,5 C14,4.41921397 13.5920518,4 13,4 C12.8783705,4 12.6921928,4.08608858 13,4 L13,4 L12,4 C12.4640339,4.26762321 12.4403053,4.29288833 12,4 L7,10 L5,8 C4.5551315,8.37741734 4.54417987,8.3661884 5,8 L4,8 L4,8 C4.33336099,8.18839676 4.13440637,8.09575795 4,8 C3.40703559,8.09575795 3,8.51403618 3,9 C3,9.25982533 3.09035095,9.46381784 3,10 L3,10 L3,10 C3.26101386,9.67436057 3.28017921,9.69307548 3,10 L7,13 L14,6 C13.7289472,5.59544604 13.734423,5.58983157 14,6 L14,6 L14,5 Z M15,16 L1,16 C0.440790935,16 0,15.5592091 0,15 L0,1 C0,0.439902244 0.440790935,0 1,0 L15,0 C15.5600978,0 16,0.439902244 16,1 L16,15 C16,15.5592091 15.5600978,16 15,16 L15,16 Z" id="Fill-1"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

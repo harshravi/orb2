@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="17px" viewBox="0 0 23 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>communication_head_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Design-System" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.839999974">
+        <g id="Design_System_Export" transform="translate(-1566.000000, -115.000000)" fill="#8AA6B2">
+            <g id="icons" transform="translate(1500.863281, 49.000000)">
+                <g id="communication_head_icon" transform="translate(64.886719, 66.722656)">
+                    <path d="M22.80175,2.248 L12.92575,12.124 C12.63375,12.416 12.24875,12.562 11.86475,12.562 C11.48075,12.562 11.09575,12.416 10.80375,12.124 L0.88975,2.21 C0.86075,2.328 0.84375,2.452 0.84375,2.579 L0.84375,14.5 C0.84375,15.325 1.51875,16 2.34375,16 L21.33875,16 C22.16375,16 22.83875,15.325 22.83875,14.5 L22.83875,2.579 C22.83875,2.465 22.82575,2.354 22.80175,2.248 M11.46675,10.383 L1.41175,0.328 C1.66775,0.123 1.99175,0 2.34375,0 L21.33875,0 C21.70275,0 22.03675,0.131 22.29775,0.349 L12.26275,10.383 C12.15675,10.488 12.01575,10.546 11.86475,10.546 C11.71375,10.546 11.57275,10.488 11.46675,10.383" id="Fill-1"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

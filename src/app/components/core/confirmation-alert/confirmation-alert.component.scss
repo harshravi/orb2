@@ -1,0 +1,44 @@
+@import "../../../../assets/scss/_variables";
+.conf-modal{
+    .conf-modal-content{
+        border: none;
+    }
+    .conf-modal-body{
+        background-color: rgba(203,153,77,0.92); 
+        color: $white;
+        height: 65px;
+        padding: 14px 99px;
+    }
+    .main-text{
+        font-size: 18px;
+        font-family: $font-titillium;
+        font-weight: 300;
+    }
+    .btn-stay{
+        height: 32px;	
+        width: 155px;	
+        border-radius: 4px;	
+        background-color: $left-nav-details;    
+        color: $white;    
+    }
+    .text-heading{
+        padding-left: 50px;        
+    }
+    .btn-leave{
+        height: 32px;
+        width: 77px;
+        border: none;
+        background: transparent;
+        color: $white;
+    }
+    .info-icon::before{
+        content: '';
+        position: absolute;
+        height: 25px;
+        width: 25px;
+        background: url(../../../../assets/img/alert_info/info_icon.svg) no-repeat;
+        border:none;
+        outline: none;
+        left: 17px;
+    }
+}

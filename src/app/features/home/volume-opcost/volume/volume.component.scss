@@ -1,0 +1,270 @@
+@import "../../../../../assets/scss/_variables";
+@import "../../../../../assets/scss/_checkbox-radio-btn";
+// @import "../../../../../assets/scss/_material";
+
+.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell .datatable-header-cell-label {
+    box-sizing: border-box;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: normal !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    width: 100%;   
+    padding: 16px 2px 6px 32px;
+  }
+  .table-row-bold-text.volume-incurredcode {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 100%;
+    color: $nav-dash-text-color;
+    }
+  .units{
+    width: 69px;
+    padding: 1px 0px 0px 42px;
+  }
+  .volume-incurredcode:hover{
+    text-decoration: underline;
+  }
+.loading-spinner{
+    top: 40%;
+    left: 50%;
+}
+.show-user{
+    padding-top: 15px;
+    padding-bottom: 12px;
+    text-align: center;
+    width: 19vh;
+    font-size: 13px;
+    font-weight: 500; 
+    color: $volume-header;   
+}
+.show-active-user{
+    border-bottom: 2px solid $orange;
+    color: $left-panel-child-bg
+}
+.usage-pannel{
+    background: $left-panel-bg;
+    position: fixed;
+    margin-top: 65px;
+    // z-index: 999;
+}
+.app-filter{
+    font-size: 12px;
+    left: -90px;
+    top: 10px;
+    color:$volume-header;
+}
+.plan-text{
+    color: $volume-header;
+    font-size: 11px;	
+    line-height: 18px
+}
+.budget-sataus{
+    font-size: 11px;
+    line-height: 24px;
+    color: $volume-header;
+}
+.budget-box{
+    border: 1px solid #DDE0E0;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
+}
+.budget-plan-boxes{
+    .over-budget-border{
+            border-left: 3px solid #F07F7F;
+    }
+}
+.budget-status-icon-up{
+    content: '';
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    background: url(../../../../../assets/img/cards/budget_over_icon.svg) no-repeat;
+    top: 4px;
+    left: -5px;
+}
+.budget-status-icon-down{
+    content: '';
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    background: url(../../../../../assets/img/cards/budget_under_icon.svg) no-repeat;
+    top: 6px;
+    left: -5px;
+}
+.current-prior-box{
+    padding: 12px;
+}
+.budget-plan-box-header{
+    font-family: $font-titillium;
+    color:$dark-black;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.budget-plan{
+    font-size: 13px;
+    font-weight: 700;
+}
+.total-budget{
+    font-size: 18px;
+    line-height: 24px;
+    color:$light-orange;
+}
+.total-budget-text{
+    margin-left: 17px;
+    font-size: 14px;
+}
+.total-budget-text-up{
+    color: $light-orange;
+}
+.total-budget-text-down{
+    color: $apptotals;
+}
+
+.total-box{
+    padding: 6px 12px 6px 12px;
+}
+.container-box{
+    margin-top: 0px;
+    padding-top: 20px;
+    height: 81vh;
+}
+.table-heading{
+    font-size: 20px;
+    line-height: 24px;
+    font-family: $font-titillium;
+    color: $dark-black;
+    font-weight: 600;
+}
+.sub-total{
+    font-size: 11px;
+    color:$volume-header;
+}
+.table-spinner{
+    width: 50px;
+    margin: 0 auto;
+    position: relative;
+    top: 100px;
+}
+.table-row-bold-text{
+    color: #1A1718;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: normal;
+}
+.status-box{
+    width: 22px;
+    height: 17px;
+    background: #6DE290;
+    border: 1px solid #6DE290;
+    border-radius: 3px;
+    color: white;
+    text-align: center;
+    line-height: 15px
+}
+.status-box1{
+    background: $green-normal;
+    border: 1px solid $green-normal;
+}
+.status-box2{
+    background: $amber;
+    border: 1px solid $amber;
+}
+.status-box3{
+    background: $blue-normal;
+    border: 1px solid $blue-normal;
+}
+.text-bold{
+    font-weight: 700;
+}
+.total-budget-plan-box{
+    background-color: #9DB4BE;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.02);
+}
+.report-test{
+    color: $table-text-color;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 24px
+}
+.table-header-common{
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: center;
+    border-right: 1px solid #9DB4BE;
+}
+.left-border-radius{
+    border-radius: 5px 0 0 0;
+}
+.right-border-radius{
+    border-radius: 0 5px 0 0;
+}
+.table-header{
+    background-color: $side-nav-bg;
+}
+thead>tr{
+    text-align: center;
+}
+.yearly-budget-text{
+    color: $dark-black;
+    font-size: 12px;
+    line-height: 24px;
+    text-align: center;
+}
+.yaerly-budget-row{
+    background-color: #F0F2F2;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.02);
+}
+.yearly-final-budget-text{
+    background-color: $white;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.02);
+}
+tr.yaerly-budget-row:last-child{
+    background: #fff;
+}
+tr.yaerly-budget-row:last-child > td{
+    line-height: 40px;
+    // color: $apptotals;
+    font-family: Roboto;
+    font-size: 16px;
+    // line-height: 24px;
+    text-align: center;
+}
+tr.yaerly-budget-row:last-child > td:first-child{
+    color: #011E6A;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: left;
+}
+.table > thead > tr > th {
+    border-top: none;
+    border-bottom: none;
+}
+
+// .sortable .sort-btn:after {
+//     content: "c";
+//     }
+//     .sortable .sort-btn.datatable-icon-down:after {
+//     content: "f";
+//     }
+//     .sortable .sort-btn.datatable-icon-up:after {
+//     content: "e";
+//     }   
+  
+//     .datatable-body-cell-label {
+//         pointer-events: none;
+//     }
+    
+
+
+// .total-budget-plan-box thead> tr> th {
+//     border: none;
+// }
+    // border-radius: 4px 4px 0 0;
+    // background-color: #002E7D;
+    // box-shadow: 0 2px 4px 0 rgba(0,0,0,0.02);}

@@ -1,0 +1,93 @@
+@import "../../../../assets/scss/_variables";
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 0;
+    left: 8%;
+}    
+a.opacity-full{
+    opacity: 1;
+}
+.hightlightNav{
+    background-color: $left-panel-child-bg;
+    opacity: 1;    
+}
+ul.highlight-first-nav>li:nth-child(1)>a{
+    background-color: $left-panel-child-bg;
+    opacity: 1;
+}
+ul.highlight-second-nav>li:nth-child(2)>a{
+    background-color: $left-panel-child-bg;
+    opacity: 1;
+}
+ul.highlight-third-nav>li:nth-child(3)>a{
+    background-color: $left-panel-child-bg;
+    opacity: 1;
+}
+.cd-sub-side-nav {
+    width: 310px;
+    top: -20vh;
+    height: 100vh;   
+}
+.disabled {
+    pointer-events: none;
+    cursor: not-allowed; 
+} 
+  .info-icon::before{
+  content: '';
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  background: url(../../../../assets/img/alert_info/info_icon.svg) no-repeat;
+  border:none;
+  outline: none;
+  left: 17px;
+}
+  .save-alert-header{
+    background-color: rgba(203,153,77,.92);
+    color: #fff;
+    width: 1500px;
+    margin-left: 97px;
+    padding: 14px 99px;
+    min-height: 50px;
+    position: absolute;
+  }
+  .text-heading {
+    padding-left: 50px;
+  }
+  .main-text{
+    font-size: 18px;
+    font-family: Titillium web;
+    font-weight: 300;
+  }
+  .font-12 {
+    font-size: 12px;
+  }
+  .m-t-xs {
+    margin-top: 5px;
+  }
+  .m-l-md {
+    margin-left: 20px;
+  }
+  .btn-stay {
+    height: 32px;
+    width: 155px;
+    border-radius: 4px;
+    background-color: #1162ba;
+    color: #fff;
+  }
+  .btn-leave {
+    height: 32px;
+    width: 77px;
+    border: none;
+    background: transparent;
+    color: #fff;
+  }

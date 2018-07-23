@@ -1,0 +1,327 @@
+<div>
+  <app-confirmation-alert></app-confirmation-alert>
+  <div>
+    <app-side-nav [hightlightNav]="'highlight-second-nav'"></app-side-nav>
+    <app-nav-details-menu [showNav]="true" [checkForChange]="checkForChangeInApp" (selectedApp)="getApplicationDetails($event)"
+      (searchedText)="getSearchedText($event)" [showNavFor]="'usage'" [highlightedSearchedRow]='defaultSelection' (defaultPage)="showDeafultPage($event)"></app-nav-details-menu>
+    <div #tableWrapper class="content-wrapper relative-position">
+      <div class="relative-position row no-margins">
+        <div class="absolute-position loading-spinner">
+          <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+        </div>
+        <div *ngIf="!showStaticTemp">
+          <div *ngIf="selectedAppHeaderDetails && !isDataLoading">
+            <app-content-header [usageHeader]="true" [addNew]="(disableSingleDelete || showSaveRibon || !selectedAppHeaderDetails?.enableAddLegalEnityButton || !allLigalEntity)"
+              [buttonText]="'ADD NEW USER'" [headerDetails]="selectedAppHeaderDetails" [btnRequire]="true" [dashboardHeader]="false"
+              (openModal)="openAddUseModal($event,true, false)"></app-content-header>
+          </div>
+          <div class="main-header" *ngIf="!isDataLoading">
+            <div class="col-md-12 no-padding usage-pannel show-hide-usage">
+              <div class="show-user cursor inline-block" [ngClass]="{'show-active-user': showActiveUser === true , 'disabled': showSaveRibon === true}"
+                (click)="showActive(true)">Active Users</div>
+              <div class="show-user cursor inline-block" [ngClass]="{'show-active-user': showActiveUser === false , 'disabled': showSaveRibon === true}"
+                (click)="showActive(false)"> Removed Users</div>
+            </div>
+          </div>
+          <div class="absolute-position loading-spinner">
+            <app-progress-spinner [isRunning]="isDataLoadingforSave || isDataLoading || !allLigalEntity"></app-progress-spinner>
+          </div>
+          <!--<div class="absolute-position loading-spinner">
+                              <app-progress-spinner [isRunning]="isDataLoadingforSave"></app-progress-spinner>
+                          </div>-->
+          <div class="container-box col-md-12" *ngIf="showActiveUser">
+            <div class="row no-margins" *ngIf="!isDataLoading">
+              <div class="col-xs-3 pull-left no-padding-left">
+                <app-search-text-box [disableSearch]="(disableSingleDelete || showSaveRibon )" [smallSearch]="'light-gray'" #searchedWordText
+                  [searchValue]="seachedValue" (appsearch)="updateFilter($event)" [placeHolder]="'Search'"></app-search-text-box>
+              </div>
+              <div class="col-xs-2 pull-right relative-position no-padding">
+                <span class="absolute-position app-filter">Filter by Status</span>
+                <app-dropdown id="medication_reminder" [ngClass]="{'selectpicker': true}" [disabled]="(disableSingleDelete || showSaveRibon )"
+                  name="Outreach" [optionValueName]="'id'" [optionTextName]="'name'" [data]="allStatusData" [(ngModel)]="selectStatus"
+                  (ngModelChange)="selectedStatus($event)">
+                </app-dropdown>
+                <!--<app-dropdown [changeBgColor]="'light-gray'" allStatusData></app-dropdown>-->
+              </div>
+            </div>
+            <div class="m-t-md" *ngIf="!isDataLoadingforSave">
+              <ngx-datatable *ngIf="!isDataLoading" class="material expandable" #myTable [rows]="rows" [columns]="columns" [rowClass]="getRowClass"
+                [rowHeight]="'auto'" [columnMode]="'force'" [loadingIndicator]="loadingIndicator" [headerHeight]="50" [footerHeight]="50"
+                [selected]="selected" [selectionType]="'checkbox'" [selectAllRowsOnPage]="false" [selectCheck]="checkSelectable"
+                [displayCheck]="displayCheck" (select)='onSelect($event)' (sort)="onSort($event)" [draggable]="false" 
+                [sorts]="[{prop: 'legalEntityName', dir: 'asc'}]">
+                <!--CheckBOx -->
+                <ngx-datatable-column [width]="30" [sortable]="false" headerClass="header-text" [canAutoResize]="false" [draggable]="false"
+                  [resizeable]="false">
+                  <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+                    <span class="checkbox checkbox-primary">
+                      <input id="checkboxHeader" type="checkbox" [checked]="allRowsSelected" [disabled]="(disableCheckBox || canEdit || deletable || showSaveRibon)"
+                        (change)="selectFn(!allRowsSelected)">
+                      <label for="checkboxHeader"></label>
+                    </span>
+                  </ng-template>
+                  <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template let-value="value" let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
+                    <span class="checkbox checkbox-primary">
+                      <input id="checkbox{{rowIndex}}" type="checkbox" [checked]="isSelected" [disabled]="(disableCheckBox || (row?.deletable == false && row?.canEdit == false && row?.enableDropDown == false) || showSaveRibon)"
+                        (change)="onCheckboxChangeFn($event,rowIndex);onCheckboxChange($event,rowIndex)">
+                      <label for="checkbox{{rowIndex}}"></label>
+                    </span>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [resizeable]="false" [draggable]="false" headerClass="header-text" prop="legalEntityName" name="Legal Entity"
+                  [width]="450">
+                  <ng-template let-rowIndex="rowIndex" let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <div class="table-row-bold-text usage-entityname" [ngClass]="{'red': (row.legalEntityType === 'Restricted')}" data-toggle="tooltip"
+                      title="{{row.legalEntityName}}">{{row.legalEntityName}} </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [resizeable]="false" [draggable]="false" headerClass="header-text" [sortable]="false" prop="negotiatiatedAmount"
+                  name="Negotiated Amt." [width]="350">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <div class="table-row-bold-text wordBreak" [ngClass]="{'red': (row.legalEntityType === 'Restricted')}" data-toggle="tooltip" title="{{row.negotiatiatedAmount | number:'1.1-6'}}">
+                      <ng-container *ngIf="row.negotiatiatedAmount === null; else notNull">_</ng-container>
+                      <ng-template #notNull>
+                        <ng-container *ngIf="row.negotiatiatedAmount === 0; else third">{{row.negotiatiatedAmount | number:'1.2-2'}}</ng-container>
+                      </ng-template>
+                      <ng-template #third>${{row.negotiatiatedAmount | number:'1.2-2'}}
+                      </ng-template>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [resizeable]="false" [draggable]="false" headerClass="header-text" [sortable]="false" prop="proposedNegotiatedAmount"
+                  name="Proposed Negotiated Amt." [width]="350">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <div class="table-row-bold-text wordBreak" [ngClass]="{'has-error': negotiateAmtError}">
+                      <!--<span *ngIf="row.proposedNegotiatedAmount === null; else notNull">_</span>-->
+                      <span *ngIf="!row[rowIndex + '-proposedNegotiatedAmount']">
+                        <div class="table-row-bold-text" [ngClass]="{'red': (row.legalEntityType === 'Restricted')}" *ngIf="row.proposedNegotiatedAmount !== null" 
+                        data-toggle="tooltip" title="{{row.proposedNegotiatedAmount | number:'1.1-6'}}">${{row.proposedNegotiatedAmount | number:'1.2-2'}}</div>
+                      </span>
+                      <input class="form-control form-element" autofocus (keyup)="updateValue($event, 'proposedNegotiatedAmount', rowIndex)" 
+                      *ngIf="row[rowIndex+ '-proposedNegotiatedAmount']" type="number" [value]="value" [disabled]="(!row?.enableNegotiatedAmount)" 
+                      (keypress)="onlyNumberKey($event)"/>
+                      <div *ngIf="row[rowIndex+ '-proposedNegotiatedAmount'] && negotiateAmtError" class="colorRed">Please enter valid proposedNegotiated Amount</div>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [resizeable]="false" [draggable]="false" headerClass="header-text" [sortable]="false" prop="comments"
+                  name="Comments" [width]="450">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <span *ngIf="!row[rowIndex + '-comments']">
+                      <div class="table-row-bold-text usage-comments" maxlength="250" [ngClass]="{'red': (row.legalEntityType === 'Restricted')}">{{row.comments}}</div>
+                    </span>
+                    <textarea rows="2" maxlength="250" class="form-control form-element" (keyup)="updateValue($event, 'comments', rowIndex)"
+                      *ngIf="row[rowIndex+ '-comments']" type="text" [value]="value">
+                    </textarea>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [canAutoResize]="false" [draggable]="false" [resizeable]="false" [sortable]="false" [width]="50">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <span>
+                      <img class="cursor" data-toggle="tooltip" title="{{row.comments}}" src="../../../../assets/img/forms_tables/more_icon.svg"
+                      />
+                    </span>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [resizeable]="false" [draggable]="false" headerClass="header-text" [sortable]="false" prop="changeBy"
+                  name="Modified by" [width]="350">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <div class="table-row-bold-text" [ngClass]="{'red': (row.legalEntityType === 'Restricted')}" data-toggle="tooltip" title="Modified on &#10; {{row.lastModifiedDateWithZone}}">
+                      <span *ngIf="row.changeBy === null; else notNull">_</span>
+                      <ng-template #notNull>
+                        <span>{{row.changeBy}}</span>
+                      </ng-template>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [resizeable]="false" [draggable]="false" headerClass="header-text" [sortable]="false" prop="type" name="Change Type"
+                  [width]="350">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <div class="table-row-bold-text" [ngClass]="{'red': (row.legalEntityType === 'Restricted')}">
+                      {{row.type}}
+                      <br>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [resizeable]="false" [draggable]="false" headerClass="header-text" [sortable]="false" prop="status"
+                  name="Status" [width]="350">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <span *ngIf="!row[rowIndex + '-status']">
+                      <div class="inline-block" *ngIf="row.status === 3" data-toggle="tooltip" title="APPROVED By : {{row.approveBy}} {{row.approvedDateWithZone}}">
+                        <!--<span class="txt">APPROVED <br> {{row.approveBy}} <br> {{row.approveDateString}}</span>-->
+                        <img src="../../../../assets/img/forms_tables/status_success_icon.svg" />
+                      </div>
+                      <div class="inline-block" *ngIf="row.status === 2" data-toggle="tooltip" title="PENDING">
+                        <img src="../../../../assets/img/forms_tables/status_pending_icon.svg" />
+                      </div>
+                      <div class="inline-block" *ngIf="row.status === 4" data-toggle="tooltip" title="REJECTED By : {{row.approveBy}} {{row.approvedDateWithZone}}">
+                        <img src="../../../../assets/img/forms_tables/status_rejected_icon.svg" />
+                      </div>
+                      <div class="inline-block" *ngIf="row.status === 5" data-toggle="tooltip" title="COMMITTED">
+                        <img src="../../../../assets/img/forms_tables/status_superapprove_icon.svg" />
+                      </div>
+                    </span>
+                    <select class="form-control cursor form-element" *ngIf="row[rowIndex + '-status']" [value]="value" [disabled]="!row?.enableDropDown"
+                      (change)="updateValue($event, 'status', rowIndex)">
+                      <option value="{{statusCollection.id}}" *ngFor="let statusCollection of allStatusforTable">{{statusCollection.name}}</option>
+                    </select>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [resizeable]="false" headerClass="header-text" [sortable]="false" editable="true" prop="event_Action"
+                  name="Action" [width]="350">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <div class="action-btn-box">
+                      <!--<span title="Double click to edit" *ngIf="!editing[rowIndex + '-name']">-->
+                      <div>
+                        <button data-toggle="tooltip" title="EDIT" (click)="editRow(rowIndex, row)" class="cursor edit-row edit-btn" [disabled]="(disableSingleDelete || showSaveRibon || !row?.canEdit)"></button>
+                      </div>
+                      <div>
+                        <button data-toggle="tooltip" title="DELETE" (click)="deleteApplication(row)" [disabled]="(disableSingleDelete || showSaveRibon || (rows.length < 2) || !row?.deletable)"
+                          class="cursor delete-row delete-btn"></button>
+                      </div>
+                      <!--</span>-->
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+            </div>
+          </div>
+          <div class="container-box col-md-12" *ngIf="!showActiveUser">
+            <div class="row no-margins">
+              <div class="col-xs-3 pull-left no-padding" *ngIf="!isDataLoading">
+                <app-search-text-box [smallSearch]="'light-gray'" (appsearch)="updateFilterForRemoved($event)" [placeHolder]="'Search'"></app-search-text-box>
+              </div>
+            </div>
+            <div class="m-t-md">
+              <ngx-datatable *ngIf="!isDataLoading" class="material expandable" #myTable [rows]="removedDataForRow" [columns]="columns"
+                [rowClass]="getRowClass" [rowHeight]="'auto'" [columnMode]="'force'" [loadingIndicator]="loadingIndicator"
+                [headerHeight]="50" [footerHeight]="50" [sorts]="[{prop: 'legalEntityName', dir: 'asc'}]">
+                <ngx-datatable-column [resizeable]="false" headerClass="header-text" [draggable]="false" prop="legalEntityName" name="Legal Entity"
+                  [width]="450" [sortable]="true">
+                  <ng-template let-rowIndex="rowIndex" let-row="row" let-value="value" ngx-datatable-cell-template>
+                    <div class="table-row-bold-text usage-entityname" [ngClass]="{'red': (row.legalEntityType === 'Restricted')}" data-toggle="tooltip"
+                      title="{{row.legalEntityName}}">{{row.legalEntityName}}</div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [resizeable]="false" headerClass="header-text" [draggable]="false" [sortable]="false" prop="negotiatiatedAmount"
+                  name="Negotiated Amt." [width]="350">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <div class="table-row-bold-text wordBreak" [ngClass]="{'red': (row.legalEntityType === 'Restricted')}" data-toggle="tooltip" title="{{row.negotiatiatedAmount | number:'1.1-6'}}">
+                      <ng-container *ngIf="row.negotiatiatedAmount === null; else notNull">_</ng-container>
+                      <ng-template #notNull>
+                        <ng-container *ngIf="row.negotiatiatedAmount === 0; else third">{{row.negotiatiatedAmount}}</ng-container>
+                      </ng-template>
+                      <ng-template #third>${{row.negotiatiatedAmount | number:'1.2-2'}}
+                      </ng-template>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [resizeable]="false" [draggable]="false" headerClass="header-text" [sortable]="false" prop="proposedNegotiatedAmount"
+                  name="Proposed Negotiated Amt." [width]="350">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <div class="table-row-bold-text wordBreak">
+                      <!--<span *ngIf="row.proposedNegotiatedAmount === null; else notNull">_</span>--> 
+                      <span *ngIf="!row[rowIndex + '-proposedNegotiatedAmount']">
+                        <div class="table-row-bold-text" [ngClass]="{'red': (row.legalEntityType === 'Restricted')}" data-toggle="tooltip" title="{{row.proposedNegotiatedAmount | number:'1.1-6'}}"
+                        *ngIf="row.proposedNegotiatedAmount !== null && row.proposedNegotiatedAmount !== 0">${{row.proposedNegotiatedAmount | number:'1.2-2'}}</div>
+                      </span>
+                      <input class="form-control form-element" autofocus (keyup)="updateValue($event, 'proposedNegotiatedAmount', rowIndex)" [disabled]="!write"
+                        *ngIf="row[rowIndex+ '-proposedNegotiatedAmount']" type="text" [value]="value" />
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [resizeable]="false" [draggable]="false" headerClass="header-text" [sortable]="false" prop="comments"
+                  name="Comments" [width]="450">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <span *ngIf="!row[rowIndex + '-comments']">
+                      <div class="table-row-bold-text usage-comments" [ngClass]="{'red': (row.legalEntityType === 'Restricted')}">{{row.comments}}</div>
+                    </span>
+                    <textarea rows="2" class="form-control form-element" maxlength="250" (keyup)="updateValue($event, 'comments', rowIndex)"
+                      *ngIf="row[rowIndex+ '-comments']" type="text" [value]="value">
+                    </textarea>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [canAutoResize]="false" [draggable]="false" [resizeable]="false" [sortable]="false" [width]="50">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <span>
+                      <img class="cursor" data-toggle="tooltip" title="{{row.comments}}" src="../../../../assets/img/forms_tables/more_icon.svg" />
+                    </span>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [resizeable]="false" [draggable]="false" headerClass="header-text" [sortable]="false" prop="changeBy"
+                  name="Modified by" [width]="350">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <div class="table-row-bold-text" [ngClass]="{'red': (row.legalEntityType === 'Restricted')}">
+                      <span *ngIf="row.changeBy === null; else notNull">_</span>
+                      <ng-template #notNull>
+                        {{row.changeBy}}
+                      </ng-template>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [resizeable]="false" [draggable]="false" headerClass="header-text" [sortable]="false" prop="type" name="Change Type"
+                  [width]="350">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <div class="table-row-bold-text" [ngClass]="{'red': (row.legalEntityType === 'Restricted')}">
+                      {{row.type}}
+                      <br>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <!--<ngx-datatable-column [resizeable]="false" headerClass="header-text" [sortable]="false" prop="status" name="Status" [width]="350">
+                                                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                                      <span *ngIf="!row[rowIndex + '-status']">
+                                                          <div *ngIf="row.status === 3"><img   src="../../../../assets/img/forms_tables/status_success_icon.svg"/></div>
+                                                          <div *ngIf="row.status === 2"><img  src="../../../../assets/img/forms_tables/status_pending_icon.svg"  /> </div>
+                                                          <div *ngIf="row.status === 4"><img  src="../../../../assets/img/forms_tables/status_rejected_icon.svg"  /> </div>
+                                                          <div *ngIf="row.status === 5"><img  src="../../../../assets/img/forms_tables/status_superapprove_icon.svg"  /> </div>
+                                                      </span>
+                                                      <select class="form-control form-element" *ngIf="row[rowIndex + '-status']" [value]="value" (change)="updateValue($event, 'status', rowIndex)">
+                                                          <option value="{{statusCollection.id}}" *ngFor="let statusCollection of allStatusData">{{statusCollection.name}}</option>
+                                                      </select>
+                                                  </ng-template>
+                                              </ngx-datatable-column>-->
+                <ngx-datatable-column [resizeable]="false" [draggable]="false" headerClass="header-text" [sortable]="false" editable="true"
+                  prop="event_Action" name="Action" [width]="350">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <div class="action-btn-box">
+                      <!--<span title="Double click to edit" *ngIf="!editing[rowIndex + '-name']">-->
+                      <div>
+                        <!--<button (click)="editRow(rowIndex)" class="cursor edit-row edit-btn" [disabled]="(disableSingleDelete || showSaveRibon)">
+                                                                          </button>-->
+                        <button data-tooltip title="ADD" (click)="openAddUseModal(row,false,true)" [disabled]="(!selectedAppHeaderDetails?.enableAddLegalEnityButton) && row?.enableAddRemoved"
+                          class="cursor delete-row add-btn">
+                        </button>
+                      </div>
+                      <!--</span>-->
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div #tableWrapper *ngIf="showStaticTemp">
+        <div *ngIf="showStaticForSelection; else showTempForNotAvailable">
+          <app-static-temp [appNotSelected]="showStaticTemp" [showHeading]="'Select an application in left panel to load the content'">
+          </app-static-temp>
+        </div>
+        <ng-template #showTempForNotAvailable>
+          <app-static-temp [showFailure]="TempForNotAvailable" [selectedAppHeaderDetails]="onlyHeaderData" [showHeading]="showPhysicalApplicationError ? 'You do not have access to physical application' : 'You do not have access'"
+            [noBtnRequire]="false" [showHeader]="true" [showDetails]="'Contact Support'">
+          </app-static-temp>
+        </ng-template>
+      </div>
+      <div class="row no-margins">
+        <app-bottom-action-ribon (clearAll)="clearAllSelected()" (saveAllSelected)="saveEdit()" (editAll)="selectAllChecked()" (deleteAll)="deleteAllSelected()"
+          (approveAll)="approveAllSelected()" (unapproveAll)="unapproveAllSelected()" (rejectAll)="rejectAllSelected()" (commitAll)="commitAllSelected()"
+          [disableEdit]="!write || setEditFlag" [disableDelete]="!write || (rows?.length === selected?.length) || setDeleteFlag"
+          [disableApprove]="!approve || selectedDropdown" [disableUnapprove]="!approve || selectedDropdown" [disableCommit]="(adminCommit) || selectedDropdown"
+          [disableRejected]="!approve || selectedDropdown" [disableSave]="isDataLoadingforSave || CommentMandatory || negotiateAmtError" [showActionBtn]="(disableSingleDelete)"
+          [showSaveRibon]="showSaveRibon">
+        </app-bottom-action-ribon>
+      </div>
+    </div>
+  </div>
+</div>

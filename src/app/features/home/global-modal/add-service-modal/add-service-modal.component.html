@@ -1,0 +1,123 @@
+<div class="inmodal">
+  <div class="modal-content">
+    <form [formGroup]="form" name="form">
+      <div class="modal-header">
+        <a class="close-modal p-b-sm" name="closeOpenModal"></a>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 text-left">
+            <h1 class="modal-title">{{heading}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body relative-position" *ngIf="allocationMethodId === 1">
+          <div class="absolute-position loading-spinner">
+              <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+          </div>
+        <div class="row no-margins">
+          <div class="col-md-9 no-padding-left">
+            <app-dropdown [labelText]="'Select Incurred Code:Service'" id="medication_reminder" [ngClass]="{'selectpicker': true}" name="Outreach"
+              [optionValueName]="'id'" [disabled]='isDataLoading' [optionTextName]="'name'" formControlName="id" [data]="allServices" [(ngModel)]="selectService" (ngModelChange)="selectedService($event)">
+            </app-dropdown>
+          </div>
+          <div class="col-md-3">
+            <span class="block unit-box-title">Units</span>
+            <div class="unit-box">
+              <span class="unit-box-text"> {{selectedServiceData?.units}} </span>
+            </div>
+          </div>
+        </div>
+        <div class="m-t-sm">
+          <app-button [btnText]="'ADD'" [btnColor]='"submit-btn-without-icon"' [btnDisabled]="!selectedServiceData || isDataLoading" (getData)="getserviceCollection()"></app-button>
+        </div>
+        <div class="selected-code-box row" *ngIf="serviceCollection.length > 0">
+          <div class="row no-margins selected-code-row no-border-bottom">
+            <div class="col-md-6 unit-list-row"> Incurred Code:Service</div>
+            <div class="col-md-6 unit-box-row-text">Units</div>
+          </div>
+          <div class="service-collection-box">
+            <div class="row no-margins selected-code-row" *ngFor="let data of serviceCollection">
+              <div class="col-md-6 unit-list-row-text get-ellipsis-text" data-toggle="tooltip" title="{{data?.name}}"> {{data?.name}}</div>
+              <div class="col-md-6 unit-box-text-list text-line-hight">{{data?.units}}
+                <span (click)="removeFromSelected(data.serviceCatalogId, data)" class="close-icon cursor"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body relative-position" *ngIf="allocationMethodId === 2">
+        <div class="absolute-position loading-spinner">
+          <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+      </div>
+      <div class="row no-margins">
+        <div class="col-md-9 no-padding-left">
+          <app-dropdown [labelText]="'Select Incurred Code:Service'" id="medication_reminder" [ngClass]="{'selectpicker': true}" name="Outreach"
+            [optionValueName]="'id'" [disabled]='isDataLoading' [optionTextName]="'name'" formControlName="id" [data]="allServices"
+            [(ngModel)]="selectService" (ngModelChange)="selectedService($event)">
+          </app-dropdown>
+        </div>
+        <div class="col-md-3">
+          <span class="block unit-box-title">Units</span>
+          <div class="unit-box">
+            <span class="unit-box-text"> {{selectedServiceData?.units}} </span>
+          </div>
+        </div>
+      </div>
+      <div class="row no-margins">
+        <div class="col-md-6 no-padding-left">
+          <app-dropdown [labelText]="'Skill Team'" id="medication_reminder" [ngClass]="{'selectpicker': true}" name="Outreach" [optionValueName]="'id'"
+            [disabled]='isDataLoading' [optionTextName]="'name'" formControlName="skillTeam" [data]="allSkillTeam" [(ngModel)]="selectSkillTeam"
+            (ngModelChange)="selectedSkillTeam($event)">
+          </app-dropdown>
+        </div>
+        <div class="col-md-6 no-padding-left">
+          <app-dropdown [labelText]="'Legal Entity'" id="medication_reminder" [ngClass]="{'selectpicker': true}" name="Outreach" [optionValueName]="'legalEntityID'"
+            [disabled]='isDataLoading || !selectSkillTeam' [optionTextName]="'legalEntity'" formControlName="legalEntity" [optionChangeColor]="'restrictedLegalEntity'" [data]="filteredLigalIntityData"
+            [(ngModel)]="selectLegalEntity" (ngModelChange)="selectedLegalEntity($event)">
+          </app-dropdown>
+        </div>
+      </div>
+      <div class="row no-margins">
+        <div class="col-md-3 col-md-offset-6 no-padding no-padding" *ngIf="filteredLigalIntityData">
+          <span class="checkbox checkbox-primary">
+            <input id="checkbox" type="checkbox" [checked]="selectedRestrictedUser" (change)="onCheckboxChangeFn($event)" [disabled]="isDataLoading"/>
+            <label for="checkbox"><span class="restricted-user">Show restricted users</span></label>
+          </span>
+        </div>
+      </div>
+      <div class="m-t-sm">
+        <app-button [btnText]="'ADD'" [btnColor]='"submit-btn-without-icon"' [btnDisabled]="!selectedServiceData || isDataLoading || !selectLegalEntity"
+          (getData)="getserviceCollection()"></app-button>
+      </div>
+      <div class="selected-code-box row" *ngIf="serviceCollectionPhysical.length > 0">
+        <div class="row no-margins selected-code-row no-border-bottom">
+          <div class="col-md-3 unit-list-row"> Incurred Code:Service</div>
+          <div class="col-md-2 unit-box-row-text">Units</div>
+          <div class="col-md-3 unit-box-row-text">Skill Team</div>
+          <div class="col-md-4 unit-box-row-text">Legal Entity</div>
+        </div>
+
+        <div class="service-collection-box">
+          <div class="row no-margins selected-code-row" *ngFor="let data of serviceCollectionPhysical">
+            <div class="col-md-3 unit-list-row-text get-ellipsis-text" data-toggle="tooltip" title="{{data?.name}}" [ngClass]="data.restrictedLegalEntity === true ? 'borderColor' : ''"> {{data?.name}}</div>
+            <div class="col-md-2 unit-list-row-text get-ellipsis-text" data-toggle="tooltip" title="{{data?.units}}" [ngClass]="data.restrictedLegalEntity === true ? 'borderColor' : ''"> {{data?.units}}</div>
+            <div class="col-md-3 unit-list-row-text get-ellipsis-text" data-toggle="tooltip" title="{{data?.skillTeam}}" [ngClass]="data.restrictedLegalEntity === true ? 'borderColor' : ''"> {{data?.skillTeam}}</div>
+            <div class="col-md-4 unit-list-row-text get-ellipsis-text" data-toggle="tooltip" title="{{data?.legalEntity}}" [ngClass]="data.restrictedLegalEntity === true ? 'borderColor' : ''">{{data?.legalEntity}}
+              <span (click)="removeFromSelected(data.serviceCatalogId, data)" class="close-icon cursor"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+      <div class="modal-footer">
+        <div class="footer-block-center">
+          <div class="inline-block">
+            <app-button [btnType]="'text'" [btnText]="'CLEAR'" [btnDisabled]="isDataLoading" [btnColor]="'clear'" (getData)="clearModalData($event)"></app-button>
+          </div>
+          <div class="inline-block">
+            <app-button [btnType]="'submit'" [btnColor]="'save'" [btnText]="'SAVE'" (getData)="addVolume(form.value)" [btnDisabled]="disableSubmit"></app-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  </div>

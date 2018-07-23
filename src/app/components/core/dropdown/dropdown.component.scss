@@ -1,0 +1,81 @@
+@import '~assets/scss/_variables.scss';
+@import '~assets/scss/_mixins.scss';
+.green {
+    color: $dropdown-approve-status;
+}
+
+.red {
+    color: $dropdown-reject-status;
+}
+.red:hover {
+    color: $dropdown-reject-status;
+}
+//@extend-elements
+//original selectors
+//.ellipsisBtn, .btn:active
+%extend_1 {
+    margin-bottom: 0;
+    background-color: transparent; //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    box-shadow: none;
+    @include padding-all(0, 12px, 0, 0);
+}
+
+.ellipsisBtn {
+    @extend %extend_1;
+}
+
+// .btn:active {
+//     @extend %extend_1;
+// }
+.dropdown-menu{
+    min-width: 100%
+}
+.dropdown-menu.left-menu {
+    // left: auto;
+    right: 0;
+    z-index: 999;
+    max-height: 20vh;
+    overflow: auto    
+}
+.dropdown-menu>li>a{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;    
+}
+.btn .dropdown-arrow{
+    float: right;
+    top: 26%;
+    position: absolute;
+    right: 11px;
+}
+
+button{
+    width: 100%;
+    text-align: left;
+}
+
+.btn-default:hover, .btn-default:active, 
+.open>.dropdown-toggle.btn-default:hover, .open>.dropdown-toggle.btn-default:active,
+.open>.dropdown-toggle.btn-default{
+    background-color: #fff;
+    border: 1px solid #d2d2d2;
+}
+.dropdown-lebel-text{
+    color: #252E39;
+    font-family: Roboto;
+    font-size: 12px;
+    line-height: 24px;    
+}
+.custom-single-dropdown .btn .dropdown-arrow {
+    top: 32%;
+}
+.dropdown{
+    font-size: 14px;
+}
+
+.dropdown-noWrap{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-right: 30px;
+    height: 36px;
+}

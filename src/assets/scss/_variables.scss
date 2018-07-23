@@ -1,0 +1,168 @@
+/* You can add global styles to this file, and also import other style files */
+// Basic Colors
+$navy: #1ab394; // Primary color - u
+$lazur: #23c6c8; // Info color -na
+$dark-gray: #c2c2c2; // Default color -na
+$blue: #1c84c6; // Success color - u
+//#yellow two time repeted with Alert need to Check
+$yellow: #FDBF68; // Warrning color
+$red: #C72536; // Danger color
+$alert:$yellow; // Alert color
+$green: #18A689; // - u
+$count-green: #1DC09F; // For count box - na
+$vetahealth-green:#1ab394;
+$white: #ffffff; // - u
+$normal-gray: #747372; // Color code for left status bar - u
+$light-grey:#aaaaaa; // Color for the Carousel - u - check
+$dnr-gray: #cccccc;
+// Various colors
+$text-color: #676a6c; // Body text - na
+$gray: #f3f3f4; // Background wrapper color - u
+$light-gray: #D1DADE; // Default label, badget - check
+$label-badget-color: #5E5E5E;
+$light-blue:#f3f6fb;
+$orange:#ff9100;
+$orange-light: #fdbf68; // Cricle name background color  
+$green-dark: #689f38;
+$light-normal-gray: #e7eaec;
+$medi-gray: #F2FBFF; // For medication adding select color
+// Side left side dropdown color
+$dark-blue: #293847; // dropdown background color 
+$gray-divider: #e5e5e5; // divider color
+$dark-black: #1A1718; // dropdown hover color
+$brown: #646e79; // last login time color 
+$amber: #DFC64B; // volume summary pending
+$green-normal: #6DE290; // volume summary success
+$blue-normal: #21AAFF; // volume committed
+
+
+// Spiner color and margin
+$spin-color: $navy;
+$spin-margin: 0 auto;
+// IBOX colors ( default panel colors)
+$border-color: $light-normal-gray; // IBox border
+$ibox-title-bg:$white; // IBox Background header
+$ibox-content-bg:$white; // IBox Background content
+$ibox-headerfont-size:16px; // IBox header font size
+//Sidebar width
+$sidebar-width: 220px;
+// Boxed layout width
+$boxed-width: 1200px;
+$boxed-backgound: url('patterns/shattered.png');
+//Border radius for buttons
+$btn-border-radius: 3px;
+//Navigation
+$nav-bg: #2F4050;
+$nav-profil-pattern: url("patterns/header-profile.png");
+$nav-text-color: #a7b1c2;
+//Zero dimention values
+$zero-dimentions:0px;
+//Loading Bar Component
+$loading-bar-z-index:99999;
+$loading-bar-height:2px;
+$loading-bar-opacity:0;
+
+/* This Marks the beginning of the Custom Variables that we are using apart form the 
+variables that are already provided by the scss file of Inspnia*/
+
+$tick-sign:'✔';
+$profile-avatar-color:#FDBF68;
+// Breadcrumb Component
+$breadcrumb-font-weight:bold;
+// Carousel Component
+$carousel-opacity:0.1;
+$carousel-opacity-hover:1;
+$carousel-button-color:$green;
+$carousel-button-opacity:0.65;
+$carousel-text-color:$white;
+$carousel-box-border-color:#aaa;
+// Category-Box Component
+// Checkbox Component
+$checkbox-text-color:$white;
+$checkbox-background-color:$white;
+$checkbox-checked-background:#2C8F7B;
+$checkbox-checked-content:$tick-sign;
+$checkbox-unchecked-content:'';
+// Chip Component
+$chip-text-color:#666;
+$chip-background:$white;
+$chip-font-weight:600;
+$chip-font-size:8px;
+$chip-border-radius:0.25em;
+$chip-border-color: rgba(102,
+102,
+102,
+.3);
+//Combo-Box Component
+$combo-box-background:$white;
+$combo-box-text-color:$white;
+$combo-box-custom-border:#a8b2c2;
+$combo-box-custom-background:#a8b2c2;
+$combo-box-checked-background:#2c8f7b;
+// Count-Box Component
+$count-box-border-radius:5px;
+$count-box-width:75px;
+$count-box-height:75px;
+$count-box-number-font-size:30px;
+$count-box-text-font-size:10px;
+// Dropdown Component
+$dropdown-approve-status:$green;
+$dropdown-reject-status:$red;
+// Radio-box 
+$radio-circle-border-color: #d2d2d2;
+$font-16: 16px;
+
+/* This marks the start of the layout components and the variables associated with them */
+
+// Dashboard Component
+$dashboard-header-profile-avatar-background:$vetahealth-green; // Avatar background color
+$dashboard-header-profile-avatar-size-min:50px;
+$dashboard-header-profile-avatar-size-mid:70px;
+$dashboard-header-profile-avatar-size-max:100px;
+$dashboard-header-profile-avatar-border-radius:50%;
+$dashboard-header-profile-avatar-text-color:$white;
+$dashboard-header-profile-avatar-text-font-size:18px;
+// Care Plan Card Variables
+$careplan-card-line-height:16px;
+$careplan-card-max-height:82px;
+$careplan-card-min-height:82px;
+// Vital Card Variables
+$vital-card-height:108px;
+// Vetahealth Circular image 
+$vetahealth-product-logo:'../img/vetahealth/vh-avatar-100.png';
+
+
+
+//ford constants
+
+$body-bg:#F0F2F2;
+// $left-nav-separator:#00215B;
+// $secondary-nav-separator:#00215B;
+$light-border:#EEEEEE;
+$left-panel-bg:#FBFBFB;
+$left-panel-child-bg:#1162BA;
+$text-blue:#4F8BCC;
+$header-text:#7E7C7D;
+$side-nav-bg:#002E7D;
+$side-nav-border:#00215B;
+$side-sub-nav-border:#0A4EA2;
+$header-ribon-bg:#F7ECE7;
+$header-ribin-arrow-bg:#F49494;
+$contentWrapper-bg:#F0F2F2;
+$orange:#F78100;
+$border-on-focus:#A8C5D1;
+$black:#000000;
+$filter-text-color:#8CA5B0;
+$nav-dash-text-color:#114CAB;
+$application-count-box-bg: #1061B9;
+$font-titillium:Titillium web;
+$light-orange:#E96468;
+$table-text-color:#011E6A;
+$clear-btn-bg:#9DB4BE;
+$denger:#F06065;
+$volume-header:#7E7C7D;
+$left-nav-details: #1162BA;
+$scroll-bar-color: #A9A9A9;
+$greytooltip: #918F90;
+$apptotals: #24C093;
+// $left-panel-app-list-border: 1px solid $light-border;

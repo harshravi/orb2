@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FordORB2</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="favicon_retina.png"/>
+  <style>
+    .loading {
+      opacity: 0;
+      transition: opacity .8s ease-in-out;
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background: #2f4050;
+      z-index: -1;
+    }
+    
+    app-root:empty + .loading {
+      opacity: 1;
+      z-index: 100;
+    }
+    
+    app-root:empty + .loading h1 {
+      color: #EEE;
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      text-align: center;
+      transform: translate(0, -50%);
+    }
+  </style>  
+</head>
+<body #tableWrapper class="pace-done">
+  <app-root></app-root>
+  <div class="loading">
+    <h1>Loading...</h1>
+  </div> 
+</body>
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>edit_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Graphic_Assets" transform="translate(-768.000000, -487.000000)">
+            <g id="actions" transform="translate(768.000000, 442.000000)">
+                <g id="edit_icon" transform="translate(0.000000, 45.000000)">
+                    <path d="M3,23.5 L21,23.5 C22.1810005,23.5 23.5,22.1810005 23.5,21 L23.5,3 C23.5,1.81955253 22.1806964,0.5 21,0.5 L3,0.5 C1.8193036,0.5 0.5,1.81955253 0.5,3 L0.5,21 C0.5,22.1810005 1.81899952,23.5 3,23.5 Z" id="Fill-1" stroke="#9DB4BE" stroke-width="1"></path>
+                    <path d="M9.889,17.1692 C9.824,16.6062 9.588,16.0602 9.158,15.6302 C8.729,15.2002 8.182,14.9642 7.619,14.8982 L7,17.7882 L9.889,17.1692 Z" id="Fill-1" fill="#A1B8C1" fill-rule="evenodd"></path>
+                    <path d="M9.9022,14.886 C10.3772,15.361 10.6792,15.937 10.8382,16.543 L17.2532,10.127 C17.9662,9.414 17.9662,8.248 17.2532,7.534 C16.5402,6.822 15.3732,6.822 14.6602,7.534 L8.2452,13.95 C8.8512,14.11 9.4272,14.411 9.9022,14.886" id="Fill-4" fill="#A1B8C1" fill-rule="evenodd"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

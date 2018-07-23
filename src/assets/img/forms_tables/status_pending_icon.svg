@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>status_pending_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Graphic_Assets" transform="translate(-633.000000, -489.000000)">
+            <g id="status" transform="translate(549.000000, 442.000000)">
+                <g id="status_pending_icon" transform="translate(84.000000, 47.000000)">
+                    <path d="M3.42857143,24 C1.54285714,24 0,22.4571429 0,20.5714286 L0,3.42857143 C0,1.54371429 1.54285714,0 3.42857143,0 L20.5714286,0 C22.4571429,0 24,1.54371429 24,3.42857143 L24,20.5714286 C24,22.4571429 22.4571429,24 20.5714286,24 L3.42857143,24 Z" id="Fill-1" fill="#DFC64B" fill-rule="evenodd"></path>
+                    <path d="M19.56,11.5299 C19.56,15.4129 16.413,18.5599 12.53,18.5599 C8.647,18.5599 5.5,15.4129 5.5,11.5299 C5.5,7.6479 8.647,4.4999 12.53,4.4999 C16.413,4.4999 19.56,7.6479 19.56,11.5299 Z" id="Stroke-1" stroke="#FFFFFF" stroke-width="2"></path>
+                    <polyline id="Stroke-3" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" points="12.5302 7.2775 12.5302 11.5295 14.7202 13.7205"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,87 @@
+<div class="inmodal">
+  <div class="modal-content">
+    <form [formGroup]="form" name="form">
+      <div class="modal-header">
+        <a class="close-modal p-b-sm" name="closeOpenModal"></a>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 text-left">
+            <h1 class="modal-title">{{heading}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="relative-position modal-body">
+        <div class="absolute-position loading-spinner">
+          <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+        </div>
+        <div class="row no-margins">
+          <div class="col-md-6" [ngClass]="{'has-error':!form.controls['skillId'].valid && form.controls['skillId'].touched}">
+            <app-dropdown [labelText]="'Skill Team'" id="medication_reminder" [ngClass]="{'selectpicker': true}" name="skillteam" [optionValueName]="'id'"
+              formControlName="skillId" [optionTextName]="'name'" [data]="filteredSkillData" [(ngModel)]="selectSkill"
+              (ngModelChange)="selectedSkill($event)" Validators.required>
+            </app-dropdown>
+            <div *ngIf="form.controls['skillId'].hasError('required') && form.controls['skillId'].touched" class="alert alert-danger">Please select a Skill Team</div>
+          </div>
+          <div class="col-md-6 no-padding-left" [ngClass]="{'has-error':!form.controls['legalEntityID'].valid && form.controls['legalEntityID'].touched}">
+            <app-dropdown [labelText]="'Legal Entity'" [checkRestricted]="dropDownDefaultTextColor" id="medication_reminder" [ngClass]="{'selectpicker': true}"
+              name="ligalIntity" [optionValueName]="'legalEntityID'" [optionChangeColor]="'restrictedLegalEntity'" formControlName="legalEntityID"
+              [optionTextName]="'legalEntity'" [disabled]='isDataLoading || !selectSkill' [data]="filteredLigalIntityData" [(ngModel)]="selectIntity"
+              (ngModelChange)="selectedIntity($event)" Validators.required>
+            </app-dropdown>
+            <div *ngIf="form.controls['legalEntityID'].hasError('required') && form.controls['legalEntityID'].touched" class="alert alert-danger">Please select a Legal Entity</div>
+          </div>
+
+          <!--<div class="col-md-6" *ngIf="selectedIntityData">
+            <div class="skill-team">Skill Team</div>
+            <div class="skill-team legal-entity">{{selectSkill}}</div>
+          </div>-->
+        </div>
+        <div class="row no-margins">
+          <div class="col-md-6 no-padding"></div>
+          <div class="col-md-6 no-padding">
+            <span class="checkbox checkbox-primary">
+              <input id="checkbox" type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)" [disabled]='isDataLoading'
+              />
+              <label for="checkbox">
+                <span class="restricted-user">Show restricted users</span>
+                <span class="restricted-user1" data-toggle="tooltip" data-placement="right" title="All restricted legal entities have been added to the above in red color."></span>
+              </label>
+            </span>
+          </div>
+        </div>
+        <div class="m-t-sm" *ngIf="context?.addBtn">
+          <app-button [btnText]="'ADD'" [btnDisabled]="!selectedIntityData || isDataLoading" [btnType]="'text'" [btnColor]="'submit-btn-without-icon'"
+            (getData)="getIntityCollection()"></app-button>
+        </div>
+        <div class="selected-code-box row" *ngIf="IntityCollection.length > 0">
+          <div class="row no-margins selected-code-row no-border-bottom">
+            <div class="col-md-6 unit-list-row"> Skill Team</div>
+            <div class="col-md-6 unit-box-row-text">Legal Entity</div>
+            <!--<div class="col-md-4 unit-box-row-text">Comments</div>-->
+          </div>
+          <div class="row no-margins selected-code-row" *ngFor="let data of IntityCollection">
+            <div class="col-md-6 unit-list-row-text get-ellipsis-text" [ngClass]="data.restrictedLegalEntity === true ? 'restrictedTextColor' : ''">
+                {{data.skill_name }}</div>
+            <div class="col-md-6 unit-box-text-list get-ellipsis-text text-line-hight" [ngClass]="data.restrictedLegalEntity === true ? 'restrictedTextColor' : ''">
+                {{data.legalEntity}}
+              <span (click)="removeFromSelected(data.legalEntityId, data.skillTeamId)" class="close-icon cursor"></span>
+            </div>
+            <!--<div class="col-md-4 unit-box-text-list get-ellipsis-text text-line-hight">{{data.comments}}
+              <span (click)="removeFromSelected(data.legalEntityId)" class="close-icon cursor"></span>
+            </div>-->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="footer-block-center">
+          <div class="clear">
+            <app-button [btnType]="'text'" ng-disabled="checked" [btnText]="'CLEAR'" [btnDisabled]="isDataLoading" [btnColor]="'clear'"
+              (getData)="clearModalData()"></app-button>
+          </div>
+          <div class="inline-block save">
+            <app-button [btnType]="'submit'" [btnText]="'SAVE'" [btnColor]="'save'" (getData)="addLegalEntity(form.value)" [btnDisabled]="disableSubmit"></app-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

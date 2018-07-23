@@ -1,0 +1,72 @@
+<div class="inmodal">
+  <div class="modal-content">
+    <form [formGroup]="form" name="form">
+      <div class="modal-header">
+        <a class="close-modal p-b-sm" name="closeOpenModal"></a>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 text-left">
+            <h1 class="modal-title">{{heading}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="relative-position modal-body">
+        <div class="absolute-position loading-spinner">
+          <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+        </div>  
+        <div class="row no-margins">
+            <span class="tool-tip pull-right" data-toggle="tooltip" data-placement="left" title="{{deleteTooltip}}">
+                <button type="button" class="btn btn-warning delete-btn-color pull-right" 
+                [disabled]= "deleteDisable" (click)="deleteSelectedGroup(form.value)">Delete Group</button>
+            </span>           
+        </div>       
+        <div class="row no-margins">
+          <span class="block unit-box-title">Group Name </span>
+          <input class="form-control form-element" id="NegAmt" formControlName="groupName" type="text" (keyup)="groupNameChange($event)"  maxlength="50" />
+          <div *ngIf="form.controls['groupName'].hasError('required') && form.controls['groupName'].touched" class="alert alert-danger">Please enter Group Name</div>
+          <div *ngIf="duplicateEntry" class="alert alert-danger">Duplicate group name is not allowed</div>
+        </div>
+        <hr>
+        <span class="inline-block m-r-md ques-text">Would you like to move this group?</span>
+        <span class="radio radio-primary inline-block m-r-md">
+          <input type="radio" id="test1" name="radio-group"  (change)="changeGroup(true)">
+          <label for="test1" class="yes-no-text">Yes</label>
+        </span>
+        <span class="radio radio-primary inline-block">
+          <input type="radio" id="test2" name="radio-group" [checked]='true' (change)="changeGroup(false)">
+          <label for="test2" class="yes-no-text">No</label>
+        </span> 
+        <div class="row no-margins" *ngIf="disableYearSelection">
+          <div class="col-md-4 no-padding">
+            <app-dropdown [labelText]="'Move to'" id="medication_reminder" [ngClass]="{'selectpicker': true}" name="Outreach"
+              [optionValueName]="'year'"  formControlName="year"
+              [optionTextName]="'year'"  [data]="context?.yearCollection" [(ngModel)]="context.year" (ngModelChange)="selectedYear($event)"
+              Validators.required>
+            </app-dropdown>
+          </div>          
+        </div>   
+        <!--<p>
+          <input type="radio" id="test1" name="radio-group" checked (change)="changeGroup(false)">
+          <label for="test1">Apple</label>
+        </p>
+        <p>
+          <input type="radio" id="test2" name="radio-group" (change)="changeGroup(false)">
+          <label for="test2">Peach</label>
+        </p>
+        <p>
+          <input type="radio" id="test3" name="radio-group" (change)="changeGroup(false)">
+          <label for="test3">Orange</label>
+        </p>            -->
+      </div>
+      <div class="modal-footer">
+        <div class="footer-block-center">
+          <div class="clear">
+            <app-button [btnType]="'text'" ng-disabled="checked" [btnText]="'CLEAR'" [btnColor]="'clear'" (getData)="clearModalData()"></app-button>
+          </div>
+          <div class="inline-block save">
+            <app-button [btnType]="'submit'" [btnDisabled]="disableSubmit || !form.get('groupName').valid" [btnText]="'SAVE'" [btnColor]="'save'" (getData)="editPhysicalGroup(form.value)" ></app-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

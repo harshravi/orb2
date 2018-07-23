@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="card card-container relative-position">
+    <div class="absolute-position loading-spinner">
+      <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+    </div>
+    <img id="profile-img" class="profile-img-card" src="../../../../assets/img/ford_sec_logo.svg" />
+    <p class="restrictedUser">{{loginFailed}}</p>
+    <p id="profile-name" class="profile-name-card"></p>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-signin">
+      <!--<span id="reauth-email" class="reauth-email"></span>-->
+      <input type="Text" id="inputEmail" class="form-control" formControlName="cdsId" placeholder="cdsId" required autofocus>
+      <input type="password" id="inputPassword" class="form-control" formControlName="password" placeholder="Password" required>
+      <div id="remember" class="checkbox">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block btn-signin" [disabled]="!loginForm.valid" type="submit">Sign in</button>
+    </form>
+    <!-- /form -->
+    <a class="forgot-password">Forgot the password?</a>
+  </div>
+  <!-- /card-container -->
+</div>
+<!-- /container -->

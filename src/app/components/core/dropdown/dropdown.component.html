@@ -1,0 +1,27 @@
+<!--<select *ngIf="!isSimpleData" class="ui fluid dropdown" #item [ngClass]="classObj" (change)="onChange()" (blur)="onBlur()">
+  <option *ngFor="let val of _data" value="{{val[_optionValueName]}}">
+    {{val[_optionTextName]}}
+  </option>
+</select>
+
+<select *ngIf="isSimpleData" class="ui fluid dropdown" #item [ngClass]="classObj" (change)="onChange()" (blur)="onBlur()">
+  <option *ngFor="let val of _data" value="val">
+    {{val}}
+  </option>
+</select>-->
+<span class="dropdown-lebel-text">{{labelText}}</span>
+<div [ngClass]="{'open' : isDropdownOpen}" class="dropdown custom-single-dropdown">
+  <button [disabled]="_disabled" (click)="dropdownClick($event)" #item class="btn btn-default dropdown-toggle dropdown-noWrap form-element {{changeBgColor}}" 
+    [class.red]="(checkRestricted === true) && (selectedText !== 'Select')" type="button" data-toggle="dropdown">
+    {{selectedText ? selectedText : 'Select'}}<span class="fa fa-chevron-down dropdown-arrow"></span></button>
+  <ul *ngIf="!isSimpleData" class="dropdown-menu left-menu" role="menu" aria-labelledby="menu1">
+    <li (click)="optionSelected(val)" *ngFor="let val of _data" role="presentation">
+      <a role="menuitem" class="{{val?._optionChangeColor}}" [ngClass]="{'red': val[_optionChangeColor] === true}" tabindex="-1">{{val[_optionTextName]}}</a>
+    </li>
+  </ul>
+  <ul *ngIf="isSimpleData" class="dropdown-menu left-menu dropDown" role="menu" aria-labelledby="menu1">
+    <li (click)="optionSelected(val)" *ngFor="let val of _data" role="presentation">
+      <a role="menuitem" tabindex="-1">{{val}}</a>
+    </li>
+  </ul>
+</div>

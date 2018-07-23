@@ -1,0 +1,89 @@
+<nav class="cd-side-nav">
+    <div class="row save-alert-header" *ngIf="showRibon">
+        <div class="col-md-6 info-icon text-heading">
+          <h2 class="text-left main-text">Your changes have not been saved</h2>
+          <h4 class="text-left font-12 m-t-xs">Would you like to stay on the page</h4>
+        </div>
+        <div class="col-md-6 ">
+          <p class="text-left">
+            <button class="btn btn-pm btn-stay" (click)="stay()">Stay</button>
+            <button class="btn btn-sc btn-leave" (click)="leave()">Leave</button>
+          </p>
+        </div>
+      </div>
+  <ul class="{{hightlightNav}}" [ngClass]="{'disabled' : EditTrue}">
+    <li class="has-children overview">
+      <a (click)="changeRoutingLocation('/home/dashboard')" class="dashboard" >Dashboard</a> 
+      <!--<ul class="cd-sub-side-nav">
+        <li><a [routerLink]="['/home/dashboard']" href="#0">All Data</a></li>
+        <li><a href="#0">Category 1</a></li>
+        <li><a href="#0">Category 2</a></li>
+      </ul>-->
+    </li>
+
+    <li class="has-children comments">
+      <a class="role-specific-function" >Role Specific <br>Functions</a>
+
+      <ul class="cd-sub-side-nav">
+        <li><a (click)="changeRoutingLocation('/home/addnewapplication')">Add New Application</a></li>
+        <li><a (click)="changeRoutingLocation('/home/application')">Usage</a></li>
+        <li><a (click)="changeRoutingLocation('/home/volume')">Volume</a></li>
+        <li><a (click)="changeRoutingLocation('/home/lumpsum')">Lump Sums</a></li>
+        <li><a (click)="changeRoutingLocation('/home/approvals')">Approvals</a></li>       
+      </ul>
+    </li>
+
+    <!--<li class="has-children comments">
+      <a class="reports">Reports</a>
+    </li>-->
+    <!--<li class="has-children comments">
+      <a href="#0">Comments</a>
+
+      <ul class="cd-sub-side-nav">
+        <li><a href="#0">All Comments</a></li>
+        <li><a href="#0">Edit Comment</a></li>
+        <li><a href="#0">Delete Comment</a></li>
+      </ul>
+    </li>
+
+    <li class="has-children comments">
+      <a href="#0">Comments</a>
+
+      <ul class="cd-sub-side-nav">
+        <li><a href="#0">All Comments</a></li>
+        <li><a href="#0">Edit Comment</a></li>
+        <li><a href="#0">Delete Comment</a></li>
+      </ul>
+    </li>
+
+    <li class="has-children comments">
+      <a href="#0">Comments</a>
+
+      <ul class="cd-sub-side-nav">
+        <li><a href="#0">All Comments</a></li>
+        <li><a href="#0">Edit Comment</a></li>
+        <li><a href="#0">Delete Comment</a></li>
+      </ul>
+    </li>
+
+    <li class="has-children comments">
+      <a href="#0">Comments</a>
+
+      <ul class="cd-sub-side-nav">
+        <li><a href="#0">All Comments</a></li>
+        <li><a href="#0">Edit Comment</a></li>
+        <li><a href="#0">Delete Comment</a></li>
+      </ul>
+    </li>
+
+    <li class="has-children comments">
+      <a href="#0">Comments</a>
+
+      <ul class="cd-sub-side-nav">
+        <li><a href="#0">All Comments</a></li>
+        <li><a href="#0">Edit Comment</a></li>
+        <li><a href="#0">Delete Comment</a></li>
+      </ul>
+    </li>-->
+  </ul>
+</nav>

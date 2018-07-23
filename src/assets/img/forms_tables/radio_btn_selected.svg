@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>radio_btn_selected</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Graphic_Assets" transform="translate(-561.000000, -373.000000)" fill="#1162BA">
+            <g id="forms_and_tables" transform="translate(547.000000, 221.000000)">
+                <g id="radio_btn_selected" transform="translate(14.000000, 152.000000)">
+                    <path d="M9,5.48672775 C7.03256754,5.48672775 5.48672775,7.03256754 5.48672775,9 C5.48672775,10.9674325 7.03256754,12.5132723 9,12.5132723 C10.9674325,12.5132723 12.5132723,10.9674325 12.5132723,9 C12.5132723,7.03256754 10.9674325,5.48672775 9,5.48672775 L9,5.48672775 Z M9,0 C4.05,0 0,4.05 0,9 C0,13.95 4.05,18 9,18 C13.95,18 18,13.95 18,9 C18,4.05 13.95,0 9,0 L9,0 Z M8.99999981,16.1999996 C5.03999991,16.1999996 1.8,12.9599997 1.8,8.99999981 C1.8,5.03999991 5.03999991,1.8 8.99999981,1.8 C12.9599997,1.8 16.1999996,5.03999991 16.1999996,8.99999981 C16.1999996,12.9599997 12.9599997,16.1999996 8.99999981,16.1999996 L8.99999981,16.1999996 Z" id="Form/radio-button/selected"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

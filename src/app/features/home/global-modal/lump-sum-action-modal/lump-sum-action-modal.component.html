@@ -1,0 +1,48 @@
+<div class="inmodal">
+  <div class="modal-content">
+    <form [formGroup]="form" name="form">
+      <div class="modal-header">
+        <a class="close-modal p-b-sm" name="closeOpenModal"></a>
+        <div class="row">
+          <div class="col-md-11 text-left">
+            <h1 class="modal-title">{{heading}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body relative-position">
+        <div class="absolute-position loading-spinner">
+          <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+        </div>
+        <div class="selected-code-box row">
+          <div class="row no-margins selected-code-row no-border-bottom">
+            <div class="col-md-2 unit-box-row-text">Lump Sum Id </div>
+            <div class="col-md-3 unit-box-row-text">Owning Region & <br>Skill Team</div>
+            <div class="col-md-3 unit-box-row-text">Incurred Code:Service</div>
+            <div class="col-md-2 unit-box-row-text">Legal Entity Count </div>
+            <div class="col-md-2 unit-box-row-text">Lump Sum Volume</div>
+          </div>
+          <div class="listOfRowData">
+            <div class="row no-margins selected-code-row" *ngFor="let data of selectedRowForDelete">
+              <div class="col-md-2 unit-list-row-text get-ellipsis-text">{{data.lumpSumpsId}}</div>
+              <div class="col-md-3 unit-list-row-text get-ellipsis-text">{{data.regionName}}<br>{{data.skillTeam}}</div>
+              <div class="col-md-3 unit-list-row-text get-ellipsis-text text-line-hight">{{data.serviceCatalogue}}</div>
+              <div class="col-md-2 unit-list-row-text get-ellipsis-text">{{data.legalEntity}}</div>
+              <div class="col-md-2 unit-list-row-text get-ellipsis-text text-line-hight">{{data.volume | number}} {{data.volumeUFM}}</div>
+            </div>
+          </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <div class="footer-block-center">
+      <div class="inline-block">
+        <app-button [btnType]="'text'" [btnText]="'CLOSE'" [btnColor]="'clear'" (getData)="closeModal()"></app-button>
+      </div>
+      <div class="inline-block">
+        <app-button [btnType]="'submit'" [btnText]="actionBtnText" [btnColor]="'save'" [btnDisabled]="isDataLoading || !form.valid"
+          (getData)="submitRemove()"></app-button>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+</div>

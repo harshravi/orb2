@@ -1,0 +1,28 @@
+.bottom-action-ribon{
+    height: 80px;
+    /* background: red; */
+    position: absolute;
+    bottom: 0;
+    /* margin-top: 44VH; */
+    width: 100%;
+    background: rgba(23, 20, 20, 0.73);
+    margin-left: -1px!important; 
+    z-index: 100;
+    // opacity: 0.82;
+    // background-color: #2C313B;       
+}
+.tool-tip {
+    display: inline-block;
+} 
+.separator{
+    border: 1px solid #979797;
+    height: 40px;
+    margin: 0px 10px -15px 10px;
+}
+.clear-all{
+    text-decoration: underline;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #FFFFFF;    
+}

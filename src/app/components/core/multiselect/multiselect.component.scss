@@ -1,0 +1,87 @@
+@import "../../../../assets/scss/_checkbox-radio-btn";
+@import '~assets/scss/_variables.scss';
+@import '~assets/scss/_mixins.scss';
+.dropdown-menu{
+    padding:10px;
+    top:inherit;
+    left:inherit;
+    right:0px;
+    max-height: 25vh;
+    overflow-y:auto;
+    width:100%;
+}
+
+.dropdown-menu li{
+    padding:5px 0;
+}
+.red {
+    color: $dropdown-reject-status;
+}
+.red:hover {
+    color: $dropdown-reject-status;
+}
+.checkbox-custom {
+    opacity: 0;
+    position: absolute;   
+}
+
+.checkbox-custom, .checkbox-custom-label {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
+    cursor: pointer;
+    word-wrap: break-word;
+    text-align: left; 
+}
+
+.checkbox-custom-label {
+    position: relative;
+}
+
+.multiSelect-button{
+    width:100%;
+    // margin-bottom: 0px;
+    text-align: left;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    height: 36px;      
+}
+
+.checkbox-custom + .checkbox-custom-label:before {
+    content: '';
+    background: #fff;
+    border: 1px solid #a8b2c2;
+    display: inline-block;
+    vertical-align: middle;
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+    float: left;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.checkbox-custom:checked + .checkbox-custom-label:before {
+    background: #2C8F7B;
+    content: '✔';
+    color: #fff;
+    line-height: 1.4; 
+}
+p.multiselectOption {
+    font-size: 13px;
+}
+
+p.multiselectOption i {
+    color: #ccc;
+    font-weight: normal;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    font-size: 11px;
+}
+
+p.multiselectOption span {
+    color: #333;
+    padding-left: 1px;
+    cursor: pointer;
+}

@@ -1,0 +1,44 @@
+// padding all
+@mixin padding-all($top, $right, $bottom, $left) {
+  padding-top: $top;
+  padding-right: $right;
+  padding-bottom: $bottom;
+  padding-left: $left;
+}
+
+// margin all
+@mixin margin-all($top, $right, $bottom, $left) {
+  margin-top: $top;
+  margin-right: $right;
+  margin-bottom: $bottom;
+  margin-left: $left;
+}
+
+// font-size
+@mixin fontSize($size){
+    font-size: $size;
+}
+
+// for textcolor and backgrond color
+@mixin color-background($textColor,$bg){
+    color: $textColor;
+    background-color: $bg;
+}
+
+// for border radius 
+@mixin radius-all($tLeft, $tRight, $bRight, $bLeft){
+    border-top-left-radius: $tLeft;
+    border-top-right-radius: $tRight;
+    border-bottom-right-radius: $bRight;
+    border-bottom-left-radius: $bRight;
+}
+
+/* Custom Mixins start from here */
+
+// For border radius with same value
+@mixin radius-all-equal($aValue){
+    border-top-left-radius: $aValue;
+    border-top-right-radius: $aValue;
+    border-bottom-right-radius: $aValue;
+    border-bottom-left-radius: $aValue;
+}

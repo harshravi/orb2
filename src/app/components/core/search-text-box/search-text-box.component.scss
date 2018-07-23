@@ -1,0 +1,26 @@
+@import "../../../../assets/scss/_variables";
+.left-inner-addon {
+    position: relative;
+    span{
+        position: absolute;
+        left: 9px;
+        top: 10px;
+        color: #a28e8e;
+        font-size: 15px;
+    }
+}
+.left-inner-addon input {   
+    padding: 0 0 0 30px;
+    // background: $left-panel-bg;   
+}
+.left-inner-addon input:focus{
+    background: $white;
+}
+.left-inner-addon i {
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+// .left-inner-addon input.small-search{
+//     height: 31px;
+// }

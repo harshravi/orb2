@@ -1,0 +1,352 @@
+<div id="test" class="container bootsidemenu bootsidemenu-left sliding-nav" *ngIf="showNav;else showDashboardDetails ">
+  <div class="user {{showFilterBox}}">
+    <app-search-text-box [smallSearch]="'bigsearchBox'" #searchedContentText [searchValue]="seachedValue" [placeHolder]="'APP ID/Application Name'"
+      (appsearch)="enterText($event)"></app-search-text-box>
+  </div>
+  <div class="menu-wrapper">
+    <div class="no-display {{showSearchBox}}">
+      <div class="based-on-apps m-t-sm" *ngIf="searchedData.length > 0">
+        <span class='search-title'>Apps Based on your pre-selected filters</span>
+        <ul class="searched-list">
+          <li (click)="selectedAppRow(data, 'usageFilteredApp', true)" class="cursor" *ngFor="let data of searchedData">
+            <div class="app-detail-box">
+              <div class="inline-block app-num">{{data.itmsNo}}</div>
+              <div class="inline-block p-l-xs appName">{{data.applicationName}}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="other-apps m-t-sm" *ngIf="otherThanSearchedApp?.length > 0">
+        <span class='search-title'>Other Apps</span>
+        <ul class="searched-list">
+          <li (click)="selectedAppRow(data, 'otherApp', false)" class="cursor" *ngFor="let data of otherThanSearchedApp">
+            <div class="app-detail-box">
+              <div class="inline-block app-num">{{data.itmsNo}}</div>
+              <div class="inline-block p-l-xs appName">{{data.applicationName}}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="other-apps m-t-xl m-l-md m-r-md text-center" *ngIf="(searchedData?.length === 0) && (otherThanSearchedApp?.length === 0)">
+        <span class='search-title-no-apps'>No Apps</span>
+      </div>
+    </div>
+    <div class="show-filter-box search-title" *ngIf="filterIsActive">
+      <div class="based-on-apps">
+        <span class='m-b-sm'>Regions</span>
+        <app-multiselect [listData]="AllRegions" [defaultName]="'Select'" [multiSelectIndex]="multiselectTwo" [planText]="'Selected'"
+          [optionTextName]="'region'" [updatedData]="updatedStage" #legalEntites (selection)="onRegionSelection($event)" (selectedAll)="selectedAllFilters($event,'regions')"
+          (unselectedAll)="unselectedAllFilter($event,'regions')" [multiRigionselectCount]="selectedRegionCount" (SearchTextFilter)="filterSearch($event)"></app-multiselect>
+      </div>
+      <div class="other-apps m-t-lg">
+        <span class='m-b-sm'>My Skill Teams</span>
+        <app-multiselect [listData]="allSkill" [multiSelectIndex]="multiselectOne" [planText]="'Selected'" [updatedData]="updatedData"
+          [multiskillselectCount]="selectedSkillsCount" #skill [optionTextName]="'name'" (selection)="onSkillSelection($event)" [defaultName]="'Select'"
+          [userEligibleSkills]="dashboardDeatils" (SearchTextFilter)="filterSearchSkill($event)" (selectedAll)="selectedAllFilters($event,'skill')"
+          (unselectedAll)="unselectedAllFilter($event,'skill')"></app-multiselect>
+        <!-- <app-multiselect [listData]="allSkill" defaultName="Selected" [multiSelectIndex]="multiselectTwo"
+                    [updatedData]="updatedData" (selection)="onSelection($event)"></app-multiselect>                -->
+      </div>
+      <div class="other-apps m-t-lg" *ngIf="showNavFor === 'volume'">
+        <span class='m-b-sm'>My Services</span>
+        <app-multiselect [listData]="allServices" [multiSelectIndex]="multiselectThree" [planText]="'Selected'" [updatedData]="updatedData"
+          [multiskillselectCount]="selectedServicesCount"  [optionTextName]="'name'" #entities (selection)="onServiceSelection($event)"
+          [defaultName]="'Select'" (SearchTextFilter)="filterSearchService($event)" (selectedAll)="selectedAllFilters($event,'service')"
+          (unselectedAll)="unselectedAllFilter($event,'service')"></app-multiselect>
+        <!--<app-multiselect [listData]="allSkill" defaultName="Selected" [multiSelectIndex]="multiselectTwo"
+                    [updatedData]="updatedData" (selection)="onSelection($event)"></app-multiselect>                -->
+      </div>
+      <div class="m-t-md"> 
+        <div class="inline-block pull-right">
+          <app-button [btnColor]="'submit-btn-without-icon'" [btnText]="'FILTER'" (click)="usgaeFilter()" [btnDisabled]="usageFilter"></app-button>
+        </div>
+        <div class="inline-block m-t-sm m-r-lg font-12 pull-right cursor">
+          <app-button [btnText]="'Reset'" [btnColor]="'reset-white-btn'" (getData)="resetFilter(legalEntites, skill, entities)">
+          </app-button>
+        </div>
+      </div>
+    </div>
+    <div class="filter {{lessOpacity}}">
+      <a class="filter-text" (click)="toggleFilter()">
+        <img src="../../../../assets/img/filter_icon.svg" alt="">
+        <span class="filter-icon" #filterText>Show Filters</span>
+      </a>
+      <a *ngIf="showShorting" (click)="showAppShorting(false)" class="filter-sort">
+        <span class="filter-sort-icon-off"></span>
+      </a>
+      <a *ngIf="!showShorting" (click)="showAppShorting(true)" class="filter-sort">
+        <span class="filter-sort-icon-on"></span>
+      </a>
+    </div>
+    <!--this is nav details for usage-->
+    <div class="list-group appList {{lessOpacity}}" *ngIf="showNavFor === 'usage'">
+      <app-progress-spinner [isRunning]="isDataLoading || !appData"></app-progress-spinner>
+      <div class="list-group-item cursor" *ngFor="let data of appData; let i = index" (click)="toggleHighlightSearch(i);selectedAppRow(data, 'usageApp', true)"
+        [ngClass]="{'highlight-list-row': highlightedSearchedRow === i}">
+        <div>
+          <span class="itmsId-text inline-block">{{data.itmsNo}}</span>
+          <div class="inline-block app-list relative-position">{{data.applicationName}}
+            <br>
+            <span class="entities inline-block">{{data.pendingCount}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--this is nav details for Volume-->
+    <div class="list-group appList {{lessOpacity}}" *ngIf="showNavFor === 'volume'">
+      <app-progress-spinner [isRunning]="isDataLoading || !appData"></app-progress-spinner>
+      <div class="list-group-item" *ngFor="let data of appData; let i = index"  [ngClass]="{'highlight-list-row': highlightedSearchedRow === i}">
+        <div>
+          <span class="itmsId-text inline-block ">{{data.itmsNo}}</span>
+          <div class="inline-block app-list relative-position">
+            <div (click)="selectedAppRow(data, 'usageApp', true);toggleHighlightSearch(i)" class="cursor">
+              <div class="text-ellipsis m-b-xs line-hight-sm">{{data.applicationName}}</div>
+              <div class="volume-entities text-ellipsis inline-block">{{data.pendingCount}}</div>
+            </div>
+            <div *ngIf="(detailsNames?.length > 0) && (data.itmsId === detailsId)">
+              <div (click)="openRelatedDetailPage(item,data)" class="m-t-sm" *ngFor="let item of detailsNames; let j = index">
+                <div class="m-t-xs font-11 cursor text-ellipsis nav-sub-text font-normal" (click)="toggleHighlightService(j)" [ngClass]="{'highlight-list-service-row': highlightedServiceRow === j}">{{item.incurredCodeService}}</div>
+              </div>
+              <div class="m-t-sm">
+                <app-button [btnColor]="'submit-btn-color'" [btnDisabled]="enableServiceBut" (getData)="openModalToAdd(data.itmsId)" [smallBtn]="'small-submit-btn'"
+                  [icon]="'add'" [btnText]="'ADD SERVICE'"></app-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showNav" class="toggler bg-darkblue" id='arrow' data-whois="toggler">
+  <span id='arrow-span' class="glyphicon glyphicon-triangle-left">&nbsp;</span>
+</div>
+<ng-template #showDashboardDetails>
+  <div id="test" class="container bootsidemenu bootsidemenu-left sliding-nav">
+    <div class="dash-profile-details">
+      <div class="feed-element">
+        <div class="pull-left">
+          <span>
+            <!--<img class="patient-name member-name-circle" src="../../../../assets/img/loiane.jpg" alt="avatar">-->
+            <span class="patient-name member-name-circle user-Default-img"></span>
+          </span>
+        </div>
+        <div class="media-body">
+          <h3 class="text-muted text-overflow participant-profile">Welcome!</h3>
+          <h2 class="text-overflow font-noraml participant-name">{{userName}}</h2>
+        </div>
+      </div>
+      <div>
+        <div class="row no-margins text-center userDetailsCount">
+          <!--<app-progress-spinner [isRunning]="showSpinner"></app-progress-spinner>-->
+          <div class="col-xs-4">
+            <span class="details-count">{{navDetailsData?.roleCount}}</span>
+            <p class="m-t-xs text-muted sm-font text">ROLES</p>
+          </div>
+          <div class="col-xs-4 no-padding">
+            <span class="details-count">{{navDetailsData?.regionCount}}</span>
+            <p class="m-t-xs text-muted sm-font text">OWNING REGION</p>
+          </div>
+          <div class="col-xs-4">
+            <span class="details-count">{{navDetailsData?.skillTeamCount}}</span>
+            <p class="m-t-xs text-muted sm-font text">SKILL TEAMS</p>
+          </div>
+        </div>
+        <div class="dashboard-nav-details p-t-lg p-l-md p-r-md row no-margins">
+          <app-progress-spinner [isRunning]="showSpinner"></app-progress-spinner>
+          <div *ngFor="let data of navDetailsData?.userDetails; let i = index" class="skill-container-box p-l-sm">
+            <div class="col-xs-1 role-region">
+              <span class="role-region-img"></span>
+            </div>
+            <div class="col-xs-10 region-details no-padding-right no-padding-left">
+              <div>
+                <div class="detail-text">{{data.roleName}}</div>
+                <div class="region-text m-t-xs">{{data.regionName}}</div>
+              </div>
+              <div class="m-t-md">
+                <div class="skill-text col-xs-4 no-padding"> SKILL TEAMS </div>
+                <div class="skill-details p-l-sm col-xs-8 no-padding-right">
+                  <div *ngFor="let item of data?.skillTeam; let i = index">{{item}}</div>
+                  <!--<div>BIT</div>-->
+                </div>
+              </div>
+              <div class="cleardiv"></div>
+              <div class="m-t-md">
+                <div class="skill-text col-xs-4 no-padding"> SERVICES </div>
+                <div class="skill-details p-l-sm col-xs-8 no-padding-right">
+                  <div *ngFor="let service of data?.serviceCatalog; let i = index">{{service}}</div>
+                  <!--<div>BIT</div>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="update-role-box m-t-sm text-center">
+      <div class="update-role-text m-t-md m-b-sm"> Want to update your role? </div>
+      <div class="update-role-btn">
+        <a href="https://it1.spt.ford.com/sites/ITConsumption/Lists/Matched%20Pairs/AllItems.aspx" target="_default">
+          <app-button [btnColor]="'submit-btn-color'" [btnText]="'GO TO MATCHED PAIRS LIST'"></app-button>
+        </a>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div class="container bootsidemenu bootsidemenu-left sliding-nav" *ngIf="showNavApprovals">
+  <app-progress-spinner [isRunning]="showSpinner"></app-progress-spinner>
+  <div class="approvalFilter">
+    <div class="filter-header-text">Filters</div>
+    <div class="m-t-md">
+      <form (formGroup)="form" name="form">
+        <div class="dropdown" id="approvalsSection">
+          <input 
+            type="Text" 
+            id="inputEmail" 
+            data-toggle="dropdown" 
+            formControlName="applicationEntityID" 
+            class="form-control" 
+            placeholder="APP ID/Application Name"
+            required 
+            #appIdName 
+            (input)="autoSearch($event)" 
+            (keyup)="enableType($event)" 
+            autocomplete="off" 
+            (click)="clickedInside($event)">
+          <div class="dropdown custom-single-dropdown">
+            <ul class="dropdown-menu adddropmenu" role="menu" aria-labelledby="menu1" *ngIf="typehead" #typeahead (click)="clickedInside($event)" id="approvaldropdown">
+              <li *ngFor="let x of searchData" (click)="updateApplicationName(item)">
+                <a>{{item.applicationID}} {{item.applicationName}}</a>
+              </li>
+              <li disabled="true" *ngIf="typeheadNoResult" class="disabled" id="noapplication">
+                <a>Enter APP ID/Application Name else Application is either already added</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </form>
+    </div>       
+    <div class="m-t-md">
+      <div class="based-on-apps">        
+        <app-dropdown 
+          [labelText]="'Skill Team'" 
+          id="allSkill" 
+          name="skillteam"
+          [optionValueName]="'id'"          
+          [optionTextName]="'name'" 
+          [data]="allSkill"
+          [(ngModel)]="selectSkill">
+        </app-dropdown>
+      </div>
+    </div>
+    <!-- <div class="m-t-md">
+      <div class="based-on-apps">          
+        <app-dropdown 
+          id="all-services"
+          name="all-services"
+          [labelText]="'Service'"
+          [optionValueName]="'id'" 
+          [optionTextName]="'name'"          
+          [data]="allServices"
+          [(ngModel)]="selectService">
+        </app-dropdown>        
+      </div>
+    </div> -->
+    <div class="m-t-md">
+      <div class="based-on-apps">            
+        <app-dropdown 
+          id="legal-entity"
+          name="legal-entity"
+          [labelText]="'Legal Entity'"
+          [optionValueName]="'legalEntityID'" 
+          [optionTextName]="'legalEntity'"          
+          [data]="allLegalEntity"
+          [(ngModel)]="selectLegalEntity">
+        </app-dropdown>            
+      </div>
+    </div>
+    <div class="m-t-md">
+      <div class='based-on-apps'>            
+        <app-dropdown 
+          [labelText]="'Funding Regions'" 
+          id="AllRegions" 
+          name="Funding Regions"
+          [optionValueName]="'regionId'" 
+          [optionTextName]="'region'"          
+          [data]="AllRegions"
+          [(ngModel)]="selectRegion">
+        </app-dropdown>
+      </div>
+    </div>
+         
+    <div class="m-t-md pull-right">
+      <div class="inline-block m-r-md font-12 cursor">
+        <app-button 
+          [btnText]="'Reset'" 
+          [btnColor]="'reset-btn'" 
+          (getData)="resetApprovalFilter(regions, skill, entities, region)">
+        </app-button>
+      </div>
+      <div class="inline-block">
+        <app-button 
+          [btnColor]="'submit-btn-without-icon'" 
+          [btnText]="'FILTER'" 
+          (click)="approvalFilter()" 
+          [btnDisabled]="usageFilter">
+        </app-button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container bootsidemenu bootsidemenu-left sliding-nav" *ngIf="showNavFor === 'lumpsums'">
+  <app-progress-spinner [isRunning]="!(allSkill.length > 0)"></app-progress-spinner>
+  <div class="approvalFilter filterOverflow" *ngIf="(allSkill.length > 0)">
+    <div class="filter-header-text">Filters</div>
+    <div class="based-on-apps">
+      <span class='m-b-sm font-12'>Owning Region</span>
+      <div class="m-t-xs">
+        <app-multiselect [listData]="AllRegions" [defaultName]="'Select'" [multiSelectIndex]="multiselectTwo" [planText]="'Selected'"
+          [optionTextName]="'region'" [updatedData]="updatedStage" #legalEntites (selection)="onRegionSelection($event)" [multiRigionselectCount]="selectedRegionCount"
+          (SearchTextFilter)="filterSearch($event)" (selectedAll)="selectedAllFilters($event,'regions')" (unselectedAll)="unselectedAllFilter($event,'regions')"></app-multiselect>
+        <div class="ligalEntity-list-collection">
+          <div class="p-l-sm p-r-sm border-bottom" *ngFor="let x of selectedRegion">
+            <div class="m-t-sm p-b-sm">
+              <span class="font-12">{{x.region}}</span>
+              <span class="pull-right cursor" (click)="removeSelectedRegion(x,legalEntites)">x</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="other-apps m-t-lg">
+      <div class='m-b-sm font-12'>Skill Team</div>
+      <div class="m-t-xs">
+        <div>
+          <app-multiselect [listData]="allSkill" [multiSelectIndex]="multiselectOne" #skill [planText]="'Selected'" [updatedData]="updatedData"
+            [multiskillselectCount]="selectedSkillsCount" [optionTextName]="'name'" (selection)="onSkillSelection($event)"
+            [defaultName]="'Select'" [userEligibleSkills]="dashboardDeatils" (SearchTextFilter)="filterSearchSkill($event)"
+            (selectedAll)="selectedAllFilters($event,'skill')" (unselectedAll)="unselectedAllFilter($event,'skill')"></app-multiselect>
+          <div class="skill-list-collection">
+            <div class="p-l-sm p-r-sm border-bottom" *ngFor="let x of selectedSkills">
+              <div class="m-t-sm p-b-sm">
+                <span class="font-12">{{x.name}}</span>
+                <span class="pull-right cursor" (click)="removeSelectedSkill(x,skill)">x</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="m-t-md pull-right">
+      <div class="inline-block m-r-md font-12 cursor">
+        <app-button [btnText]="'Reset'" [btnColor]="'reset-btn'" (getData)="resetModalData(legalEntites, skill)">
+        </app-button>
+      </div>
+      <div class="inline-block">
+        <app-button [btnColor]="'submit-btn-without-icon'" [btnText]="'FILTER'" [btnDisabled]="usageFilter" (click)="lumsumFilter()"></app-button>
+      </div>
+    </div>
+  </div>
+</div>

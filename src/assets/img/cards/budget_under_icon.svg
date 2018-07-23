@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="12px" viewBox="0 0 13 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>budget_under_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Graphic_Assets" transform="translate(-183.000000, -869.000000)" fill="#21C9A4">
+            <g id="Cards" transform="translate(127.000000, 811.000000)">
+                <g id="budget_under_icon" transform="translate(56.000000, 58.000000)">
+                    <path d="M12.2686736,5.46890193 C11.8632384,5.07560771 11.2079059,5.07560771 10.8024707,5.46890193 L7.60876132,8.56596815 L7.60876132,1.00586756 C7.60876132,0.450628667 7.14525869,0 6.5718427,0 C5.99946362,0 5.53492407,0.450628667 5.53492407,1.00586756 L5.53492407,8.56596815 L2.34225163,5.46890193 C1.93785337,5.07560771 1.28148388,5.07560771 0.876048697,5.46890193 C0.471650434,5.86219614 0.471650434,6.49790444 0.876048697,6.89119866 L5.83874123,11.7052808 C6.04197728,11.9024308 6.30639153,12 6.5718427,12 C6.83729386,12 7.10274503,11.9024308 7.30494416,11.7052808 L12.2686736,6.89119866 C12.6741088,6.49790444 12.6741088,5.86219614 12.2686736,5.46890193" id="Fill-7" transform="translate(6.572750, 6.000000) scale(1, -1) rotate(-180.000000) translate(-6.572750, -6.000000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

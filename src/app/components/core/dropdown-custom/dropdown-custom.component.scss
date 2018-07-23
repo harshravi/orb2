@@ -1,0 +1,15 @@
+li.customTextBox{
+    padding:3px 12px;
+    input[type="text"]
+    {
+        width:50px;
+        display: inline-block;
+        float: right;
+        margin-bottom: 10px;
+    }
+}
+.dropdown{
+    button{
+        width:100%;
+    }
+}

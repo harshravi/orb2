@@ -1,0 +1,46 @@
+<app-side-nav [hightlightNav]="'highlight-first-nav'"></app-side-nav>
+<app-nav-details-menu [showSpinner]="isDataLoading" [showNav]="showNavDetails" [navDetailsData]="dashboardDeatils"></app-nav-details-menu>
+<div class="content-wrapper">
+    <app-content-header [usageHeader]="false" [dashboardHeader]="true"></app-content-header>
+    <div class="container-box">
+        <div class="row no-margins">
+            <div class="col-md-4 padding-right no-padding-left">
+                <div class="applicaton-count-box">
+                    <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+                    <div class="col-xs-6 application-count-text">
+                        <span class="font-big">
+                            <span *ngIf=" dashboardDeatils?.applicationCount!= null; else showZero ">{{dashboardDeatils?.applicationCount}}</span>
+                        <ng-template #showZero>
+                            <span>0</span>
+                        </ng-template>
+                        </span>
+                        <br>
+                        <span class="font-small">APPLICATIONS</span>
+                    </div>
+                    <div class="col-xs-6 graph-img"></div>
+                </div>
+            </div>
+            <div class="col-md-4 no-padding-left padding-right">
+                <img class="img-responsive img-hight-width" src="../../../../assets/img/dashboard_img/img_sample_2.png" alt="">
+            </div>
+            <div class="col-md-4 no-padding-left no-padding-right">
+                <img class="img-responsive img-hight-width" src="../../../../assets/img/dashboard_img/img_sample_3.png" alt="">
+            </div>
+        </div>
+        <hr>
+        <div class="row no-margins p-t-lg">
+            <div class="col-md-8 padding-right no-padding-left">
+                <img class="img-responsive" src="../../../../assets/img/dashboard_img/img_sample_1.png" alt="">
+            </div>
+            <div class="col-md-4 no-padding-left no-padding-right relative-position">
+                <a class="absolute-position link-for-user-training" href="https://it1.spt.ford.com/sites/ITConsumption/Shared%20Documents/Forms/AllItems.aspx?RootFolder=%2Fsites%2FITConsumption%2FShared%20Documents%2FTraining&FolderCTID=0x0120008D568CAAF088EE4BBDB9402F967AD6DC&View=%7B30939786-AC49-45A1-A18D-3D7F64F65E65%7D"
+                    target="_default">
+                </a>
+                <img class="img-responsive" src="../../../../assets/img/dashboard_img/img_sample_4.png" alt="">
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!--<h1 (click)="viewModal()">{{text}}</h1>-->

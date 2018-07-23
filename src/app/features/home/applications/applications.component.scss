@@ -1,0 +1,179 @@
+
+@import "../../../../assets/scss/_variables";
+@import "../../../../assets/scss/_checkbox-radio-btn";
+
+.loading-spinner{
+    top: 40%;
+    left: 50%;      
+}
+.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell .datatable-header-cell-label {
+    box-sizing: border-box;    
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: normal !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    width: 100%;   
+  }
+.ngx-datatable.material {
+    z-index: 99;
+    overflow: initial;
+}
+// .ngx-datatable .datatable-body{
+//     height: 44vh!important;
+//     overflow-y: scroll;
+//     overflow-x: hidden;
+// }
+// .container-box{
+//     overflow: visible;
+// }   
+.disabled {
+    pointer-events: none;
+    cursor: not-allowed; 
+} 
+// .action-btn-box{
+//     position: relative;
+// }
+.edit-btn:disabled{
+    opacity: 0.2;
+    pointer-events: none;
+}
+.table-row-bold-text.red{
+    color: #C72536;
+}
+.edit-btn{
+    content: '';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background: url(../../../../assets/img/forms_tables/edit_icon.svg) no-repeat;
+    border:none;
+    outline: none;
+}  
+.edit-btn:hover:enabled{
+    content: '';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background: url(../../../../assets/img/forms_tables/edit_icon_colored.svg) no-repeat;
+    z-index: 1;
+}
+.delete-btn{
+    content: '';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background: url(../../../../assets/img/forms_tables/delete_icon.svg) no-repeat;
+    right: 10px;
+    border: none;
+    outline: none;
+}
+.delete-btn:disabled{
+    opacity: 0.2;
+    pointer-events: none;
+}
+.delete-btn:hover:enabled{
+    content: '';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background: url(../../../../assets/img/forms_tables/delete_icon_colored.svg) no-repeat;
+    right: 10px;
+    z-index: 1;
+}
+.add-btn{
+    content: '';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background: url(../../../../assets/img/forms_tables/addnew_icon.svg) no-repeat;
+    // right: 30px;
+    border: none;
+    outline: none;
+}
+.add-btn:disabled{
+    opacity: 0.2;
+}
+.add-btn:hover:enabled{
+    content: '';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background: url(../../../../assets/img/forms_tables/addnew_icon_colored.svg) no-repeat;
+    // left: 30px;
+    z-index: 1;
+}
+.show-user{
+    padding-top: 15px;
+    padding-bottom: 12px;
+    text-align: center;
+    width: 19vh;
+    font-size: 13px;
+    font-weight: 500; 
+    color: $header-text;   
+}
+.table-row-bold-text {
+    color: #1A1718;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 9px;
+}
+.show-active-user{
+    border-bottom: 2px solid $orange;
+    color: $left-panel-child-bg
+}
+.usage-pannel{
+    background: $left-panel-bg;
+    position: fixed;
+    margin-top: 65px;
+    // z-index: 999;    
+}
+.app-filter{
+    font-size: 12px;
+    left: -90px;
+    top: 10px;
+    color:$header-text;
+}
+.usage-comments{
+    overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+.usage-entityname{
+    overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+textarea{
+    resize: none; 
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+.wordBreak{
+    word-wrap:break-word !important;
+}
+
+[data-toggle = 'tooltip']{
+    word-break: break-word;
+}
+.tooltip-inner {
+    // max-width: none;
+    // position: absolute;
+    // z-index: 9999;
+    white-space:pre-wrap;
+    pointer-events: none;
+}
+
+.colorRed{
+    color: indianred;
+}

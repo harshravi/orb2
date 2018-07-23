@@ -1,0 +1,24 @@
+<div *ngIf="message" class="modal conf-modal" tabindex="-1" role="dialog" style="display:block!important">
+  <div class="conf-modal-dialog" role="document">
+    <div class="modal-content conf-modal-content">
+      <div *ngIf="message?.type == 'confirm'" class="modal-body conf-modal-body">
+        <div class="row">
+          <div class="col-md-6 info-icon text-heading">
+            <h2 class="text-left main-text">{{message.text}}</h2>
+            <h4 class="text-left font-12 m-t-xs">{{message.subText}}</h4>
+          </div>
+          <div class="col-md-6 ">
+            <p class="text-left">
+              <a (click)="message.noFn()">
+                <button class="btn btn-pm btn-stay">Stay</button>
+              </a>
+              <a (click)="message.siFn()" class="m-l-md">
+                <button  class="btn btn-sc btn-leave" >Leave</button>
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="content-header" *ngIf="addnewApplicationdHeader">
+  <div>
+    <div class="col-xs-3 no-padding">
+      <h2 class="content-header-h1-text">Add New Application</h2>
+    </div>
+
+  </div>
+</div>
+
+<div class="content-header" *ngIf="dashboardHeader">
+  <div>
+    <div class="col-xs-3 no-padding">
+      <h2 class="content-header-h1-text">Dashboard</h2>
+    </div>
+    <div class="col-xs-5 no-padding">
+      <span class="pull-right text-muted cond-text sm-font">*All the below details are based on your owning region & skill team</span>
+    </div>
+  </div>
+</div>
+<div class="content-header {{changePositionClass}} row no-margins" *ngIf="usageHeader">
+  <div class="p-l-md p-r-md">
+    <div class="col-md-6 no-padding app-detail">
+      <h2 class="usage-header-h1-text">{{headerDetails?.applicationNumber}} - {{headerDetails?.applicationName}}</h2>
+      <div class="usage-header-text">
+        <span class="skill-team">{{headerDetails?.skillTeam}}</span>
+        <span class="region-name">{{headerDetails?.regionName}}</span>
+        <span class="intities">{{headerDetails?.pendingInformation}}</span>
+      </div>
+    </div>
+    <div class="col-md-6 no-padding add-app">
+      <div class="pull-right m-t-15" *ngIf="btnRequire">
+        <app-button [icon]="'add'" [btnText]="buttonText" [btnDisabled]="addNew" [btnColor]='"submit-btn-color"' (getData)="showModal()"></app-button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-header {{changePositionClass}} row no-margins" *ngIf="volumeDetailsHeader">
+  <div class="p-l-md p-r-md">
+    <!--<div class="col-md-1 no-padding"></div>-->
+    <div class="col-md-6 no-padding app-detail">
+      <div (click)="backToVolumePageArrow(true)" class="inline-block back-arrow cursor"></div>
+      <div class="inline-block">
+        <div class="volume-details-header-text">
+          <span class="volume-details-header-sub-text">{{headerForVolumeDetails?.navDetailsForVolume?.itmsNo}}-{{headerForVolumeDetails?.navDetailsForVolume?.applicationName }}</span>
+        </div>
+        <h2 class="volume-details-header-h1-text">{{headerForVolumeDetails?.incurredCodeService}}</h2>
+      </div>
+    </div>
+    <div class="col-md-6 no-padding add-app add-intity text-right" *ngIf="btnRequire">
+      <app-button [icon]="'add'" [btnText]="buttonText" [btnDisabled]="addNew" [btnColor]='"submit-btn-color"' (getData)="showModalForlegalEntity()"></app-button>
+    </div>
+  </div>
+</div>
+<div class="content-header {{changePositionClass}} row no-margins" *ngIf="lumpSums">
+  <div>
+    <div class="col-xs-6 no-padding">
+      <h2 class="content-header-lumpsum-h1-text">Lump Sums</h2>
+    </div>
+    <div class="col-md-6 no-padding add-app add-intity text-right" *ngIf="btnRequire">
+      <app-button [icon]="'add'" [btnText]="buttonText" [btnDisabled]="addNew" [btnColor]='"submit-btn-color"' (getData)="showModalForLumpsums()"></app-button>
+    </div>
+  </div>
+</div>
+<div class="content-header row no-margins" *ngIf="approvalsHeader">
+  <div class="p-l-md p-r-md">
+    <div class="col-md-12 no-padding app-detail">
+      <h2 class="content-header-h1-text">Approvals</h2>
+    </div>
+  </div>
+</div>

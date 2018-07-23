@@ -1,0 +1,91 @@
+<div>
+  <app-side-nav [hightlightNav]="'highlight-second-nav'"></app-side-nav>
+  <div class="content-wrapper relative-position">
+    <div class="relative-position row no-margins">
+      <div class="main-header">
+        <app-content-header [addnewApplicationdHeader]="true"></app-content-header>
+      </div>
+      <div class="absolute-position loading-spinner">
+        <app-progress-spinner [isRunning]="!allLegal"></app-progress-spinner>
+      </div>
+      <div class="absolute-position loading-spinner">
+        <app-progress-spinner [isRunning]="addedApp"></app-progress-spinner>
+      </div>
+      <div class="container-box" [ngClass]="{disabled:addedApp}">
+        <div *ngIf="noaccesspage;else aaaa">
+          <div *ngIf="allLegal">
+          <div class="col-xs-6">
+            <form [formGroup]="form" name="form">
+              <span class="dropdown-lebel-text">APP ID/Application Name</span>
+
+              <div class="dropdown" id="applicationnewContain">
+                <input type="Text" id="inputEmail" data-toggle="dropdown" formControlName="applicationEntityID" class="form-control" placeholder="APP ID/Application Name"
+                  required #itmsapps (input)="autoSearch($event)" (keyup)="enableType($event)" autocomplete="off" (click)="clickedInside($event)">
+                <div class="dropdown custom-single-dropdown">
+                  <ul class="dropdown-menu adddropmenu" role="menu" aria-labelledby="menu1" *ngIf="typehead" #typeahead (click)="clickedInside($event)"
+                    id="applicationnewConlsit">
+                    <li *ngFor="let x of searchedData" (click)="updateApplicationName(x)">
+                      <a>{{x.app_No}} {{x.app_Name}}</a></li>
+                    <li disabled="true" *ngIf="typeheadNoResult" class="disabled" id="noapplication">
+                      <a>Enter APP ID/Application Name else Application is either already added</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <br/>
+              <app-dropdown [labelText]="'Lead Skill Team'" [data]="allSkillList" [optionTextName]="'name'" name="Outreachskills" [optionValueName]="'id'"
+                [(ngModel)]="selectedSkills" formControlName="skillEntityID" (ngModelChange)="selectedSkill($event)">
+              </app-dropdown>
+              <br/>
+              <div *ngIf="allRegions">
+                <app-dropdown [labelText]="'Owning Region'" formControlName="regionsEntityID" [data]="allRegions" [optionTextName]="'region'"
+                  name="Outreachregion" [optionValueName]="'regionId'" [(ngModel)]="selectedRegions" (ngModelChange)="selectedRegion($event)">
+                </app-dropdown>
+              </div>
+              <br/>
+              <span class="dropdown-lebel-text">Legal Entity</span>
+              <div *ngIf="allLegal">
+                <app-multiselect [defaultName]="'Select'" [planText]="'Selected'" [multiskillselectCount]="legalEntitiesCount" [listData]="allLegal" [optionChangeColor]="'restrictedLegalEntity'"
+                  [multiSelectIndex]="multiselectOne" [removeOther]="false" (SearchTextFilter)="getLigalentityWithSearch($event)" [optionTextName]="'legalEntity'" [updatedData]="updatedStage" #legal
+                  (selection)="onLegalSelection($event,legal)"></app-multiselect>
+              </div>
+              <div class="footer-block-center">
+                <div class="addapplicationbut">
+                  <div class="col-xs-2">
+                    <app-button [btnType]="'text'" [btnText]="'CLEAR'" [btnColor]="'clear'" (click)="clearModalData(legal)"></app-button>
+                  </div>
+                  <div class="col-xs-2">
+                    <app-button [btnType]="'submit'" [btnText]="'ADD'" [btnColor]="'save'" (click)="addUsage(legal)" [btnDisabled]="addAppButtonStatus"></app-button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-6 legalselectedBall" *ngIf="allLegal && selectedLegalEntity.length >= 1">
+            <div class="legalselectedBallArrow"></div>
+            <p>Selected Legal Entities</p>
+            <div class="well customWell" *ngFor="let _legal of multiSelectedLegal; let i = index">
+              <a class="close" data-dismiss="alert" aria-label="close" (click)="removeentry(_legal.legalEntityID,legal)">×</a>
+              <span [ngClass]="{'red': _legal?.restrictedLegalEntity === true}">{{_legal.legalEntity}}</span>
+            </div>
+          </div>
+          <div class="col-md-6 legalselectedBallAlert" *ngIf="validLegalEntity">
+            <div class="legalselectedBallArrow"></div>
+            <p class="red">{{errorMessage.responseMsg}}</p>
+            <div class="well customWell" *ngFor="let _entity of errorMessage?.legalEntitys; let i = index">
+              <span class="red">{{_entity}}</span>
+            </div>
+          </div>
+         </div>
+        </div>
+        <!-- Ng-->
+        <ng-template #aaaa>
+          <app-static-temp [showFailure]="true" [selectedAppHeaderDetails]="onlyHeaderData" [showHeading]="'You do not have access'"
+            [noBtnRequire]="false" [showHeader]="false" [showDetails]="'Contact Support'">
+          </app-static-temp>
+        </ng-template>
+        <!-- ng -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+@import "../../../../assets/scss/_variables";
+.container-box {
+    margin: 70px 0px 0px 0px;
+    position: fixed;
+    height: 80vh;
+    overflow-y: scroll;
+    padding: 32px 20px 20px 20px;
+}
+.img-hight-width{
+    height:105px;
+    width:100%
+}
+.padding-right{
+    padding-right:20px;
+}
+.link-for-user-training{
+    display: inline-block;
+    width: 100%;
+    height: 57px;
+    top: 59px;    
+}
+.graph-img{
+    content: '';
+    position: absolute;
+    background: url(../../../../assets/img/dashboard_img/graph.png) no-repeat;
+    width: 125px;
+    height: 86px;
+    right: 0;
+    background-size: 100px;
+    top: 33px;
+}
+.applicaton-count-box{
+    height: 105px;
+    background: $application-count-box-bg;
+    border-radius: 5px;
+    position: relative;    
+}
+.application-count-text{
+    text-align: left;
+    position: absolute;
+    top: 35px;
+    color: $white;    
+}
+.font-big{
+    font-size:25px;
+    font-family: $font-titillium;
+}
+.font-small{
+    font-size: 11px;
+}

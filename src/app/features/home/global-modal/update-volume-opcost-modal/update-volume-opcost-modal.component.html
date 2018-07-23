@@ -1,0 +1,62 @@
+<div class="inmodal">
+  <div class="modal-content">
+    <form [formGroup]="form" name="form">
+      <div class="modal-header">
+        <a class="close-modal p-b-sm" name="closeOpenModal"></a>
+        <div class="row">
+          <div class="col-md-11 text-left">
+            <h1 class="modal-title">{{heading}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body relative-position">
+        <div class="absolute-position loading-spinner">
+          <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+        </div>
+        <div class="row no-margins" *ngIf="context?.physicalUpdate; else other">
+          <ul class="service-collection">
+            <li class="selected-service-text p-l-xl" *ngFor="let data of selectedRowForDelete">
+              <span>{{data.legalEntityName}}</span>
+              <!--<ng-template #other>{{data.incurredCodeService}}</ng-template>-->
+            </li>
+          </ul>
+        </div>
+        <ng-template #other>
+          <div class="selected-code-box row"  *ngIf="selectedRowForDelete.length > 0">
+            <div class="row no-margins selected-code-row no-border-bottom">
+              <div class="col-md-4 unit-list-row">Incurred Code:Service</div>
+              <div class="col-md-4 unit-box-row-text">Quantity</div>
+              <div class="col-md-4 unit-box-row-text">Change Reason</div>
+            </div>
+            <div class="row no-margins selected-code-row" *ngFor="let data of selectedRowForDelete">
+              <div class="col-md-4 unit-list-row-text get-ellipsis-text">{{data.incurredCodeService}}</div>
+              <div class="col-md-4 unit-list-row-text get-ellipsis-text">{{data.quantity}}</div>
+              <div class="col-md-4 unit-list-row-text get-ellipsis-text text-line-hight">{{data.changeReason}}</div>
+            </div>
+          </div>
+          <!--<div class="row no-margins">
+            <div class="col-md-12 no-padding m-t-xl" *ngIf="actionBtnText !== 'APPROVE' && actionBtnText !== 'UN-APPROVE' && actionBtnText !== 'REJECT'">
+              <div class="unit-box-title">
+                <span>Comments</span>
+                <span class="pull-right">0/250
+                  <span class="character-font">Characters</span>
+                </span>
+              </div>
+              <textarea class="form-control form-element" [formControl]="form.controls['comments']" comments rows="4"></textarea>
+            </div>
+          </div>-->
+        </ng-template>
+      </div>
+      <div class="modal-footer">
+        <div class="footer-block-center">
+          <div class="inline-block">
+            <app-button [btnType]="'text'" [btnText]="'CLOSE'" [btnColor]="'clear'" (getData)="closeModal()"></app-button>
+          </div>
+          <div class="inline-block">
+            <app-button [btnType]="'submit'" [btnText]="actionBtnText" [btnColor]="'save'" [btnDisabled]="isDataLoading" (getData)="submitRemove()"></app-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

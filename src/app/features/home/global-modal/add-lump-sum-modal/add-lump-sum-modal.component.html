@@ -1,0 +1,168 @@
+<div class="inmodal">
+  <div class="modal-content">
+
+    <form [formGroup]="form" name="form">
+      <div class="modal-header">
+        <a class="close-modal p-b-sm" name="closeOpenModal"></a>
+        <div class="row">
+          <div class="col-lg-10 col-md-10 text-left">
+            <h4>{{context?.heading}}</h4>
+
+            <!--<h1 class="modal-title get-ellipsis-text">{{heading}}&nbsp;&nbsp;{{context.addVolumeHeader?.incurredCodeService}}</h1>-->
+          </div>
+        </div>
+      </div>
+      <div class="relative-position modal-body">
+        <div class="row save-alert-header" *ngIf="showSave">
+          <div class="col-md-6 info-icon text-heading">
+            <h2 class="text-left main-text">Your changes have not been saved</h2>
+            <h4 class="text-left font-12 m-t-xs">Would you like to stay on the page</h4>
+          </div>
+          <div class="col-md-6 ">
+            <p class="text-left">
+              <a><button class="btn btn-pm btn-stay" (click)="stay()">Stay</button></a>
+              <a class="m-l-md"><button class="btn btn-sc btn-leave" (click)="leave()">Leave</button></a>
+            </p>
+          </div>
+        </div>
+        <div class="row no-margins relative-position" [class.disabled]="showSave">
+          <div class="col-md-8 form-box no-padding-left no-padding-right p-b-lg">
+            <div class="row no-margins year-selection-ribon no-padding-left no-padding-right">
+              <div class="blue_bghold no-padding-left no-padding-right">
+                <div class="yeartab-hold m-l-xl m-r-xl m-b-sm">
+                  <span class="block year-selection-label m-b-md" *ngIf="!(context?.edit); else noTeaxt">Select a year and add respective lump sum below</span>
+                  <ng-template #noTeaxt><span class="block year-selection-label m-b-sm"></span></ng-template>
+                  <!--<ul *ngIf="!(context?.edit); else withoutSelect">-->
+                  <ul>
+                    <li (click)="selectedServiceDetails(1, addVolumeDetails?.year1, form.valid);" [ngClass]="{'selected': highlightedYearSelected === 1}"><a><span>{{addVolumeDetails?.year1}}</span></a></li>
+                    <li (click)="selectedServiceDetails(2, addVolumeDetails?.year2, form.valid)" [ngClass]="{'selected': highlightedYearSelected === 2}"><a><span>{{addVolumeDetails?.year2}}</span></a></li>
+                    <li (click)="selectedServiceDetails(3, addVolumeDetails?.year3, form.valid)" [ngClass]="{'selected': highlightedYearSelected === 3}"><a><span>{{addVolumeDetails?.year3}}</span></a></li>
+                    <li (click)="selectedServiceDetails(4, addVolumeDetails?.year4, form.valid)" [ngClass]="{'selected': highlightedYearSelected === 4}"><a><span>{{addVolumeDetails?.year4}}</span></a></li>
+                    <li (click)="selectedServiceDetails(5, addVolumeDetails?.year5, form.valid)" [ngClass]="{'selected': highlightedYearSelected === 5}"><a><span>{{addVolumeDetails?.year5}}</span></a></li>
+                  </ul>
+                  <!--<ng-template #withoutSelect>
+                    <ul>
+                      <li [ngClass]="{'selected': highlightedYearSelected === 1}"><a class="cursor-default"><span>{{addVolumeDetails?.year1}}</span></a></li>
+                      <li [ngClass]="{'selected': highlightedYearSelected === 2}"><a class="cursor-default"><span>{{addVolumeDetails?.year2}}</span></a></li>
+                      <li [ngClass]="{'selected': highlightedYearSelected === 3}"><a class="cursor-default"><span>{{addVolumeDetails?.year3}}</span></a></li>
+                      <li [ngClass]="{'selected': highlightedYearSelected === 4}"><a class="cursor-default"><span>{{addVolumeDetails?.year4}}</span></a></li>
+                      <li [ngClass]="{'selected': highlightedYearSelected === 5}"><a class="cursor-default"><span>{{addVolumeDetails?.year5}}</span></a></li>
+                    </ul>
+                  </ng-template>-->
+                </div>
+              </div>
+            </div>
+            <div class="relative-position row no-margins form-container p-l-lg p-r-lg p-t-lg p-b-md">
+              <div class="absolute-position loading-spinner">
+                <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+              </div>
+              <form [formGroup]="form" name="form">
+                <div class="col-md-12 no-padding m-t-md">
+                  <span class='font-12 block m-b-sm'>Legal Entities</span>
+                  <app-multiselect [multiskillselectCount]="legalEntitiesCount" [listData]="allLegal" [disabled]="isDataLoading" [multiSelectIndex]="'multiselectOne'"
+                    [planText]="'Selected'" [optionTextName]="'name'" [defaultName]="'Select'" [updatedData]="updatedLegalEntity"
+                    (selection)="selectedLegalStatus($event)" #multiselectSkillData></app-multiselect>
+                </div>
+                <div class="col-md-12 no-padding m-t-md">
+                  <div class="col-md-6 no-padding-left p-r-sm" [ngClass]="{'has-error':!form.controls['regionMap'].valid && form.controls['regionMap'].touched}">
+                    <!--<span class='block m-b-sm'>Owning Regions {{form?.value?.regionMap}}</span>-->
+                    <app-dropdown [labelText]="'Owning Regions'" id="region_map" [disabled]="isDataLoading" [optionValueName]="'regionId'" formControlName="regionMap"
+                      [optionTextName]="'region'" [data]="AllRegions" name="regionMap"></app-dropdown>
+                    <div *ngIf="form.controls['regionMap'].hasError('required') && form.controls['regionMap'].touched" class="alert alert-danger no-margins">Please select regionMap</div>
+                  </div>
+                  <div class="col-md-6 no-padding-right p-l-sm" [ngClass]="{'has-error':!form.controls['skillsMap'].valid && form.controls['skillsMap'].touched}">
+                    <!--<span class='block m-b-sm'>Skill Team</span>-->
+                    <app-dropdown [labelText]="'Skill Team'" id="skills_map" [disabled]="isDataLoading" [optionValueName]="'id'" formControlName="skillsMap"
+                      [optionTextName]="'name'" [data]="allSkill" name="skillsMap">
+                    </app-dropdown>
+                    <div *ngIf="form.controls['skillsMap'].hasError('required') && form.controls['skillsMap'].touched" class="alert alert-danger no-margins">Please select skillsMap</div>
+                  </div>
+                </div>
+                <div class="col-md-12 no-padding m-t-md" [ngClass]="{'has-error':!form.controls['serviceMap'].valid && form.controls['serviceMap'].touched}">
+                  <!--<span class='block m-b-sm'>Incurred Code:Service</span>-->
+                  <div class="no-padding inline-block col-md-11">
+                    <app-dropdown [labelText]="'Incurred Code:Service'" id="service_map" [disabled]="isDataLoading" [optionTextName]="'name'"
+                      [optionValueName]="'id'" formControlName="serviceMap" [data]="AllServices" name="serviceMap" (ngModelChange)="volumeUnit($event, AllServices)"></app-dropdown>
+                  </div>
+                  <div class="inline-block no-padding col-md-1 ">
+                    <span class="font-12 cursor block p-l-sm refresh-icon form-element" data-toggle="tooltip" title="Reset Service" (click)="resetService()"></span>
+                  </div>
+                  <!--<div *ngIf="form.controls['serviceMap'].hasError('required') && form.controls['serviceMap'].touched" class="alert alert-danger no-margins">Please select serviceMap</div>-->
+                </div>
+                <div class="col-md-12 no-padding m-t-md">
+                  <div class="col-md-12 no-padding">
+                    <!--<div class="col-md-4 no-padding" [ngClass]="{'has-error':!form.controls['baseline'].valid && form.controls['baseline'].touched}">
+                      <div>
+                        <span class='block m-b-sm'>Baseline</span>
+                        <input type="number" class="form-control form-element" formControlName="baseline" name="baseline" pattern="^\d{0,8}(\.\d{1,8})?$"
+                          step=".01" onkeydown="javascript: return event.keyCode == 69 ? false : true">
+                        <div *ngIf="form.controls['baseline'].hasError('required') && form.controls['baseline'].touched" class="alert alert-danger no-margins">Please enter baseline</div>
+
+                      </div>
+                    </div>-->
+                    <div class="col-md-6 no-padding" [ngClass]="{'has-error':!form.controls['volume'].valid && form.controls['volume'].touched}">
+                      <span class='font-12 block m-b-sm'>Volume {{volumeUFM}}</span>
+                      <input type="number" [disabled]="isDataLoading" class="form-control form-element" formControlName="volume" name="volume"
+                      pattern="-?([1-9]\d{0,7})(\.\d{0,7})?">
+                      <div *ngIf="form.controls['volume'].hasError('required') && form.controls['volume'].touched" class="alert alert-danger no-margins">Please enter volume</div>
+                    </div>
+                    <div class="col-md-6 no-padding-right" [ngClass]="{'has-error':!form.controls['statusId'].valid && form.controls['statusId'].touched}">
+                      <!--<span class='font-12 block m-b-sm'>Status</span>-->
+                      <app-dropdown [labelText]="'Status'" [ngClass]="{'selectpicker': true}" [disabled]="isDataLoading" [optionValueName]="'id'"
+                        formControlName="statusId" [optionTextName]="'name'" [data]="allStatusData" name="statusId">
+                      </app-dropdown>
+                      <div *ngIf="form.controls['statusId'].hasError('required') && form.controls['statusId'].touched" class="alert alert-danger no-margins">Please select status</div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 no-padding m-t-md" [ngClass]="{'has-error':!form.controls['comments'].valid && form.controls['comments'].touched}">
+                  <div class="col-md-12 no-padding">
+                    <div class="unit-box-title">
+                      <span>Comments</span>
+                      <span class="pull-right">
+                    <span *ngIf="textAreaTextCount; else defaultText">{{textAreaTextCount}}/250</span>
+                      <ng-template #defaultText>0/250</ng-template>
+                      <span class="character-font">Characters</span>
+                      </span>
+                    </div>
+                    <textarea maxlength="250" [disabled]="isDataLoading" (keyup)="getTextCount($event)" class="form-control form-element comments"
+                      rows="4" formControlName="comments" name="comments"></textarea>
+                    <div *ngIf="form.controls['comments'].hasError('required') && form.controls['comments'].touched" class="alert alert-danger no-margins">Please enter comments</div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-4 p-lg entity-collection-box absolute-position">
+            <div class="legalselectedBallArrow"></div>
+            <div *ngIf="legalEntitiesSelcName.length > 0">
+              <h4 class="font-12 selected-entity-header">Selected Legal Entities</h4>
+              <div class="">
+                <div class="p-l-sm p-r-sm m-t-sm">
+                  <div class="m-t-sm p-b-sm entity-list legalEntitySpace" *ngFor="let x of legalEntitiesSelcName">
+                    <span class="font-12 legalEntitySpanLeft">{{x}}</span>
+                    <span class="close font-17 legalEntitySpanRight" *ngIf="!isDataLoading" (click)="removeSelectedRegion(x,multiselectSkillData)">x</span>
+                    <span class="close font-17 legalEntitySpanRight disabledLegalEntity" *ngIf="isDataLoading">x</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="footer-block-center">
+          <div class="inline-block">
+            <app-button [btnType]="'text'" [btnDisabled]="isDataLoading || showSave" (click)="clearAddFormData()" [btnText]="'CLEAR'"
+              [btnColor]="'clear'"></app-button>
+          </div>
+          <div class="inline-block">
+            <app-button [btnType]="'button'" [btnColor]="'save'" [btnText]="'SAVE'" (click)="addlumsum(multiselectSkillData)" [btnDisabled]="!form.valid || isDataLoading || showSave || showSaveLegal"></app-button>
+            <!--<app-button [btnType]="'ADD'" [btnColor]="'save'" [btnDisabled]="!form.valid" [btnText]="'SAVE'"></app-button>-->
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

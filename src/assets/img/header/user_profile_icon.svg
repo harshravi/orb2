@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>user_profile_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Graphic_Assets" transform="translate(-356.000000, -166.000000)" fill="#9DB4BE">
+            <g id="header" transform="translate(127.000000, 111.000000)">
+                <g id="user_profile_icon" transform="translate(229.000000, 55.000000)">
+                    <path d="M0,0 L36,0 L36,36 L0,36 L0,0 Z M17.5,19 C14.0001522,19 10.9012477,20.7738201 9,23.4986643 C10.9012477,26.2235085 14.0001522,28 17.5,28 C21.0024346,28 24.0987523,26.2235085 26,23.4986643 C24.0987523,20.7738201 21.0024346,19 17.5,19 Z M12,12.498711 C12,15.535505 14.4624941,18 17.5,18 C20.5375059,18 23,15.535505 23,12.498711 C23,9.46191704 20.5375059,7 17.5,7 C14.4624941,7 12,9.46191704 12,12.498711 Z" id="Combined-Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

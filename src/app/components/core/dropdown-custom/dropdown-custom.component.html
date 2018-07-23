@@ -1,0 +1,7 @@
+<div #item class="dropdown">
+  <button class="btn btn-primary" type="button">{{dropdownDefaultText}}
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li *ngFor="let list of listItems"><a>{{list.settings_type_label}}</a></li>
+  </ul>
+</div>

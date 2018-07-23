@@ -1,0 +1,114 @@
+.navbar-default{
+    background-color: #fff;
+}
+#navbar{
+    padding:0 30px;
+    .right-menu-box a:hover,.right-menu-box a:focus{
+        background-color:white;
+    }    
+}
+.sidebar-img {
+    margin: 30px 0 0;
+    height: 50px;
+    position: relative;
+    padding: 0 0 0 70px;
+}
+.header-box-padding{
+    padding:10px 0; 
+}
+.user-Default-img-header::after{
+    content: '';
+    position: absolute;
+    height: 28px;
+    width: 28px;
+    background: url(../../../../assets/img/header/user_profile_icon.svg) no-repeat;
+    left: 35px;
+    top: 18px;
+    background-size: 28px;
+    border-radius: 50%;
+}
+.user-name{
+    font-size: 12px;
+}
+.frame {
+    height: 25px;      /* equals max image height */
+    width: 160px;
+    border: 1px solid red;
+    white-space: nowrap;
+    
+    text-align: center; margin: 1em 0;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+img {
+    vertical-align: middle;
+    max-height: 40px;
+    max-width: 160px;
+}
+.ford-logo{
+    white-space: nowrap;
+    text-align: center;
+    margin: 1.2em 0;    
+    color: darkgray;
+    font-size: 12px;
+}
+span.img-box {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.userImg{
+    border-radius: 50%;
+    margin-right: 5px; 
+}
+.right-menu-box li{
+    float: left;
+}
+#navbar {
+    a {
+        padding: 7px 15px;
+        color: #4cdeac;
+    }
+    .arrow{
+        font-size: 20px;
+        margin-left: 14px;
+        /* margin-top: -3px; */
+        vertical-align: bottom;        
+    }
+    .dropdown .dropdown-menu {
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        -ms-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        transition: all 0.3s;
+
+        max-height: 0;
+        display: block;
+        overflow: hidden;
+        opacity: 0;
+        left: 0;
+        min-width: 100px;
+        top: 24px;
+        padding: 2px 0;
+        font-size: 13px;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        max-height: 200px;
+        opacity: 1;
+    }
+    .dropdown-menu>li>a.logOut {
+        display: block;
+        padding: 0px 20px;
+        clear: both;
+        font-weight: 400;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+    }
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="23px" viewBox="0 0 22 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>delegate_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="2.9604 0.0002 13.9144 0.0002 13.9144 10.954 2.9604 10.954"></polygon>
+    </defs>
+    <g id="Design-System" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Design_System_Export" transform="translate(-1635.000000, -172.000000)">
+            <g id="icons" transform="translate(1500.863281, 49.000000)">
+                <g id="delegate_icon" transform="translate(134.863281, 123.597656)">
+                    <g id="Group-6">
+                        <path d="M20.9086,15.8442 L14.3676,10.7402 L14.3676,13.6172 C10.5726,14.0112 6.8506,17.6182 6.9216,20.9552 C6.9306,21.3742 7.0016,21.7832 7.1056,22.1842 C8.4706,19.7582 10.9606,17.6932 14.3676,17.8152 L14.3676,20.9482 L20.9086,15.8442 Z" id="Fill-1" fill="#FFFFFF"></path>
+                        <path d="M12.0497,12.398 C10.6747,12.098 9.0077,12.109 7.9947,12.158 L8.0037,12.142 C7.8827,12.147 7.7677,12.168 7.6477,12.177 C7.2957,12.2 7.0797,12.222 7.0797,12.222 L7.0727,12.234 C4.1667,12.617 1.6347,14.187 -0.0003,16.457 C1.1457,18.048 2.7347,19.294 4.5817,20.034 C6.5147,14.209 10.4637,13.01 12.0497,12.398" id="Fill-3" fill="#FFFFFF"></path>
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Clip-7"></g>
+                        <path d="M8.4374,0 C5.4124,0 2.9604,2.452 2.9604,5.477 C2.9604,8.502 5.4124,10.954 8.4374,10.954 C10.6224,10.954 12.5084,9.675 13.3874,7.824 L13.4094,7.756 L13.4194,7.754 C13.7374,7.061 13.9144,6.29 13.9144,5.477 C13.9144,2.452 11.4624,0 8.4374,0" id="Fill-6" fill="#FFFFFF" mask="url(#mask-2)"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

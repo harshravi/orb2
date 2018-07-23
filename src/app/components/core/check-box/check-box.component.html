@@ -1,0 +1,3 @@
+<input [appDisabled]="disabled" id="checkbox-{{checkId}}" class="{{inputClass}} checkbox-custom" name="checkbox-{{checkId}}" type="checkbox" [(ngModel)]="isChecked"
+  (ngModelChange)="onChange(isChecked)">
+<label for="checkbox-{{checkId}}" class="checkbox-custom-label {{labelClass}}">{{checkLabel}}</label>

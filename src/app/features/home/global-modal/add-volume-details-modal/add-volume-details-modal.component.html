@@ -1,0 +1,104 @@
+<div class="inmodal">
+  <div class="modal-content">
+    <form [formGroup]="form" name="form">
+      <div class="modal-header">
+        <a class="close-modal p-b-sm" name="closeOpenModal"></a>
+        <div class="row">
+          <div class="col-lg-10 col-md-10 text-left">
+            <h1 class="modal-title get-ellipsis-text">{{heading}}&nbsp;&nbsp;{{context.addVolumeHeader?.incurredCodeService}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="relative-position modal-body">
+        <div class="absolute-position loading-spinner">
+          <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+        </div>
+        <div class="row m-l-xl m-r-xl m-b-sm">
+          <div class="no-padding col-md-6">
+            <span class="block unit-list-row">Application</span>
+            <span class="block unit-list-row-text">{{context?.addVolumeHeader?.navDetailsForVolume?.itmsNo}}-{{context?.addVolumeHeader?.navDetailsForVolume?.applicationName}}</span>
+          </div>
+          <div class="no-padding col-md-6">
+            <span class="block unit-list-row">Units</span>
+            <span class="block unit-list-row-text">{{context?.addVolumeHeader?.unitOfMeasure}}</span>
+          </div>
+        </div>
+        <div class="row no-margins year-selection-ribon no-padding-left no-padding-right">
+          <div class="blue_bghold no-padding-left no-padding-right">
+            <div class="yeartab-hold m-l-xl m-r-xl m-b-sm">
+              <span class="block year-selection-label m-b-md">Select a year and add respective volume below</span>
+              <ul>
+                <li *ngIf="!enableLumpSumsService" (click)="selectedServiceDetails(1, addVolumeDetails?.year1);" [ngClass]="{'selected': highlightedYearSelected === 1}"><a><span>{{addVolumeDetails?.year1}}</span></a></li>
+                <li (click)="selectedServiceDetails(2, addVolumeDetails?.year2)" [ngClass]="{'selected': highlightedYearSelected === 2}"><a><span>{{addVolumeDetails?.year2}}</span></a></li>
+                <li (click)="selectedServiceDetails(3, addVolumeDetails?.year3)" [ngClass]="{'selected': highlightedYearSelected === 3}"><a><span>{{addVolumeDetails?.year3}}</span></a></li>
+                <li (click)="selectedServiceDetails(4, addVolumeDetails?.year4)" [ngClass]="{'selected': highlightedYearSelected === 4}"><a><span>{{addVolumeDetails?.year4}}</span></a></li>
+                <li (click)="selectedServiceDetails(5, addVolumeDetails?.year5)" [ngClass]="{'selected': highlightedYearSelected === 5}"><a><span>{{addVolumeDetails?.year5}}</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 no-padding-center">
+        <div  class="alert alert-danger no-padding-center">{{remainingQtyValid}}</div> 
+        </div>
+        <div class="row m-l-xl m-r-xl m-t-md">
+          <div class="col-md-6 no-padding-left" [ngClass]="{'has-error':!form.controls['volume'].valid && form.controls['volume'].touched}">
+            <span class="block unit-box-title">Quantity({{context?.addVolumeHeader?.unitOfMeasure}}) </span>
+            <input class="form-control form-element quantity" [readonly]="isDataLoading" type="number" pattern="^-?(?!0*((\.0+){0,7})?$)((\d+|\d*\.\d+){0,8})?$" 
+            [formControl]="form.controls['volume']" maxlength="18" (keyup)="checkValidQty($event)"/>
+            <div *ngIf="form.controls['volume'].hasError('required') && form.controls['volume'].touched" class="alert alert-danger m-b-xs">Please enter Quantity number</div>
+            <div *ngIf="form.controls['volume'].hasError('pattern')" class="alert alert-danger">Please enter valid Quantity number</div>
+                                 
+            <!-- <span class="help-block"  ng-show="!form.controls['negotiatedAmount'].valid">Invalid</span> -->
+          </div>
+          <div class="col-md-6">
+            <app-dropdown [labelText]="'Change Reason'" id="medication_reminder" [disabled]='isDataLoading' [ngClass]="{'selectpicker': true}" [optionValueName]="'id'"
+              formControlName="changeReasonId" [optionTextName]="'name'" [data]="context.allRegions" Validators.required>
+            </app-dropdown>
+          </div>
+          <div class="col-md-6 no-padding-left">
+            <app-dropdown [labelText]="'Purchase Order'" id="medication_reminder" [disabled]='isDataLoading || !addVolumeDetails?.enablePurchaseOrder' [ngClass]="{'selectpicker': true}" [optionValueName]="'id'"
+              formControlName="purchaseOrderId" [optionTextName]="'name'" [data]="context.allPurchaseOrderList" [disabled]="!enablePO"
+              Validators.required>
+            </app-dropdown>
+            <!--<input class="form-control form-element" id="NegAmt" type="number" [formControl]="form.controls['purchageOrder']" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+            />-->
+            <!--<div *ngIf="form.controls['purchageOrder'].hasError('required') && form.controls['purchageOrder'].touched" class="alert alert-danger">Please enter Negotiated Amount</div>-->
+            <!-- <span class="help-block"  ng-show="!form.controls['negotiatedAmount'].valid">Invalid</span> -->
+          </div>
+          <div class="col-md-6">
+            <app-dropdown [labelText]="'Status'" [ngClass]="{'selectpicker': true}" [disabled]='isDataLoading' [optionValueName]="'id'" formControlName="statusId"
+              [optionTextName]="'name'" [data]="addVolumeStatusData" [(ngModel)]="selectedStatus">
+            </app-dropdown>
+          </div>
+        </div>
+        <div class="row m-l-xl m-r-xl m-t-md">
+          <div class="col-md-12 no-padding" [ngClass]="{'has-error':!form.controls['comments'].valid && form.controls['comments'].touched}">
+            <div class="unit-box-title">
+              <span>Comments</span>
+              <span class="pull-right">
+                <span *ngIf="textAreaTextCount; else defaultText">{{textAreaTextCount}}/250</span>
+              <ng-template #defaultText>0/250</ng-template>
+              <span class="character-font">Characters</span>
+              </span>
+            </div>
+            <textarea maxlength="250" class="form-control form-element comments" (keyup)="getTextCount($event)" [formControl]="form.controls['comments']"
+              rows="4" required [readonly]="isDataLoading"></textarea>
+            <div *ngIf="form.controls['comments'].hasError('required') && form.controls['comments'].touched" class="alert alert-danger no-margins">Please enter comments</div>
+          </div>
+        </div>  
+      </div>
+      <div class="modal-footer">
+        <div class="footer-block-center">
+          <div class="inline-block">
+            <app-button [btnType]="'text'" [btnText]="'CLEAR'" [btnColor]="'clear'" [btnDisabled]="isDataLoading" (getData)="clearModalData($event)"></app-button>
+          </div>
+          <div class="inline-block">
+            {{!form.valid}}
+            {{qtyValidFlag}}
+            <app-button [btnType]="'ADD'" [btnColor]="'save'" [btnDisabled]="!form.valid || isDataLoading || qtyValidFlag" [btnText]="'SAVE'" (getData)="addVolume(form.value)"></app-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

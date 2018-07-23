@@ -1,0 +1,38 @@
+<div class="col-md-12 no-padding bottom-action-ribon" *ngIf="(showActionBtn); else showSave ">
+  <div class="row no-margins p-t-xl">
+    <div class="col-md-1 no-padding text-center m-t-sm" (click)="clearAllData()"><a class="clear-all"> Clear ALL</a></div>
+    <div class="col-md-11 text-right p-r-sm">
+        <span *ngIf="removeClearVolumeBtn">
+            <app-button [btnColor]="'action-btn-color'" [btnDisabled]="disableClearVolume" [icon]="'edit'" 
+            [btnText]="'CLEAR VOLUME'" (getData)="clearVolumeAllData()"class="tool-tip" data-toggle="tooltip" 
+            title="{{(disableClearVolume && !disableApproveOnly) ? 'Volume can be cleared only for legal entities with PENDING status.' : ''}}"></app-button>        
+          </span> 
+      <span *ngIf="!removeEditAllBtn">
+        <app-button [btnColor]="'action-btn-color'" [btnDisabled]="disableEdit" [icon]="'edit'" [btnText]="'EDIT SELECTED'" (getData)="editAllData()"></app-button>
+      </span>
+      <span *ngIf="showDeleteBtn">
+        <app-button [btnColor]="'action-btn-color'" [btnDisabled]="disableDelete" [icon]="'delete'" [btnText]="'DELETE SELECTED'" (getData)="deleteAllData()"></app-button>                
+      </span>
+      <span *ngIf="(showDeleteBtn || !removeEditAllBtn)">
+        <div class="inline-block separator"></div>
+      </span>
+      <app-button [btnColor]="'action-btn-color'" [btnDisabled]="disableApprove" [icon]="'approve'" [btnText]="'APPROVE'" (getData)="approveAllData()"></app-button>
+      <app-button [btnColor]="'action-btn-color'" [btnDisabled]="disableUnapprove" [icon]="'unapprove'" [btnText]="'UN-APPROVE'"
+        (getData)="unapproveAllData()"></app-button>
+      <app-button [btnColor]="'action-btn-color'" [btnDisabled]="disableRejected" [icon]="'reject'" [btnText]="'REJECT'" (getData)="rejectAllData()"></app-button>
+      <span *ngIf="isAdmin">
+        <app-button [btnColor]="'action-btn-color'" [btnDisabled]="disableCommit" [icon]="'commit'" [btnText]="'COMMIT'" (getData)="commitAllData()"></app-button>
+      </span>
+    </div>
+  </div>
+</div>
+<ng-template #showSave>
+  <div class="col-md-12 no-padding bottom-action-ribon" *ngIf="(showSaveRibon)">
+    <div class="row no-margins p-t-xl">
+      <div class="col-md-2 no-padding text-center m-t-sm" (click)="clearAllData()"><a class="clear-all"> Clear ALL</a></div>
+      <div class="col-md-10 text-right p-r-xl">
+        <app-button [btnColor]="'submit-btn-without-icon'" [btnDisabled]="disableSave" [btnText]="'SAVE'" (getData)="saveEdit()"></app-button>
+      </div>
+    </div>
+  </div>
+</ng-template>

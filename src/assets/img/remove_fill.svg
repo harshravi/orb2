@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>remove_fill</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Design-System" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Design_System_Export" transform="translate(-1792.000000, -255.000000)">
+            <g id="icons" transform="translate(1500.863281, 49.000000)">
+                <g id="remove_fill" transform="translate(291.386719, 205.597656)">
+                    <path d="M20.5716286,24.768743 L3.42877143,24.768743 C1.54305714,24.768743 0.0002,23.2258858 0.0002,21.3401715 L0.0002,4.1973144 C0.0002,2.31245725 1.54305714,0.768742969 3.42877143,0.768742969 L20.5716286,0.768742969 C22.4573429,0.768742969 24.0002,2.31245725 24.0002,4.1973144 L24.0002,21.3401715 C24.0002,23.2258858 22.4573429,24.768743 20.5716286,24.768743" id="Fill-1" fill="#FD6F6F" fill-rule="evenodd"></path>
+                    <path d="M8.5001,10.268773 L14.7111,16.479773" id="Stroke-1" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M14.711,10.268773 L8.5,16.479773" id="Stroke-3" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

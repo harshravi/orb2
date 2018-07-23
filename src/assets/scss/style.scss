@@ -1,0 +1,15 @@
+// Landing page styles
+@import url("https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700,900");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:200,300,400,500,600,700,900");
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:200,300,400,500,600,700,900');
+@import "_variables";
+@import "_landing";
+@import "_base";
+@import "_one.scss";
+@import "_two.scss";
+@import "_three.scss";
+@import "_four.scss";
+@import "_global.scss";
+@import "_material.scss";
+// Importing the scss for Toaster
+@import 'node_modules/angular2-toaster/toaster';

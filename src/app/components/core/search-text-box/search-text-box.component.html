@@ -1,0 +1,4 @@
+<div class="left-inner-addon">
+  <span class="glyphicon glyphicon-search" *ngIf="showSearchIcon"></span>
+  <input type="text" [disabled]="disableSearch" class="form-control {{smallSearch}} form-element" [(ngModel)] = 'searchValue' (keyup)="enteredText($event)" placeholder="{{placeHolder}}" />
+</div>

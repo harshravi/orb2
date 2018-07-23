@@ -1,0 +1,211 @@
+@import "../../../../../assets/scss/_variables";
+@import "../../../../../assets/scss/_checkbox-radio-btn";
+
+
+.inmodal{
+    // margin: 95px auto;
+    margin: -39px 0px -30px -4px;
+    width: 710px;
+    height: 400px;
+}
+.modal-body{
+    background: #F0F2F2;
+    min-height: 55vh;
+    overflow: auto;
+    padding: 25px 45px;
+}
+.loading-spinner{
+    top: 40%;
+    left: 50%;      
+}
+.comments{
+    line-height: 1.022371;
+}
+
+.clear{
+    display: inline-flex;
+    width: 110px;
+    height: 43px;
+    overflow: hidden;
+}
+.modal-title{
+	color: #1A1718;	
+    font-family: $font-titillium;	
+    font-size: 20px;	
+    line-height: 22px; 
+    font-weight: 600;
+}
+.unit-box{
+	border: 1px solid $border-on-focus;
+    border-radius: 4px;	
+    background-color: $contentWrapper-bg; 
+    height: 36px; 
+    width: 100px; 
+    padding: 0 15px; 
+}
+.unit-box-text{
+    font-size: 12px;	
+    line-height: 32px;
+    color: #1A1718;
+}
+.selected-code-row{
+    border: 1px solid $contentWrapper-bg;
+    padding: 3px;
+}
+.selected-code-box{
+    border-radius: 8px;
+    background-color: $left-panel-bg;
+    margin: 20px 0 0 0;  
+}
+.no-border-bottom{
+    border-bottom: none;
+}
+.unit-list-row{
+    color: #7E7C7D;;
+    font-size: 11px;
+    line-height: 32px;
+}
+.unit-box-row-text{
+    font-size: 11px;	
+    line-height: 32px;
+    color: #7E7C7D;
+}
+.unit-box-text-list{
+    font-size: 11px;
+    line-height: 15px;
+    color: #1A1718;
+    overflow-wrap: break-word;
+}
+.unit-list-row-text{
+    font-size: 11px;
+    line-height: 32px;
+    color: #1A1718;
+}
+.unit-box-title{
+	color: #252E39;	
+    font-family: Roboto;	
+    font-size: 12px;    
+    line-height: 24px;
+}
+.footer-block-center{
+    width: 310px;
+    margin: 0 auto;
+}
+.close-icon::after{
+    content: '';
+    position: absolute;
+    background: url(../../../../../assets/img/forms_tables/delete_icon.svg) no-repeat;
+    width: 28px;
+    height: 28px;
+    right: 4px;
+    background-size: 26px;
+    top: 3px;
+}
+.close-modal{
+    content: '';
+    position: absolute;
+    background: url(../../../../../assets/img/modal/modal_close.svg) no-repeat;
+    width: 18px;
+    height: 18px;
+    right: 21px;
+    background-size: 17px;
+    top: 16px;   
+}
+.character-font{
+    font-size: 11px;
+    color: $header-text;
+}
+.restricted-user{
+    color: $denger;
+    font-size: 12px;
+}
+// .restricted-user::after{
+//     content: '';
+//     position: absolute;
+//     background: url(../../../../../assets/img/modal/info_red_icon.svg) no-repeat;
+//     width: 18px;
+//     height: 18px;
+//     right: -25px;
+//     background-size: 18px;
+//     top: 0px;     
+// }
+.restricted-user::after{
+    content: '';
+    position: absolute;
+   // background: url(../../../../../assets/img/modal/info_red_icon.svg) no-repeat;
+    width: 18px;
+    height: 18px;
+    right: -25px;
+    background-size: 18px;
+    top: 0px;
+}
+.restricted-user1::after{
+     content: 'too';
+     color: transparent;
+     background: url(../../../../../assets/img/modal/info_red_icon.svg) no-repeat;
+     } 
+.legal-entity {
+    border: 1px solid #A8C5D1;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.restricted-user1::after{
+   
+    content: 'too';
+    color: transparent;
+
+    background: url(../../../../../assets/img/modal/info_red_icon.svg) no-repeat;
+    } 
+
+textarea{
+        resize: none; 
+}
+// .col-md-4{
+//     padding-left: 0px;
+//     padding-right: 44px;
+// }
+.text-line-hight{
+    line-height: 32px;
+}
+//remove spinners in num input 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.alert {
+    padding: 7px;
+    margin-bottom: -32px;
+    border: 1px solid transparent;
+    font-family: Roboto;
+    font-size: 12px;
+}
+.alert-danger{
+    color: indianred;
+    background-color: transparent !important;
+    border-color: transparent !important;
+    
+}
+
+.has-error .form-control {
+    border-color: orangered;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+
+.borderColor{
+    color:#C72536;
+}
+.restrictedTextColor{
+    color: #C72536 !important;
+}
+
+// .modal-content  .btn[disabled]{
+//     opacity: 0.4;
+// }
+.skill-team{
+    font-size: 13px;
+    margin: 6px;
+}

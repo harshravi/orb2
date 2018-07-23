@@ -1,0 +1,11 @@
+  .toast-close-button {
+    float: left;
+  }
+
+  #toast-container > .toast:before {
+    margin: auto -1.5em auto 0.5em;
+  }
+
+  #toast-container > div {
+    padding: 15px 50px 15px 15px;
+  }

@@ -1,0 +1,48 @@
+<div class="inmodal">
+  <div class="modal-content">
+    <form [formGroup]="form" name="form">
+      <div class="modal-header">
+        <a class="close-modal p-b-sm" name="closeOpenModal"></a>
+        <div class="row">
+          <div class="col-md-11 text-left">
+            <h1 class="modal-title">{{heading}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body relative-position">
+        <div class="absolute-position loading-spinner">
+          <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+        </div>        
+        <div class="row no-margins">
+          <ul class="service-collection">
+            <li class="selected-service-text p-l-xl" *ngFor="let data of selectedRowForDelete">{{data.legalEntityName}}</li>
+          </ul>  
+        </div>
+        <div class="row no-margins" *ngIf="context?.action === 'delete'">
+          <div class="col-md-12 no-padding m-t-xl" [ngClass]="{'has-error':!form.controls['comments'].valid && form.controls['comments'].touched}">
+            <div class="unit-box-title">
+              <span>Comments</span>
+              <span class="pull-right">
+                <span id="charsRemaining" *ngIf="textAreaTextCount; else defaultText">{{textAreaTextCount}}/250</span>
+                <ng-template #defaultText>0/250</ng-template>
+              <span class="character-font">Characters</span>
+              </span>
+            </div>
+            <textarea maxlength="250" class="form-control form-element comments" (keyup) = "getTextCount($event)" [formControl]="form.controls['comments']" comments rows="4" required></textarea>
+            <div *ngIf="form.controls['comments'].hasError('required') && form.controls['comments'].touched" class="alert alert-danger no-margins">Please enter comments</div>
+          </div>
+        </div>        
+      </div>
+      <div class="modal-footer">
+        <div class="footer-block-center">
+          <div class="inline-block">
+            <app-button  [btnType]="'text'" [btnText]="'CLOSE'" [btnColor]="'clear'" (getData)="closeModal()"></app-button>
+          </div>
+          <div class="inline-block">
+            <app-button [btnType]="'submit'" [btnText]="actionBtnText" [btnColor]="'save'" [btnDisabled]="isDataLoading || !form.valid" (getData)="submitRemove()"></app-button>
+          </div>
+        </div>
+      </div>      
+    </form>
+  </div>
+</div>  

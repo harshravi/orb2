@@ -1,0 +1,140 @@
+@import "../../../../assets/scss/_variables";
+.content-header{
+    min-height: 65px;
+    background-color: $left-panel-bg;
+    position: fixed;
+    width: 100%;
+    // z-index: 998;
+    margin-top: 0px!important;
+}
+.content-header-h1-text{
+    font-size: 22px;
+    padding: 1.1em;
+    font-weight: 550;
+    font-family: Titillium web;
+    color: $dark-black;
+}
+.content-header-lumpsum-h1-text{
+    font-size: 20px;
+    padding: 1.1em 1.1em 1.1em 1.5em;
+    font-weight: 550;
+    font-family: Titillium web;
+    color: $dark-black;
+}
+.add-intity{
+    margin-top:17px;
+}
+.position-none{
+    position:static!important;
+}
+.cond-text{
+    font-size: 12px;
+    font-style: italic;
+    margin-top: 30px;    
+}
+.header-spacing-left{
+    margin-left: -6px;
+    margin-right: -20px;
+}
+.show-user{
+    padding-top: 30px;
+    padding-bottom: 12px;
+    text-align: center;
+    width: 19vh;
+    font-size: 13px;
+    font-weight: 500; 
+    color: $header-text;   
+}
+.show-active-user{
+    border-bottom: 2px solid $orange;
+    color: $left-panel-child-bg
+}
+.usage-header-h1-text {
+    font-size: 20px;
+    padding: 0.5em 0.5em 0.3em 0.5em;
+    font-weight: 600;
+    color: $dark-black;
+}
+.volume-details-header-sub-text {
+	color: $nav-dash-text-color;
+    font-family: $font-titillium;	
+    font-size: 13px;
+    line-height: 14px;
+    font-weight: 600;   
+}
+.volume-details-header-h1-text{
+    font-size: 20px;
+    padding: 0.2em 0em 0.3em 0em;
+    font-weight: 600;
+    color: $dark-black;    
+}
+.volume-details-header-text {
+    padding-top: 0.7em;
+}
+.back-arrow{
+    width: 60px;
+}
+.back-arrow::before{
+    background: url(../../../../assets/img/headings/back_icon.svg);
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    content: '';
+    left: 18px;
+    background-repeat: no-repeat;
+    top: 20px;
+}
+.usage-header-text {
+    font-size: 12px;
+    padding: 0 0.8em;
+    // font-weight: 600;
+    font-family: roboto;
+}
+// .text-ellipsis{
+//     text-overflow: ellipsis;
+//     overflow: hidden;
+//     white-space: nowrap;
+// }
+.skill-team,.region-name,.intities{
+    margin-left: 20px;
+    position: relative;
+    color:$header-text;
+}
+.usage-header-text span::before{
+    top:2px;
+}
+.usage-header-text span.skill-team::before{
+    background: url(../../../../assets/img/skill_team_icon.svg);
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    content: '';
+    left: -17px;
+    background-repeat: no-repeat;
+}
+.usage-header-text span.region-name::before{
+    background: url(../../../../assets/img/region_icon.svg);
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    content: '';
+    left: -11px;
+    background-repeat: no-repeat;
+}
+.usage-header-text span.intities::before{
+    background: url(../../../../assets/img/entity_icon.svg);
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    content: '';
+    left: -11px;
+    background-repeat: no-repeat;
+}
+.add-app{
+    position: fixed;
+    right: 33px;    
+}
+.app-detail{
+    position:fixed;
+    font-family: Titillium web;
+}

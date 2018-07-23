@@ -1,0 +1,314 @@
+<div>
+    <app-confirmation-alert></app-confirmation-alert>
+    <div>
+      <app-side-nav [hightlightNav]="'highlight-first-nav'"></app-side-nav>
+      <app-nav-details-menu [showNav]="true" [showNavApprovals]="true" [navDetailsData]="dashboardDeatils" class="search-title"
+      [showApplicationDetails]="rows" (approvalFilterButton)="add($event)"></app-nav-details-menu>
+      <div #tableWrapper class="content-wrapper relative-position" style="padding: 50px 0px;">
+        <div class="relative-position row no-margins">
+          <div class="absolute-position loading-spinner">
+            <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+          </div>
+          <div>
+            <app-content-header [approvalsHeader]="true"></app-content-header>
+          </div>
+          <div class="main-header">
+            <div class="col-md-12 usage-pannel show-hide-usage">
+              <div class="row">
+                <div class="col-md-4 show-user show-active-user cursor inline-block" [ngClass]="{'show-active-user': showActiveUser === true, 'disabled': showSaveRibon === true}" (click)="showActive(true)">Usage</div>
+                <div class="col-md-4 show-user cursor inline-block" [ngClass]="{'show-active-user': showActiveUser === false, 'disabled': showSaveRibon === true}" (click)="showActive(false)">Volume</div>
+                <div class="col-md-4 pull-right cursor"> 
+                    <a href="javascript:window.location.href='https://orbapiqa.cfapps.io/orb2/api/approval/download'">
+                      <img src="../../../../assets/img/export_excel.png" 
+                      [ngClass]="{'show-active-user': showActiveUser === false, 'disabled': showSaveRibon === true}"/>
+                      </a>                      
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="absolute-position loading-spinner">
+            <app-progress-spinner [isRunning]="isDataLoadingforSave || isDataLoading"></app-progress-spinner>
+          </div>
+          <div class="container-box col-md-12">
+            <div class="col-md-12 year-selection-ribon no-padding-left no-padding-right" *ngIf="!isDataLoadingforSave && !showActiveUser">
+              <div class="blue_bghold">
+                <div class="yeartab-hold col-md-12">
+                  <ul>
+                    <li (click)="selectedServiceDetails(1, year1);" [ngClass]="{'selected': highlightedYearSelected === 1}"><a><span>{{year1}}</span></a></li>
+                    <li (click)="selectedServiceDetails(2, year2);" [ngClass]="{'selected': highlightedYearSelected === 2}"><a><span>{{year2}}</span></a></li>
+                    <li (click)="selectedServiceDetails(3, year3);" [ngClass]="{'selected': highlightedYearSelected === 3}"><a><span>{{year3}}</span></a></li>
+                    <li (click)="selectedServiceDetails(4, year4);" [ngClass]="{'selected': highlightedYearSelected === 4}"><a><span>{{year4}}</span></a></li>
+                    <li (click)="selectedServiceDetails(5, year5);" [ngClass]="{'selected': highlightedYearSelected === 5}"><a><span>{{year5}}</span></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="approvalyear" *ngIf="showActiveUser && !isDataLoadingforSave">
+              <div class="row no-margins" *ngIf="!isDataLoadingforSave">
+                <div class="col-xs-3 pull-left" *ngIf="!isDataLoading">
+                  <span class="checkbox checkbox-primary">
+                    <input id="checkbox" type="checkbox" [checked]="isSelected" (change)="showRestrictedUsers($event)" 
+                    [disabled]='isDataLoading || disableSingleEdit || showSaveRibon'/>
+                    <label for="checkbox">
+                      <span class="restricted-user">Show only restricted users</span>
+                    </label>
+                  </span>
+                </div>
+                <div class="col-xs-2 pull-right relative-position no-padding" *ngIf="!isDataLoading">
+                  <span class="absolute-position app-filter">Filter by Status</span>
+                  <app-dropdown 
+                    id="medication_reminder" 
+                    [ngClass]="{'selectpicker': true}" 
+                    name="Outreach" 
+                    [optionValueName]="'id'" 
+                    [optionTextName]="'name'"
+                    [data]="allStatusData" 
+                    [disabled]="showSaveRibon || disableSingleEdit" 
+                    #searchedWordText 
+                    [(ngModel)]="selectStatus" 
+                    (ngModelChange)="selectedStatus($event)">
+                  </app-dropdown>
+                </div>
+              </div>
+              <div class="m-t-md col-md-12" *ngIf="!isDataLoadingforSave">
+                <ngx-datatable *ngIf="!isDataLoading" class="material expandable" #myTable [rows]="rows" [columns]="columns" [rowClass]="getRowClass"
+                  [rowHeight]="'auto'" [columnMode]="'force'" [draggable]="false" [headerHeight]="50" [footerHeight]="50" [selected]="selected" [selectionType]="'checkbox'"
+                  [selectAllRowsOnPage]="false" (select)='onSelect($event)'>
+                  <ngx-datatable-column [width]="30" [sortable]="false" headerClass="header-text" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+                    <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+                      <span class="checkbox checkbox-primary">
+                      <input id="checkboxHeader" type="checkbox" [checked]="allRowsSelected" [disabled]="disableCheckBox" (change)="selectFn(!allRowsSelected)">
+                      <label for="checkboxHeader"></label>
+                      </span>
+                    </ng-template>
+                    <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template let-value="value" let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
+                      <span class="checkbox checkbox-primary">
+                      <input id="checkbox{{rowIndex}}" type="checkbox" [checked]="isSelected" [disabled]="disableCheckBox" (change)="onCheckboxChangeFn($event,rowIndex)">
+                      <label for="checkbox{{rowIndex}}"></label>
+                      </span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column class="p-t-md" [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-incurredcode"
+                    prop="applicationDetailsId" name="APPID" [width]="350" cellClass="incurredcode">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <a class="table-row-bold-text volume-incurredcode block get-ellipsis-text" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : '' && (row.statusId === 5 || row.statusId === 4) === true ? 'greyTextColor' : ''"
+                        title="{{row.applicationDetailsId}}">{{row.applicationDetailsId}}</a>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" cellClass="units" headerClass="volume-header-font" [sortable]="false" [draggable]="false"
+                    prop="skillTeam" name="Skill Team" [width]="350">
+                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                      <div class="table-row-bold-text" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''">{{row.skillTeam}}</div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="legalEntity"
+                    name="Legal Entity" [width]="350">>
+                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                      <div class="table-row-bold-text get-ellipsis-text" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''" data-toggle="tooltip" 
+                        title="{{row.legalEntity}}">{{row.legalEntity}}</div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="cyNegotiated" name="Negotiated Amt." [width]="350">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <div class="table-row-bold-text" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''" *ngIf="row.cyNegotiated !== null">${{row.cyNegotiated | number:'1.2-2'}}</div>
+                      <span *ngIf="row.cyNegotiated === null; else notNull"></span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="proposedNegotiated"
+                    name="Proposed Negotiated Amt." [width]="350">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <div class="table-row-bold-text" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''" 
+                        *ngIf="row.proposedNegotiated !== null">${{row.proposedNegotiated | number:'1.2-2'}}
+                      </div>
+                      <span *ngIf="row.proposedNegotiated === null; else notNull"></span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="changeType"
+                    name="Change Type" [width]="350">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <div  class="table-row-bold-text"  [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''" data-toggle="tooltip" title="{{row.changedBy}} {{row.changedDate}}">{{row.changeType}}</div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="comments"
+                    name="Comments" [width]="350">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <div class="table-row-bold-text usage-comments" maxlength="250" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''">{{row.comments}}</div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [canAutoResize]="false" [draggable]="false" [resizeable]="false" [sortable]="false" [width]="50">
+                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                      <span><img class="cursor" data-toggle="tooltip" title="{{row.comments}}" src="../../../../assets/img/forms_tables/more_icon.svg"/></span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="changedBy"
+                    name="changedBy" [width]="350">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <div class="table-row-bold-text" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''" data-toggle="tooltip" title="CHANGED By: {{row.changeRequestedBy}} {{row.changeRequestedDate}}">{{row.changeRequestedBy}}</div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" name="Status"
+                    [width]="350" prop="statusId">
+                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                      <span *ngIf="!row[rowIndex + '-status']">
+                        <div *ngIf="row.statusId === 3" data-toggle="tooltip" title="APPROVED By : {{row.changedBy}} {{row.changedDate}}">
+                          <img src="../../../../assets/img/forms_tables/status_success_icon.svg" />
+                        </div>
+                        <div *ngIf="row.statusId === 2">
+                          <img  src="../../../../assets/img/forms_tables/status_pending_icon.svg"  /> 
+                        </div>
+                        <div *ngIf="row.statusId === 4" data-toggle="tooltip" title="REJECTED By : {{row.changedBy}} {{row.changedDate}}">
+                          <img  src="../../../../assets/img/forms_tables/status_rejected_icon.svg" /> 
+                        </div>
+                        <div *ngIf="row.statusId === 5" data-toggle="tooltip" title="COMMITTED By : {{row.commitBy}} {{row.commitDate}}">
+                          <img  src="../../../../assets/img/forms_tables/status_superapprove_icon.svg"  /> 
+                        </div>
+                      </span>
+                      <select class="form-control cursor form-element" *ngIf="row[rowIndex + '-status']" [value]="value" (change)="updateValue($event, 'status', rowIndex)">
+                        <option value="{{statusCollection.id}}" *ngFor="let statusCollection of allStatusforTable">{{statusCollection.name}}</option>
+                      </select>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" [draggable]="false" headerClass="header-text" [sortable]="false" editable="true" prop="event_Action"
+                    name="Action" [width]="350">
+                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                      <div class="action-btn-box">
+                        <div>
+                          <button data-toggle="tooltip" title="EDIT" (click)="editRow(rowIndex, row)" [disabled]="(!(row.enableEdit) || showSaveRibon)" class="cursor edit-row edit-btn"></button>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                </ngx-datatable>
+              </div>
+            </div>
+
+            <!-- volume datatable -->
+            <div class="approvalyear" *ngIf="!showActiveUser && !isDataLoadingforSave">
+              <div class="m-t-lg col-md-12" *ngIf="!isDataLoadingforSave">               
+                <div class="col-xs-2 pull-right relative-position no-padding" *ngIf="!isDataLoading">
+                  <span class="absolute-position app-filter">Filter by Status</span>
+                  <app-dropdown id="medication_reminder" [ngClass]="{'selectpicker': true}" name="Outreach" [optionValueName]="'id'" [optionTextName]="'name'"
+                  [data]="allStatusData" [disabled]="showSaveRibon || disableSingleEdit" [(ngModel)]="selectStatus" (ngModelChange)="selectedStatus($event)">
+                  </app-dropdown>
+                </div>
+              </div>
+              <div class="m-t-md col-md-12" *ngIf="!isDataLoadingforSave">
+                <ngx-datatable *ngIf="!isDataLoading" class="material expandable" #myTable [rows]="rows" [columns]="columns" [rowClass]="getRowClass"
+                  [rowHeight]="'auto'" [columnMode]="'force'" [headerHeight]="50" [draggable]="false" [footerHeight]="50" [selected]="selected" [selectionType]="'checkbox'"
+                  [selectAllRowsOnPage]="false" (select)='onSelect($event)'>
+                  <ngx-datatable-column [width]="30" [sortable]="false" headerClass="header-text" [canAutoResize]="false" [draggable]="false"
+                    [resizeable]="false">
+                    <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+                      <span class="checkbox checkbox-primary">
+                        <input id="checkboxHeader" type="checkbox" [checked]="allRowsSelected" [disabled]="disableCheckBox" (change)="selectFn(!allRowsSelected)">
+                        <label for="checkboxHeader"></label>
+                      </span>
+                    </ng-template>
+                    <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template let-value="value" let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
+                      <span class="checkbox checkbox-primary">
+                        <input id="checkbox{{rowIndex}}" type="checkbox" [checked]="isSelected" [disabled]="disableCheckBox" (change)="onCheckboxChangeFn($event,rowIndex)">
+                        <label for="checkbox{{rowIndex}}"></label>
+                      </span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column class="p-t-md" [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-incurredcode"
+                    prop="appID" name="APP ID" [width]="350" cellClass="incurredcode">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <a class="table-row-bold-text volume-incurredcode block get-ellipsis-text" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''" title="{{row.appID}}">{{row.appID}}</a>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column class="p-t-md" [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-incurredcode"
+                    prop="appName" name="APP Name" [width]="350" cellClass="incurredcode">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <a class="table-row-bold-text volume-incurredcode block get-ellipsis-text" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''" 
+                        title="{{row.appName}}">{{row.appName}}</a>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column class="p-t-md" [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-incurredcode"
+                    prop="incurredCode" name="Incurred Code:Service" [width]="350" cellClass="incurredcode">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <a class="table-row-bold-text volume-incurredcode block get-ellipsis-text" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''"
+                        data-toggle="tooltip" title="{{row.incurredCode}}">{{row.incurredCode}}</a>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column class="p-t-md" [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-incurredcode"
+                    prop="legalEntity" name="Legal Entity" [width]="350" cellClass="incurredcode">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <a class="table-row-bold-text volume-incurredcode block get-ellipsis-text" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''" 
+                        data-toggle="tooltip" title="{{row.legalEntity}}">{{row.legalEntity}}</a>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" cellClass="units" headerClass="volume-header-font" [sortable]="false" [draggable]="false"
+                    prop="skillTeam" name="Skill Team" [width]="350">
+                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                      <div class="table-row-bold-text" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''">{{row.skillTeam}}</div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" cellClass="units" headerClass="volume-header-font" [sortable]="false" [draggable]="false"
+                    prop="quantity" name="Quantity" [width]="350">
+                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                      <div class="table-row-bold-text" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''" 
+                        data-toggle="tooltip" title="{{row.quantity}}">{{row.quantity | number:'1.2-2'}}</div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="changeReason"
+                    name="Change Reason" [width]="350">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <a class="table-row-bold-text volume-incurredcode block get-ellipsis-text" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''" 
+                        data-toggle="tooltip" title="{{row.comments}}">{{row.changeReason}}</a>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="modifiedBy"
+                    name="Modified By" [width]="350">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <div class="table-row-bold-text" [ngClass]="row.restrictedLegalEntity === true ? 'restrictedTextColor' : ''">{{row.modifiedBy}}</div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" name="Status"
+                    prop="status" [width]="350">
+                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                      <span *ngIf="!row[rowIndex + '-status']">
+                        <div *ngIf="row.statusId === 3" data-toggle="tooltip" title="APPROVED By: {{row.approvedBy}} {{row.approvedDateWithZone}}">
+                          <img   src="../../../../assets/img/forms_tables/status_success_icon.svg" />
+                        </div>
+                        <div *ngIf="row.statusId === 2">
+                          <img  src="../../../../assets/img/forms_tables/status_pending_icon.svg"  /> 
+                        </div>
+                        <div *ngIf="row.statusId === 4" data-toggle="tooltip" title="REJECTED By: {{row.approvedBy}} {{row.approvedDateWithZone}}">
+                          <img  src="../../../../assets/img/forms_tables/status_rejected_icon.svg"  /> 
+                        </div>
+                        <div *ngIf="row.statusId === 5" data-toggle="tooltip" title="COMMITTED By: {{row.committedBy}} {{row.committedDateWithZone}}">
+                          <img  src="../../../../assets/img/forms_tables/status_superapprove_icon.svg"  /> 
+                        </div>
+                      </span>
+                      <select class="form-control cursor form-element" *ngIf="row[rowIndex + '-status']" [value]="value" (change)="updateValue($event, 'status', rowIndex)">
+                        <option value="{{statusCollection.statusId}}" *ngFor="let statusCollection of allStatusforTable">{{statusCollection.name}}</option>
+                      </select>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column [resizeable]="false" headerClass="header-text" [sortable]="false" editable="true" prop="event_Action"
+                    name="Action" [width]="350">
+                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                      <div class="action-btn-box">
+                        <div>
+                          <button data-toggle="tooltip" title="EDIT" (click)="editRow(rowIndex, row)" class="cursor edit-row edit-btn" [disabled]="(!(row.enableEdit) || showSaveRibon)"></button>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                </ngx-datatable>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row no-margins">
+          <app-bottom-action-ribon (clearAll)="clearAllSelected()" (saveAllSelected)="saveEdit()" (editAll)="selectAllChecked()" 
+          (approveAll)="approveAllSelected()" (unapproveAll)="unapproveAllSelected()" (rejectAll)="rejectAllSelected()" (commitAll)="commitAllSelected()"
+          [disableSave]="isDataLoadingforSave" [commitStatus]="userTypestatus" [showSaveRibon]="showSaveRibon" [disableEdit]="setEditFlag" [showActionBtn]="(disableSingleEdit)" [showDeleteBtn]="showDeleteBtn"
+          [disableApprove]="setEditFlag" [disableUnapprove]="setEditFlag" [disableRejected]="setEditFlag"
+          [disableCommit]="setEditFlag">
+          </app-bottom-action-ribon>
+        </div>
+      </div>
+    </div>
+  </div>

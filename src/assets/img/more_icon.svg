@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="4px" height="16px" viewBox="0 0 4 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>more_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Design-System" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Design_System_Export" transform="translate(-1714.000000, -277.000000)" fill="#9DB4BE">
+            <g id="icons" transform="translate(1500.863281, 49.000000)">
+                <g id="more_icon" transform="translate(213.386719, 228.488281)">
+                    <g id="Group-2">
+                        <circle id="Oval" cx="1.5" cy="1.5" r="1.5"></circle>
+                        <circle id="Oval" cx="1.5" cy="7.5" r="1.5"></circle>
+                        <circle id="Oval" cx="1.5" cy="13.5" r="1.5"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

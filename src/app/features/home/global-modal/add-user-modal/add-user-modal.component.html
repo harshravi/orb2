@@ -1,0 +1,97 @@
+<div class="inmodal">
+  <div class="modal-content">
+    <form [formGroup]="form" name="form">
+      <div class="modal-header">
+        <a class="close-modal p-b-sm" name="closeOpenModal"></a>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 text-left">
+            <h1 class="modal-title">{{heading}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="relative-position modal-body">
+        <div class="absolute-position loading-spinner">
+          <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+        </div>
+        <div class="row no-margins">
+          <div class="col-md-6 no-padding-left" [ngClass]="{'has-error':!form.controls['legalEntityID'].valid && form.controls['legalEntityID'].touched}">
+            <app-dropdown [labelText]="'Select Legal Entity'" id="medication_reminder" [ngClass]="{'selectpicker': true}" name="Outreach"
+              [optionValueName]="'legalEntityID'" [checkRestricted]="dropDownDefaultTextColor" [optionChangeColor]="'restrictedLegalEntity'"
+              formControlName="legalEntityID" [optionTextName]="'legalEntity'" [disabled]='disableDropdown || isDataLoading' [data]="filteredLigalIntityData"
+              [(ngModel)]="selectIntity" (ngModelChange)="selectedIntity($event)">
+            </app-dropdown>
+            <div *ngIf="form.controls['legalEntityID'].hasError('required') && form.controls['legalEntityID'].touched" class="alert alert-danger">Please select a Legal Entity</div>
+          </div>
+          <div class="col-md-6" [ngClass]="{'has-error':!form.controls['negotiatedAmount'].valid && form.controls['negotiatedAmount'].touched || negotiateAmtError}" >
+            <span class="block unit-box-title">Negotiated Amount </span>
+            <input class="form-control form-element" id="NegAmt" formControlName="negotiatedAmount" type="number" (keyup)="updateValue($event, 'negotiatedAmount')"
+            pattern="^[0-9]{0,7}(?:\.[0-9]{0,6})?$"/>
+            <div *ngIf="form.controls['negotiatedAmount'].hasError('required') && form.controls['negotiatedAmount'].touched" class="alert alert-danger">Please enter Negotiated Amount</div>
+            <div *ngIf="form.controls['negotiatedAmount'].hasError('pattern') || negotiateAmtError" class="alert alert-danger">Please enter valid Negotiated Amount</div>
+            <!-- <span class="help-block"  ng-show="!form.controls['negotiatedAmount'].valid">Invalid</span> -->
+          </div>
+        </div>
+        <div class="row no-margins" *ngIf="!disableDropdown">
+          <div class="col-md-12 no-padding">
+            <span class="checkbox checkbox-primary">
+              <input id="checkbox" type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)" [disabled]="isDataLoading"/>
+              <label for="checkbox"><span class="restricted-user">Show restricted users</span>
+                <span class="restricted-user1" data-toggle="tooltip" data-placement="right" title="Click here to add restricted legal entities which will be displayed above in red color."></span>                
+              </label>
+            </span>
+          </div>
+        </div>
+        <div class="row no-margins">
+          <div class="col-md-12 no-padding m-t-md" [ngClass]="{'has-error':!form.controls['comments'].valid && form.controls['comments'].touched}">
+            <div class="unit-box-title">
+              <span>Comments</span>
+              <span class="pull-right">
+                <span *ngIf="textAreaTextCount; else defaultText">{{textAreaTextCount}}/250</span>
+              <ng-template #defaultText>0/250</ng-template>
+              <span class="character-font">Characters</span>
+              </span>
+            </div>
+            <textarea maxlength="250" class="form-control form-element comments" (keyup) = "getTextCount($event)" [formControl]="form.controls['comments']" rows="4" [disabled]="!isDataLoading" required></textarea>
+            <div *ngIf="form.controls['comments'].hasError('required') && form.controls['comments'].touched" class="alert alert-danger no-margins">Please enter comments</div>
+          </div>
+        </div>
+        <div class="m-t-sm" *ngIf="context?.addBtn">
+          <app-button [btnText]="'ADD USER'" [btnDisabled]="!selectedIntityData || !form.valid || CommentMandatory || negotiateAmtError" [btnType]="'text'"
+            [btnColor]="'submit-btn-without-icon'" (getData)="getIntityCollection()"></app-button>
+        </div>
+        <div class="selected-code-box row"  *ngIf="IntityCollection.length > 0 && removeAdd">
+          <div class="row no-margins selected-code-row no-border-bottom">
+            <div class="col-md-4 unit-list-row"> Legal Entity</div>
+            <div class="col-md-4 unit-box-row-text">Negotiated Amount</div>
+            <div class="col-md-3 unit-box-row-text">Comments</div>
+            <div class="col-md-1 unit-box-row-text"></div>
+          </div>
+          <div class="row no-margins selected-code-row" *ngFor="let data of IntityCollection">
+            <div class="col-md-4 unit-list-row-text get-ellipsis-text" [ngClass]="data.restrictedLegalEntity === true ? 'borderColor' : ''"
+            data-toggle="tooltip" title="{{data.legalEntity}}">{{data.legalEntity}}</div>
+            <div class="col-md-4 unit-list-row-text get-ellipsis-text" [ngClass]="data.restrictedLegalEntity === true ? 'borderColor' : ''">
+            {{data.negotiatedAmount | number : '1.2-2'}}</div>
+            <div class="col-md-3 unit-box-text-list get-ellipsis-text text-line-hight" [ngClass]="data.restrictedLegalEntity === true ? 'borderColor' : ''"
+              data-toggle="tooltip" title="{{data.comments}}">{{data.comments}}</div>
+            <div class="col-md-1 unit-box-text-list" *ngIf="!isDataLoading" (click)="removeFromSelected(data)" class="close-icon cursor col-md-1 unit-box-text-list"></div>
+          </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <div class="footer-block-center">
+      <div class="clear">
+        <app-button [btnType]="'text'" ng-disabled="checked" [btnText]="'CLEAR'" [btnColor]="'clear'" (getData)="clearModalData()"></app-button>
+      </div>
+      <div class="inline-block save">
+        <div *ngIf="context?.addAgain; else addLigalEntity">
+          <app-button [btnType]="'submit'" [btnText]="'SAVE'" [btnColor]="'save'" (getData)="addUsage(form.value)" [btnDisabled]="disableSubmit || !form.valid || enableAddRemoved"></app-button>
+        </div>
+        <ng-template #addLigalEntity>
+          <app-button [btnType]="'submit'" [btnText]="'SAVE'" [btnColor]="'save'" (getData)="addUsage(form.value)" [btnDisabled]="disableSubmit"></app-button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+</div>

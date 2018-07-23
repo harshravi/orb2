@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="62px" viewBox="0 0 12 62" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>open_leftpane</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Graphic_Assets" transform="translate(-182.000000, -564.000000)">
+            <g id="left_panel" transform="translate(127.000000, 421.000000)">
+                <g id="open_leftpane" transform="translate(55.000000, 143.000000)">
+                    <rect id="Rectangle-3" fill="#F78100" transform="translate(6.000000, 31.000000) scale(-1, 1) translate(-6.000000, -31.000000) " x="0" y="0" width="12" height="62"></rect>
+                    <polygon id="Triangle" fill="#FFFFFF" transform="translate(6.359052, 31.002539) scale(-1, 1) rotate(-88.000000) translate(-6.359052, -31.002539) " points="6.2767282 28.5025385 10.4413756 33.2174227 2.2767282 33.5025385"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

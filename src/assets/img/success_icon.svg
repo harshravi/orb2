@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="23px" viewBox="0 0 24 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>success_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Design-System" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Design_System_Export" transform="translate(-1631.000000, -225.000000)" fill="#FFFFFF">
+            <g id="icons" transform="translate(1500.863281, 49.000000)">
+                <g id="success_icon" transform="translate(130.386719, 176.097656)">
+                    <path d="M11.75,0 C17.963,0 23,5.037 23,11.25 C23,17.463 17.963,22.5 11.75,22.5 C5.537,22.5 0.5,17.463 0.5,11.25 C0.5,5.037 5.537,0 11.75,0 Z M11.75,20.5 C16.851,20.5 21,16.351 21,11.25 C21,6.149 16.851,2 11.75,2 C6.649,2 2.5,6.149 2.5,11.25 C2.5,16.351 6.649,20.5 11.75,20.5 Z" id="Fill-1"></path>
+                    <path d="M17.9814,6.5806 C17.5574,6.2256 16.9264,6.2836 16.5724,6.7056 L10.0654,14.4906 L6.4304,10.8546 C6.0394,10.4636 5.4064,10.4636 5.0164,10.8546 C4.6254,11.2456 4.6254,11.8776 5.0164,12.2686 L9.4244,16.6776 C9.6124,16.8656 9.8674,16.9706 10.1314,16.9706 C10.1464,16.9706 10.1614,16.9696 10.1764,16.9696 C10.4574,16.9566 10.7194,16.8276 10.8984,16.6116 L18.1064,7.9896 C18.4614,7.5656 18.4044,6.9346 17.9814,6.5806" id="Fill-3"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

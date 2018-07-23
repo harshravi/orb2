@@ -1,0 +1,286 @@
+<div #tableWrapper>
+  <app-confirmation-alert></app-confirmation-alert>
+  <div class="main-header">
+    <div class="absolute-position loading-spinner">
+      <app-progress-spinner [isRunning]="!(volumeTabularDetails) || isDataLoadingforSave || !(allLigalEntity)"></app-progress-spinner>
+      <app-progress-spinner [isRunning]="isVolumeDataLoading"></app-progress-spinner>
+    </div>
+    <div *ngIf="volumeTabularDetails">
+      <app-content-header [volumeDetailsHeader]="true" [btnRequire]="true" [changePositionClass]="'position-none'" [addNew]="(showSaveRibon || isDataLoadingforSave || !(volumeTabularDetails['header']['enableAddLegalEnityButton']) || !(allLigalEntity) || enableLumpSumsService)"
+        [buttonText]="'ADD LEGAL ENTITY'" [headerDetails]="selectedAppHeaderDetails" [headerForVolumeDetails]="volumeDetailsData"
+        [dashboardHeader]="false" (backToVolumePage)="backToVolumePage($event)" (openModal)="showAddLigalEntityModal($event)"></app-content-header>
+    </div>
+  </div>
+  <div class="container-box">
+    <!--<app-progress-spinner  [isRunning]="isDataLoading"></app-progress-spinner>-->
+    <div class="col-md-12 year-selection-ribon no-padding-left no-padding-right" *ngIf="volumeTabularDetails">
+      <div class="blue_bghold" *ngIf="!isDataLoadingforSave">
+        <div class="yeartab-hold col-md-6">
+          <ul>
+            <li (click)="selectedServiceDetails(1, volumeTabularDetails.year1);" [ngClass]="{'selected': highlightedYearSelected === 1}"><a><span>{{volumeTabularDetails?.year1}}</span></a></li>
+            <li (click)="selectedServiceDetails(2, volumeTabularDetails.year2)" [ngClass]="{'selected': highlightedYearSelected === 2}"><a><span>{{volumeTabularDetails?.year2}}</span></a></li>
+            <li (click)="selectedServiceDetails(3, volumeTabularDetails.year3)" [ngClass]="{'selected': highlightedYearSelected === 3}"><a><span>{{volumeTabularDetails?.year3}}</span></a></li>
+            <li (click)="selectedServiceDetails(4, volumeTabularDetails.year4)" [ngClass]="{'selected': highlightedYearSelected === 4}"><a><span>{{volumeTabularDetails?.year4}}</span></a></li>
+            <li (click)="selectedServiceDetails(5, volumeTabularDetails.year5)" [ngClass]="{'selected': highlightedYearSelected === 5}"><a><span>{{volumeTabularDetails?.year5}}</span></a></li>
+          </ul>
+        </div>
+        <div class="inline-block col-md-6 right-box text-right">
+          <div class="inline-block amount-text">
+            <span class="number-text" *ngIf="selectedYearData?.totalQuantity !== null && selectedYearData?.totalQuantity !== 0" data-toggle="tooltip" data-container="body" title="{{selectedYearData?.totalQuantity | number: '1.1-6'}}">{{selectedYearData?.totalQuantity | number: '1.1-2'}}</span>
+            <span class="unit font-11" *ngIf="selectedYearData?.totalQuantity !== null && selectedYearData?.totalQuantity !== 0">{{selectedYearData?.unit}}</span>
+            <!-- *ngIf="selectedYearData?.totalQuantity" *ngIf="selectedYearData?.totalCost"  *ngIf="selectedYearData?.totalCost"-->
+          </div>
+          <div class="inline-block box-separator"></div>
+          <div class="inline-block amount-text" *ngIf="selectedYearData?.totalCost !== null && selectedYearData?.totalCost !== 0" data-toggle="tooltip" data-container="body" title="{{selectedYearData?.totalCost | number: '1.1-6'}}">{{volumeTabularDetails?.currency}}{{selectedYearData?.totalCost | number: '1.1-2'}}</div>
+          <!--<div class="inline-block pull-right">
+          <app-button [icon]="'add'" [btnDisabled]="!write" [btnColor]="'submit-btn-color'" [btnText]="'ADD MORE VOLUME'" (getData)="showModal()"></app-button>
+        </div>-->
+        </div>
+      </div>
+    </div>
+    <div class="m-t-lg col-md-12" *ngIf="!isDataLoadingforSave" [ngClass]="{'openGroup': openCreatGroupBox}">
+      <!--<div class="table-heading m-b-sm">Services</div>-->
+      <div class="col-xs-3 no-padding-left position-relative">
+        <app-button [icon]="'add'" [btnDisabled]="!(allLigalEntity) || !(volumeTabularDetails['header']['enableAddLegalEnityButton']) || showSaveRibon || !rows || enableLumpSumsService"
+          [btnColor]="'submit-btn-color'" [btnText]="'Create Group'" (getData)="enableGroupAddBox()"></app-button>
+        <div class="create-group" *ngIf="openCreatGroupBox">
+          <div class="inline-block group-input-box">
+            <input type="text" class="form-control form-element" [(ngModel)]="groupNameText" (keydown)="enterGroupName(groupNameText)"
+              placeholder="Group Name" maxlength="50">
+            <div class="alert alert-danger duplicate-validation font-11 p-xs no-margins" *ngIf="duplicateEntry">Duplicate group name is not allowed</div>
+          </div>
+          <div class="pull-right inline-block">
+            <app-button [btnDisabled]="!groupNameText || duplicateEntry || showSaveRibon" [btnColor]="'submit-blue-btn'" [btnText]="'Create'" (getData)="createGroup()"></app-button>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-3 pull-right relative-position no-padding-right" *ngIf="rows">
+        <span class="absolute-position app-filter">Filter</span>
+        <div class="no-padding">
+          <app-dropdown id="medication_reminder" [disabled]="(disableSingleEdit || showSaveRibon )" [ngClass]="{'selectpicker': true}"
+            (ngModelChange)="selectBundelName($event,selectStatus)" name="Outreach" [optionValueName]="'bundelName'" [optionTextName]="'bundelName'"
+            [data]="bundelNameCollection" [(ngModel)]="selectedBundelName">
+          </app-dropdown>
+        </div>
+      </div>
+      <div class="col-md-3 pull-right no-padding-right">
+        <span class="absolute-position app-filter">Filter</span>
+        <app-dropdown id="medication_reminder" [disabled]="(disableSingleEdit || showSaveRibon )" [ngClass]="{'selectpicker': true}"
+          name="Outreach" [optionValueName]="'id'" [optionTextName]="'name'" [data]="allStatusData" (ngModelChange)="statusFilter($event, selectedBundelName)"
+          [(ngModel)]="selectStatus">
+        </app-dropdown>
+      </div>
+    </div>
+    <div class="accordion" *ngIf="!isDataLoadingforSave">
+      <div *ngIf="volumeTabularDetails">
+        <div class="m-t-md col-md-12" *ngFor="let bundleGroup of rows; let i = index">
+          <div class="row year-selection-ribon no-margins p-b-sm">
+            <div class="blue_bghold bundel-group">
+              <div class="col-md-2 p-xs">
+                <span class="bundel-text">{{bundleGroup?.bundleName}}</span>
+                <button (click)="openEditGroupModal(bundleGroup?.bundleName)" [disabled]="!(volumeTabularDetails['header']['enableClearVolumeButton']) || showSaveRibon || !(allLigalEntity) || enableLumpSumsService"
+                  class="btn font-11 edit-bundel cursor edit-icon relative-position">Edit</button>
+              </div>
+              <div class="inline-block col-md-10 right-box text-right">
+                <div class="col-md-9 no-padding">
+                  <div class="inline-block amount-text">
+                    <span class="number-text" *ngIf="selectedYearData?.totalQuantity !== null && selectedYearData?.totalQuantity !== 0" data-toggle="tooltip" data-container="body" title="{{bundleGroup?.totalQuantity | number: '1.1-6'}}">{{bundleGroup?.totalQuantity | number: '1.1-2'}}</span>
+                    <span class="unit font-11" *ngIf="selectedYearData?.totalQuantity !== null && selectedYearData?.totalQuantity !== 0">{{selectedYearData?.unit}}</span>
+                    <!-- *ngIf="bundleGroup?.totalCost"  *ngIf="bundleGroup?.totalCost"  *ngIf="bundleGroup?.totalCost" -->
+                  </div>
+                  <div class="inline-block bundel-separator m-l-sm m-r-sm" *ngIf="selectedYearData?.totalQuantity !== null && selectedYearData?.totalQuantity !== 0"></div>
+                  <div class="inline-block amount-text" *ngIf="selectedYearData?.totalCost !== null && selectedYearData?.totalCost !== 0" data-toggle="tooltip" data-container="body" title="{{bundleGroup?.totalCost | number: '1.1-6'}}">{{volumeTabularDetails?.currency}}{{bundleGroup?.totalCost | number: '1.1-2'}}</div>
+                </div>
+                <div class="col-md-3 no-padding">
+                  <div class="inline-block add-spread-volume m-r-xs">
+                    <app-button [icon]="'spread-volume'" [smallBtn]="'small-submit-btn'" [btnDisabled]="!(allLigalEntity) || showSaveRibon || !(volumeTabularDetails?.header?.enableAddMoreVolumeButton) || (bundleGroup?.spreadVolumeFlag)"
+                      [btnColor]="'submit-btn-color'" [btnText]="'Spread Volume'" (getData)="openAddSpeadoMaticModal(bundleGroup?.bundleName)"></app-button>
+                  </div>
+                  <div class="inline-block bundel-separator m-r-lg">
+                    <!--<span class="up-down-icon"></span>-->
+                    <button class="accordion-section-title btn accordionIcon-{{i+1}}" [disabled]="showSaveRibon" [ngClass]="{'up-icon': highlightedSearchedRow === (i)}"
+                      (click)="showRow(i); getCurrentGroupName(bundleGroup?.bundleName,selectStatus,selectedBundelName)" id="accordion-{{i+1}}"></button>
+                  </div>
+                </div>
+                <!--<div class="inline-block amount-text">
+              <span class="number-text">{{selectedYearData?.totalQuantity}}</span>
+              <span class="unit font-11">{{selectedYearData?.unit}}</span>
+            </div>
+            <div class="inline-block box-separator"></div>
+            <div class="inline-block amount-text m-r-xl">{{selectedYearData?.unit}}{{selectedYearData?.totalCost}}</div>-->
+                <!--<div class="inline-block amount-text m-r-xl"></div>-->
+                <!--<div class="inline-block pull-right">
+          </div>-->
+              </div>
+            </div>
+          </div>
+          <div class="accordion-section-content m-t-xs" *ngIf="!isDataLoadingforSave" [ngClass]="{'show-row': highlightedSearchedRow === (i)}">
+            <div class="row no-margins p-b-xs" *ngIf="rows">
+              <div class="col-md-3 pull-left no-padding-left">
+                <app-search-text-box [smallSearch]="'light-gray'" [disableSearch]="(disableSingleEdit || showSaveRibon)" (appsearch)="updateFilter($event, bundleGroup?.bundleName)"
+                  [placeHolder]="'Search'"></app-search-text-box>
+              </div>
+              <!-- <div class="col-md-3 pull-right no-padding-right">
+                <span class="absolute-position app-filter">Filter</span>
+                <app-dropdown id="medication_reminder" [disabled]="(disableSingleEdit || showSaveRibon )" [ngClass]="{'selectpicker': true}"
+                  name="Outreach" [optionValueName]="'id'" [optionTextName]="'name'" [data]="allStatusData" (ngModelChange)="statusFilter($event, bundleGroup?.bundleName)"
+                  [(ngModel)]="selectStatus">
+                </app-dropdown>
+              </div> -->
+            </div>
+            <ngx-datatable *ngIf="!isDataLoading" class="material expandable" #myTable [rows]="bundleGroup?.volumeDetailDTOs" [columns]="columns" [rowClass]="getRowClass"
+              [rowHeight]="'auto'" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [selected]="selected" [selectionType]="'checkbox'"
+              [selectAllRowsOnPage]="false" (select)='onSelect($event)' [selectCheck]="checkSelectable" [displayCheck]="displayCheck"
+              (sort)="onSort($event,bundleGroup?.bundleName)" [sorts]="[{prop: 'legalEntityName', dir: 'asc'},{prop: 'skillTeamName', dir: 'asc'}]">
+              <ngx-datatable-column [width]="30" [sortable]="false" headerClass="header-text" [canAutoResize]="false" [draggable]="false"
+                [resizeable]="false">
+                <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+                  <span class="checkbox checkbox-primary">
+                                <input id="checkboxHeader-{{i}}" type="checkbox" [checked]="allRowsSelected" [disabled]="(disableCheckBox || (row?.canEdit === false))"  (change)="selectFn(!allRowsSelected)">
+                                <label for="checkboxHeader-{{i}}"></label>
+
+                            </span>
+                </ng-template>
+                <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template let-value="value" let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
+                  <span class="checkbox checkbox-primary">
+                                <input id="checkbox{{rowIndex}}{{i}}" type="checkbox" [checked]="isSelected" [disabled]="(disableCheckBox || (row?.canEdit === false && row?.enableDropDown === false))" 
+                                (change)="onCheckboxChangeFn($event,rowIndex);onCheckboxChange($event,rowIndex)">
+                                <label for="checkbox{{rowIndex}}{{i}}"></label>
+                            </span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" [sortable]="true" [draggable]="false" headerClass="volume-header-font" prop="legalEntityName"
+                name="Legal Entity" [width]="400">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <!--<span *ngIf="!row[rowIndex + '-legalEntityName']">-->
+                  <div class="table-row-bold-text get-ellipsis-text" data-toggle="tooltip" [ngClass]="row.restrictedLegalEntity === true ? 'redFont' : ''"
+                    title="{{row.legalEntityName}}">{{row.legalEntityName}}</div>
+                  <!--</span>-->
+                  <!--<select class="form-control cursor form-element" *ngIf="row[rowIndex + '-legalEntityName']" [value]="value" (change)="updateValue($event, 'legalEntityName', rowIndex)">
+                <option value="{{ligalEntityCollection.legalEntity}}" *ngFor="let ligalEntityCollection of allLigalEntity">{{ligalEntityCollection.legalEntity}}</option>
+              </select>-->
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" [sortable]="true" [draggable]="false" headerClass="volume-header-font" prop="skillTeamName"
+                name="Skill Team" [width]="320">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <!--<span *ngIf="!row[rowIndex + '-skillTeamName']">-->
+                  <div class="table-row-bold-text get-ellipsis-text" data-toggle="tooltip" title="{{row.skillTeamName}}" [ngClass]="row.restrictedLegalEntity === true ? 'redFont' : ''">{{row.skillTeamName}}</div>
+                  <!--</span>-->
+                  <!--<select class="form-control cursor form-element" *ngIf="row[rowIndex + '-skillTeamName']" [value]="value" (change)="updateValue($event, 'skillTeamName', rowIndex)">
+                <option value="{{skillCollection.name}}" *ngFor="let skillCollection of allSkill">{{skillCollection.name}}</option>
+              </select>-->
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column class="p-t-md" [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font"
+                prop="incurredCodeService" name="ADJ {{selectedYear - 1}} Budget" [width]="330" cellClass="incurredcode">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <a class="table-row-bold-text volume-incurredcode block get-ellipsis-text" data-toggle="tooltip" title="{{row.cyBudgetAmount | number: '1.1-6'}}" [ngClass]="row.restrictedLegalEntity === true ? 'redFont' : ''">{{row.cyBudgetAmount | number: '1.1-2'}}</a>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" cellClass="units" headerClass="volume-header-font" [sortable]="false" [draggable]="false"
+                prop="quantity" name="Quantity" [width]="310">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <!--<div class="table-row-bold-text units">{{row.quantity}}</div>-->
+                <span *ngIf="!row[rowIndex + '-quantity']">
+                  <div class="table-row-bold-text" [ngClass]="row.restrictedLegalEntity === true ? 'redFont' : ''" data-toggle="tooltip" title="{{row.quantity | number: '1.1-6'}}">{{row.quantity | number: '1.1-2'}}</div>
+                </span>
+                  <input class="form-control form-element" autofocus (keyup)="updateValue($event, 'quantity', rowIndex, i)" *ngIf="row[rowIndex+ '-quantity']"
+                  type="number" maxlength="18" (keypress)="onlyNumberKey($event)" pattern="^-?(?!0*((\.0+){0,9})?$)((\d+|\d*\.\d+){0,9})?$" 
+                  [disabled]="!(row.enableEditOtherFields)" value="{{row.quantity}}" required />
+                  <span *ngIf="row[rowIndex + '-quantity']" class="colorRed">{{row.errorMessage}}</span>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="changeReason"
+                name="Change Reason" [width]="350">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <span *ngIf="!row[rowIndex + '-changeRegion']">
+              <div class="table-row-bold-text get-ellipsis-text" data-toggle="tooltip" title="{{row.changeReason}}" [ngClass]="row.restrictedLegalEntity === true ? 'redFont' : ''">{{row.changeReason}}</div>            
+              </span>
+                  <select class="form-control cursor form-element" *ngIf="row[rowIndex + '-changeRegion']" [disabled]="!(row.enableEditOtherFields)" [value]="row?.changeReason" (change)="updateValue($event, 'changeReason', rowIndex, i)">
+                <option value="{{regionCollection.id}}" *ngFor="let regionCollection of allRegions">{{regionCollection.name}}</option>
+              </select>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="purchaseOrderId"
+                name="Purchase Order" [width]="300">
+                <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <span *ngIf="!row[rowIndex + '-purchageOrder']"> 
+                  <div class="table-row-bold-text" [ngClass]="row.restrictedLegalEntity === true ? 'redFont' : ''">{{row.purchaseOrderName}}</div>
+                </span>
+                <span *ngIf="(row.enablePO && row[rowIndex + '-purchageOrder']); else showText">
+                  <select class="form-control cursor form-element" *ngIf="row[rowIndex + '-purchageOrder']" [disabled]="!(row.enableEditOtherFields)" [value]="row?.purchaseOrderId"
+                    (change)="updateValue($event, 'purchaseOrderId' , rowIndex, i)">
+                  <option value="{{purchaseOrder.id}}" *ngFor="let purchaseOrder of allPurchaseOrder">{{purchaseOrder.name}}</option>
+                </select>
+                </span>
+                <ng-template #showText>
+                    <span *ngIf="row[rowIndex + '-purchageOrder']"> 
+                        <div class="table-row-bold-text" [ngClass]="row.restrictedLegalEntity === true ? 'redFont' : ''">{{row.purchaseOrderName}}</div>
+                  </span>
+                  </ng-template>
+                </ng-template>
+              </ngx-datatable-column> 
+              <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="year1Volume"
+                name="Comments" [width]="370">
+                <!--<ng-template let-row="row" ngx-datatable-cell-template>
+              <div class="text-bold">{{row.comments}}</div>
+            </ng-template>-->
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <span *ngIf="!row[rowIndex + '-comments']">
+                        <div class="table-row-bold-text usage-comments get-ellipsis-text" [ngClass]="row.restrictedLegalEntity === true ? 'redFont' : ''"
+                        data-toggle="tooltip" title="{{row.comments}}">{{row.comments}}</div>
+                        </span>
+                  <textarea rows="2" maxlength="250" class="form-control form-element" (keyup)="updateValue($event, 'comments', rowIndex, i)"
+                    *ngIf="row[rowIndex+ '-comments']" type="text" [value]="row?.comments">
+                </textarea>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" prop="year1Volume"
+                name="Last Modified" [width]="300">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <div class="text-bold" data-toggle="tooltip" title="Modified on &#10; {{row.lastModifiedDateString}}" [ngClass]="row.restrictedLegalEntity === true ? 'redFont' : ''">{{row.lastModified}}</div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" [sortable]="false" [draggable]="false" headerClass="volume-header-font" name="Status"
+                prop="statusId" [width]="320">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <span *ngIf="!row[rowIndex + '-status']">
+                <div *ngIf="row.statusId === 3" class="inline-block" data-toggle="tooltip" title="Approved By : {{row.approvedBy}} {{row.approvedDateWithZone}}"><img   src="../../../../assets/img/forms_tables/status_success_icon.svg" /></div>
+                <div *ngIf="row.statusId === 2" class="inline-block" data-toggle="tooltip" title="PENDING"><img  src="../../../../assets/img/forms_tables/status_pending_icon.svg"  /> </div>
+                <div *ngIf="row.statusId === 4" class="inline-block" data-toggle="tooltip" title="REJECTED By : {{row.approvedBy}} {{row.approvedDateWithZone}}"><img  src="../../../../assets/img/forms_tables/status_rejected_icon.svg"  /> </div>
+                <div *ngIf="row.statusId === 5" class="inline-block" data-toggle="tooltip" title="COMMITTED By : {{row.committedBy}} {{row.committedDateString}}"><img  src="../../../../assets/img/forms_tables/status_superapprove_icon.svg"  /> </div>
+              </span>
+                  <select class="form-control cursor form-element" *ngIf="row[rowIndex + '-status']" [value]="value" [disabled]="!(row.enableApproveDropDown)"
+                    (change)="updateValue($event, 'statusId', rowIndex, i)">
+                <option value="{{statusCollection.id}}" *ngFor="let statusCollection of allStatusforTable">{{statusCollection.name}}</option>
+              </select>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [resizeable]="false" headerClass="volume-header-font" [sortable]="false" editable="true" prop="event_Action"
+                name="Action" [width]="300">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <div class="action-btn-box">
+                    <div>
+                      <button data-toggle="tooltip" title="EDIT" (click)="editRow(rowIndex,i,row)" [disabled]="(!(row.enableEditButton) || showSaveRibon || enableLumpSumsService)"
+                        class="cursor edit-row edit-btn"></button>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row no-margins">
+    <app-bottom-action-ribon [commitStatus]="userTypestatus" (clearAll)="clearAllSelected()" (saveAllSelected)="saveEdit()" (editAll)="selectAllChecked()" (approveAll)="approveAllSelected()"
+      (unapproveAll)="unapproveAllSelected()" (rejectAll)="rejectAllSelected()" (commitAll)="commitAllSelected()" [disableSave]="isDataLoadingforSave || disableSave"
+      [showActionBtn]="(disableSingleEdit)" [showDeleteBtn]="showDeleteBtn" [classToMakeInCenter]="'text-center'" [disableEdit]="setEditFlag || canEdit || enableLumpSumsService"
+      [disableApprove]="!approve || selectedDropdown || quantityzeroCheck || enableLumpSumsService" [disableUnapprove]="!approve || selectedDropdown || quantityzeroCheck || enableLumpSumsService" [disableRejected]="!approve || selectedDropdown || quantityzeroCheck || enableLumpSumsService" 
+      [disableCommit]="!approve || selectedDropdown || quantityzeroCheck || enableLumpSumsService" [showSaveRibon]="showSaveRibon"
+      [removeClearVolumeBtn]="true" [disableClearVolume]="disableClearVolume || enableLumpSumsService || !(volumeTabularDetails['header']['enableClearVolumeButton'])" [disableApproveOnly]="(volumeTabularDetails['header']['canApprove'])" (clearVolumeAll)="clearVolumeAll()">
+    </app-bottom-action-ribon>
+  </div>
+</div>

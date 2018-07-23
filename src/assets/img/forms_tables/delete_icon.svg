@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>delete_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Graphic_Assets" transform="translate(-832.000000, -487.000000)">
+            <g id="actions" transform="translate(768.000000, 442.000000)">
+                <g id="delete_icon" transform="translate(64.000000, 45.000000)">
+                    <path d="M3,23.5 L21,23.5 C22.1810005,23.5 23.5,22.1810005 23.5,21 L23.5,3 C23.5,1.81955253 22.1806964,0.5 21,0.5 L3,0.5 C1.8193036,0.5 0.5,1.81955253 0.5,3 L0.5,21 C0.5,22.1810005 1.81899952,23.5 3,23.5 Z" id="Fill-1" stroke="#9DB4BE" stroke-width="1"></path>
+                    <path d="M9.0001,9 L15.2111,15.211" id="Stroke-1" stroke="#A1B8C1" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M15.211,9 L9,15.211" id="Stroke-3" stroke="#A1B8C1" stroke-width="2" stroke-linecap="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,32 @@
+<div class="inmodal">
+  <div class="modal-content">
+      <div class="modal-header">
+        <a class="close-modal p-b-sm" name="closeOpenModal"></a>
+        <div class="row">
+          <div class="col-md-11 text-left">
+            <h1 class="modal-title">{{heading}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body relative-position"> 
+          <div class="absolute-position loading-spinner">
+              <app-progress-spinner [isRunning]="isDataLoading"></app-progress-spinner>
+          </div>              
+          <div class="row no-margins marginTop">
+              <span>{{description}}</span>  
+              <p class="marginTop">{{content}}</p>
+          </div>               
+      </div>
+      <div class="modal-footer">
+        <div class="footer-block-center">
+          <div class="inline-block">
+            <app-button  [btnType]="'text'" [btnText]="'CLOSE'" [btnColor]="'clear'" (getData)="closeModal()"></app-button>
+          </div>
+          <div class="inline-block">
+            <app-button [btnType]="'submit'" [btnText]="'CONFIRM'" [btnColor]="'save'"  
+            (getData)="submitRemove()" [btnDisabled]="isDataLoadingforSave"></app-button>
+          </div>
+        </div>
+      </div>  
+  </div>
+</div>  

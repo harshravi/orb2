@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="13px" viewBox="0 0 8 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>sort_th</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Graphic_Assets" transform="translate(-776.000000, -272.000000)" fill="#A1B8C1">
+            <g id="forms_and_tables" transform="translate(547.000000, 221.000000)">
+                <g id="sort_th" transform="translate(229.000000, 51.000000)">
+                    <polygon id="Triangle" points="4 13 0 8 8 8"></polygon>
+                    <polygon id="Triangle" transform="translate(4.000000, 2.500000) scale(-1, -1) translate(-4.000000, -2.500000) " points="4 5 0 0 8 0"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

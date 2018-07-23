@@ -1,0 +1,126 @@
+@import '~assets/scss/_variables.scss';
+.clear{
+    background: $clear-btn-bg;
+    color: $white;
+    padding-right: 25px;
+    padding-left: 25px;
+    padding-bottom: 9px;
+    padding-top: 10px;
+}
+button[disabled] {
+    pointer-events: none !important;
+} 
+.save{
+    background: $left-panel-child-bg;
+    color: $white;
+    padding: 10px 70px;
+    position: relative;
+}
+.add::after{
+    content: '';
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    background: url(../../../../assets/img/buttons/add_btn_icon.svg) no-repeat;
+    left: 10px;
+    top: 10px;
+}
+.spread-volume::after{
+    content: '';
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    background: url(../../../../assets/img/buttons/spread_btn_icon.svg) no-repeat;
+    left: 5px;
+    top: 5px;
+}
+.edit::after{
+    content:'';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background: url(../../../../assets/img/forms_tables/edit_icon_colored.svg) no-repeat;
+    left: 4px;
+    top: 2px;
+}
+.submit-blue-btn{
+    background: $side-nav-bg;
+    color: $white;
+    padding: 7px 24px;
+}
+.reset-btn{
+    border: none;
+    background: none;
+    padding: 0;
+    color: $nav-dash-text-color;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 16px;
+    text-align: center;
+}
+.reset-white-btn{
+    border: none;
+    background: none;
+    padding: 0;
+    color: $white;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 16px;
+    text-align: center;
+}
+.reset-btn:focus,.reset-white-btn:focus {
+    outline: none;
+}
+.delete::after{
+    content:'';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background: url(../../../../assets/img/forms_tables/delete_icon_colored.svg) no-repeat;
+    left: 4px;
+    top: 2px;
+}
+.approve::after{
+    content:'';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background: url(../../../../assets/img/forms_tables/status_success_icon.svg) no-repeat;
+    left: 4px;
+    top: 2px;
+}
+.small-submit-btn{
+    font-size: 11px;
+    padding: 2px 8px 2px 19px;
+}
+.small-submit-btn.add::after{
+    left: 4px;
+    top: 4px;
+}
+.unapprove::after{
+    content:'';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background: url(../../../../assets/img/forms_tables/status_pending_icon.svg) no-repeat;
+    left: 4px;
+    top: 2px;
+}
+.reject::after{
+    content:'';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background: url(../../../../assets/img/forms_tables/status_rejected_icon.svg) no-repeat;
+    left: 4px;
+    top: 2px;
+}
+.commit::after{
+    content:'';
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background: url(../../../../assets/img/forms_tables/status_superapprove_icon.svg) no-repeat;
+    left: 4px;
+    top: 2px;
+}

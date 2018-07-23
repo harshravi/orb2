@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>status_rejected_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Design-System" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Design_System_Export" transform="translate(-2068.000000, -143.000000)">
+            <g id="icons" transform="translate(1500.863281, 49.000000)">
+                <g id="status_rejected_icon" transform="translate(567.386719, 94.597656)">
+                    <path d="M20.5714286,24 L3.42857143,24 C1.54285714,24 0,22.4571429 0,20.5714286 L0,3.42857143 C0,1.54371429 1.54285714,0 3.42857143,0 L20.5714286,0 C22.4571429,0 24,1.54371429 24,3.42857143 L24,20.5714286 C24,22.4571429 22.4571429,24 20.5714286,24" id="Fill-1" fill="#F57878" fill-rule="evenodd"></path>
+                    <path d="M19,11.5299 C19,15.4129 15.853,18.5599 11.97,18.5599 C8.087,18.5599 4.94,15.4129 4.94,11.5299 C4.94,7.6479 8.087,4.4999 11.97,4.4999 C15.853,4.4999 19,7.6479 19,11.5299 Z" id="Stroke-1" stroke="#FFFFFF" stroke-width="2"></path>
+                    <path d="M16.6745,6.3255 L7.3255,15.6745" id="Stroke-3" stroke="#FFFFFF" stroke-width="2"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
